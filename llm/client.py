@@ -253,12 +253,14 @@ def _mock_text_response(prompt: str, system_prompt: str) -> str:
         
     # 3. Extraction
     if "extract" in p_lower or "attributes" in p_lower:
-        # Check target product input line first
         import re
+        cat_match = re.search(r"classified category:\s*['\"]([^'\"]+)['\"]", p_lower)
+        cat_str = cat_match.group(1).lower() if cat_match else ""
         target_match = re.search(r"target product input:\s*['\"]([^'\"]+)['\"]", p_lower)
-        target_str = target_match.group(1) if target_match else p_lower
+        target_str = target_match.group(1).lower() if target_match else p_lower
         
-        if "chv-blt" in target_str or "bolt" in target_str or "fastener" in target_str:
+        # Match specific domains using target_str and cat_str without few-shot bleed
+        if "bolt" in cat_str or "fastener" in cat_str or "chv-blt" in target_str or "hex-blt" in target_str or "hex head" in cat_str:
             return json.dumps({
                 "attributes": {
                     "material": {"value": "Stainless Steel 316", "unit": None, "source_snippet": "Grade 316 Marine Grade SS"},
@@ -274,7 +276,7 @@ def _mock_text_response(prompt: str, system_prompt: str) -> str:
                     "Heavy hexagonal head designed for high-torque industrial clamping"
                 ]
             })
-        elif "3rt2015" in target_str or "siemens" in target_str or "contactor" in target_str:
+        elif "contactor" in cat_str or "3rt2015" in target_str or "motor contactor" in cat_str:
             return json.dumps({
                 "attributes": {
                     "coil_voltage": {"value": "24V DC", "unit": "V", "source_snippet": "24 V DC control supply voltage"},
@@ -289,6 +291,24 @@ def _mock_text_response(prompt: str, system_prompt: str) -> str:
                     "Coil control voltage: 24 V DC with integrated varistor",
                     "3-Pole power contact configuration with 1 Normally Open (1 NO) auxiliary",
                     "Compact S00 frame size with IP20 finger-safe screw terminals"
+                ]
+            })
+        elif "bearing" in cat_str or "6205" in target_str or "ball bearing" in cat_str:
+            return json.dumps({
+                "attributes": {
+                    "bore_diameter": {"value": "25 mm", "unit": "mm", "source_snippet": "25 mm inside diameter bore"},
+                    "outer_diameter": {"value": "52 mm", "unit": "mm", "source_snippet": "52 mm outside diameter"},
+                    "width": {"value": "15 mm", "unit": "mm", "source_snippet": "15 mm width / thickness"},
+                    "seal_type": {"value": "2RSH Contact Rubber Seal", "unit": None, "source_snippet": "2RSH double contact rubber seals on both sides"},
+                    "dynamic_load": {"value": "14.8 kN", "unit": "kN", "source_snippet": "basic dynamic load rating 14.8 kN"}
+                },
+                "standardized_title": "SKF 6205-2RSH Deep Groove Ball Bearing (25x52x15 mm)",
+                "marketing_description": "SKF 6205-2RSH single row deep groove ball bearing featuring dual contact nitrile rubber seals (2RSH) for high contamination resistance and pre-greased for life.",
+                "feature_bullets": [
+                    "Precision dimensions: 25 mm bore x 52 mm OD x 15 mm width",
+                    "Dual contact rubber seals (2RSH) offering IP-grade dust and moisture exclusion",
+                    "High dynamic radial load capacity of 14.8 kN",
+                    "Sheet metal cage with standard ABEC-1 / P0 running accuracy"
                 ]
             })
         elif "lc1d" in target_str or "tesys" in target_str:
