@@ -1,0 +1,191 @@
+[
+  {
+    "path": ["Industrial", "Fasteners", "Bolts & Screws"],
+    "unspsc_code": "31161620",
+    "segment": "Manufacturing and Processing Machinery and Accessories",
+    "family": "Hardware",
+    "class": "Bolts",
+    "keywords": ["bolt", "blt", "hex bolt", "chv-blt", "carriage bolt", "cap screw", "ss-316", "ss304", "m6", "m8", "m10", "m12", "1/2", "3/8", "5/16", "1/4", "3/4", "fastener", "screw", "scrw", "hex-scrw", "hex screw", "socket head", "socket cap", "machine screw", "stud bolt", "anchor bolt"],
+    "mandatory_attrs": ["material", "thread_size", "length", "grade"]
+  },
+  {
+    "path": ["Industrial", "Fasteners", "Nuts & Washers"],
+    "unspsc_code": "31161700",
+    "segment": "Manufacturing and Processing Machinery and Accessories",
+    "family": "Hardware",
+    "class": "Nuts and washers",
+    "keywords": ["hex nut", "lock nut", "nyloc", "flat washer", "lock washer", "spring washer", "flange nut", "wing nut", "washer", "nut"],
+    "mandatory_attrs": ["material", "thread_size", "grade"]
+  },
+  {
+    "path": ["Industrial", "Electrical", "Circuit Breakers"],
+    "unspsc_code": "39121603",
+    "segment": "Electrical Systems and Lighting",
+    "family": "Circuit protection devices",
+    "class": "Circuit breakers",
+    "keywords": ["circuit breaker", "cb", "mcb", "mccb", "3p", "2p", "1p", "20a", "32a", "63a", "sentron", "5sx", "tripping curve", "breaking capacity", "qo120", "qo", "square d", "homeline", "eaton br", "schneider breaker", "din rail breaker"],
+    "mandatory_attrs": ["voltage", "current_rating", "poles", "breaking_capacity"]
+  },
+  {
+    "path": ["Industrial", "Electrical", "Contactors & Relays"],
+    "unspsc_code": "39121410",
+    "segment": "Electrical Systems and Lighting",
+    "family": "Electrical switches and relays",
+    "class": "Motor contactors",
+    "keywords": ["contactor", "relay", "siemens", "3rt", "3rt2015", "3rt20", "telemecanique", "schneider", "abb", "coil", "24vdc", "110vac", "230vac", "auxiliary", "lc1d", "lc1d18", "lc1d18bl", "lc1", "tesys", "tesys d", "iec contactor", "thermal overload relay"],
+    "mandatory_attrs": ["coil_voltage", "power_rating", "poles", "contact_configuration"]
+  },
+  {
+    "path": ["Industrial", "Mechanical", "Bearings"],
+    "unspsc_code": "31171504",
+    "segment": "Manufacturing and Processing Machinery and Accessories",
+    "family": "Bearings and bushings and wheels and gears",
+    "class": "Ball bearings",
+    "keywords": ["bearing", "skf", "fag", "nsk", "timken", "6205", "6204", "6000", "2rsh", "deep groove", "ball bearing", "roller bearing", "tapered roller", "thrust bearing", "pillow block", "bore", "outer diameter"],
+    "mandatory_attrs": ["bore_diameter", "outer_diameter", "width", "seal_type", "dynamic_load"]
+  },
+  {
+    "path": ["Industrial", "Fluid Power", "Valves & Actuators"],
+    "unspsc_code": "40141600",
+    "segment": "Distribution and Conditioning Systems and Equipment",
+    "family": "Fluid control devices",
+    "class": "Valves",
+    "keywords": ["valve", "ball valve", "butterfly valve", "solenoid valve", "gate valve", "check valve", "globe valve", "needle valve", "pn16", "pn40", "ansi 150", "actuator", "bsp", "npt", "stainless valve", "brass valve"],
+    "mandatory_attrs": ["valve_type", "connection_size", "pressure_rating", "body_material"]
+  },
+  {
+    "path": ["Industrial", "Automation & Drives", "Variable Frequency Drives"],
+    "unspsc_code": "32151550",
+    "segment": "Electronic Components and Supplies",
+    "family": "Electronic control modules",
+    "class": "Variable frequency drives VFD",
+    "keywords": ["vfd", "variable frequency drive", "inverter drive", "ac drive", "frequency converter", "danfoss", "danfoss-vfd", "fc-051", "altivar", "powerflex", "sinamics", "micromaster", "g120"],
+    "mandatory_attrs": ["input_voltage", "power_rating", "output_frequency", "phase"]
+  },
+  {
+    "path": ["Industrial", "Electrical", "Electric Motors & Drives"],
+    "unspsc_code": "26101100",
+    "segment": "Power Generation and Distribution Machinery",
+    "family": "Motors",
+    "class": "Electric motors",
+    "keywords": ["motor", "ac motor", "induction motor", "3-phase motor", "servo motor", "stepper motor", "kw", "hp", "rpm", "1450rpm", "2900rpm", "frame size", "ie3", "ie4", "tefc"],
+    "mandatory_attrs": ["rated_power", "speed_rpm", "supply_voltage", "frame_size", "efficiency_class"]
+  },
+  {
+    "path": ["Industrial", "Automation", "Sensors & Transducers"],
+    "unspsc_code": "41111900",
+    "segment": "Laboratory and Measuring and Observing Equipment",
+    "family": "Measuring and observing and testing instruments",
+    "class": "Industrial sensors",
+    "keywords": ["sensor", "proximity sensor", "photoelectric", "inductive", "pressure transmitter", "pt100", "thermocouple", "4-20ma", "pnp", "npn", "m12 connector", "ifm", "omron", "sick", "ultrasonic sensor"],
+    "mandatory_attrs": ["sensing_range", "output_type", "supply_voltage", "operating_temperature"]
+  },
+  {
+    "path": ["Industrial", "Pneumatics", "Cylinders & Actuators"],
+    "unspsc_code": "40142100",
+    "segment": "Distribution and Conditioning Systems and Equipment",
+    "family": "Pneumatic equipment",
+    "class": "Pneumatic cylinders",
+    "keywords": ["pneumatic", "cylinder", "air cylinder", "festo", "smc", "dsbc", "double acting", "single acting", "stroke", "bore size", "iso 15552", "pneumatic actuator", "air valve"],
+    "mandatory_attrs": ["bore_size", "stroke_length", "operating_pressure", "action_type"]
+  },
+  {
+    "path": ["Industrial", "Safety & Security", "Personal Protective Equipment"],
+    "unspsc_code": "46181504",
+    "segment": "Defense and Law Enforcement and Security and Safety Equipment",
+    "family": "Personal safety and protection",
+    "class": "Protective gloves",
+    "keywords": ["glove", "gloves", "safety gloves", "nitrile gloves", "leather gloves", "cut resistant", "en388", "ansicell", "large", "medium", "xl", "ppe", "work gloves"],
+    "mandatory_attrs": ["material", "size", "protection_level", "coating"]
+  },
+  {
+    "path": ["Industrial", "Testing & Measurement", "Multimeters"],
+    "unspsc_code": "41113630",
+    "segment": "Laboratory and Measuring and Observing Equipment",
+    "family": "Measuring and observing and testing instruments",
+    "class": "Digital multimeters",
+    "keywords": ["multimeter", "fluke", "87v", "digital multimeter", "dmm", "true rms", "voltmeter", "ammeter", "clamp meter", "fluke 87v", "insulation tester"],
+    "mandatory_attrs": ["measurement_type", "display_counts", "safety_rating", "accuracy"]
+  },
+  {
+    "path": ["Industrial", "Piping & Tubing", "Tubes & Tube Fittings"],
+    "unspsc_code": "40141700",
+    "segment": "Distribution and Conditioning Systems and Equipment",
+    "family": "Fluid control devices",
+    "class": "Tubes and tube fittings",
+    "keywords": ["swagelok", "vcr", "ss-4-vcr", "tube fitting", "copper tube", "cppr-tube", "cppr", "copper", "tube", "tubing", "pipe", "hard tube", "type k", "seamless tube", "pipe fitting", "compression fitting", "stainless tubing"],
+    "mandatory_attrs": ["material", "outer_diameter", "fitting_type", "pressure_rating"]
+  },
+  {
+    "path": ["Industrial", "Abrasives & Finishing", "Cut-Off Wheels"],
+    "unspsc_code": "31191506",
+    "segment": "Manufacturing and Processing Machinery and Accessories",
+    "family": "Abrasives and abrasive media",
+    "class": "Cut-off wheels",
+    "keywords": ["cut off disc", "cut-off disc", "cutoff disc", "cut off wheel", "cut-off wheel", "performance+", "masonry cut off", "metal cut off", "49-94", "cutting disc", "cutting wheel", "diablo", "freud", "milw", "dcb518", "cut-off", "metal cutting disc"],
+    "mandatory_attrs": ["diameter", "thickness", "arbor_size", "material", "application"]
+  },
+  {
+    "path": ["Industrial", "Abrasives & Finishing", "Abrasive Media"],
+    "unspsc_code": "31191500",
+    "segment": "Manufacturing and Processing Machinery and Accessories",
+    "family": "Abrasives and abrasive media",
+    "class": "Abrasive media and sandpaper",
+    "keywords": ["stikit", "cubitron", "sanding belt", "sanding disc", "abranet", "hiolit", "abrasive mesh", "abrasive strip", "p150", "p120", "p80", "p180", "p220", "p320", "grit", "sanding", "abrasives", "film disc", "3m 775l", "775l", "sanding sheet", "sandpaper"],
+    "mandatory_attrs": ["material", "grit", "application"]
+  },
+  {
+    "path": ["Industrial", "Abrasives & Finishing", "Grinding Wheels"],
+    "unspsc_code": "31191600",
+    "segment": "Manufacturing and Processing Machinery and Accessories",
+    "family": "Abrasives and abrasive media",
+    "class": "Grinding and polishing wheels",
+    "keywords": ["grinding wheel", "grind wheel", "grinding disc", "depressed center wheel", "type 27", "49-94-0501", "49-94-0503", "metal grinding wheel", "flap disc", "bench grinding wheel"],
+    "mandatory_attrs": ["diameter", "thickness", "arbor_size", "material"]
+  },
+  {
+    "path": ["Industrial", "Cutting Tools", "Saw Blades"],
+    "unspsc_code": "27112800",
+    "segment": "Tools and General Machinery",
+    "family": "Hand tools",
+    "class": "Saw blades and cutting accessories",
+    "keywords": ["saw blade", "circular saw blade", "reciprocating saw blade", "sawzall", "carbide blade", "lenox", "irwin", "diablo blade", "jig saw blade", "band saw blade", "tpi"],
+    "mandatory_attrs": ["blade_diameter", "number_of_teeth", "kerf_width", "material"]
+  },
+  {
+    "path": ["Industrial", "Power Tool Accessories", "Drill Bits"],
+    "unspsc_code": "27112700",
+    "segment": "Tools and General Machinery",
+    "family": "Hand tools",
+    "class": "Drill bits and hole saws",
+    "keywords": ["drill bit", "twist drill", "sds plus", "sds max", "carbide drill", "hole saw", "step bit", "masonry drill", "hss drill bit", "cobalt drill bit"],
+    "mandatory_attrs": ["drill_diameter", "overall_length", "shank_type", "material"]
+  },
+  {
+    "path": ["Industrial", "Hand Tools", "Wrenches & Sockets"],
+    "unspsc_code": "27111700",
+    "segment": "Tools and General Machinery",
+    "family": "Hand tools",
+    "class": "Wrenches and socket sets",
+    "keywords": ["wrench", "socket", "ratchet", "torque wrench", "combination wrench", "adjustable wrench", "hex key", "allen key", "impact socket", "1/2 drive", "3/8 drive"],
+    "mandatory_attrs": ["drive_size", "socket_size", "finish", "material"]
+  },
+  {
+    "path": ["Industrial", "Chemicals & Lubricants", "Industrial Lubricants"],
+    "unspsc_code": "15121500",
+    "segment": "Fuels and Fuel Additives and Lubricants and Anti corrosive Materials",
+    "family": "Lubricants and oils and greases",
+    "class": "Industrial lubricants",
+    "keywords": ["grease", "lubricant", "bearing grease", "hydraulic oil", "gear oil", "synthetic lubricant", "penetrating oil", "wd-40", "cutting fluid", "coolant", "anti-seize"],
+    "mandatory_attrs": ["viscosity_grade", "base_type", "temperature_range", "container_size"]
+  },
+  {
+    "path": ["Industrial", "Automation & Control", "Programmable Logic Controllers"],
+    "unspsc_code": "32151705",
+    "segment": "Electronic Components and Supplies",
+    "family": "Electronic control modules",
+    "class": "Programmable logic controllers PLC",
+    "keywords": ["plc", "programmable logic controller", "s7-1200", "s7-1500", "simatic", "contrologix", "compactlogix", "modicon", "plc cpu", "digital input module", "analog input"],
+    "mandatory_attrs": ["supply_voltage", "input_points", "output_points", "communication_protocol"]
+  }
+]
