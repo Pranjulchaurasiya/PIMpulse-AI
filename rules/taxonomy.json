@@ -187,5 +187,59 @@
     "class": "Programmable logic controllers PLC",
     "keywords": ["plc", "programmable logic controller", "s7-1200", "s7-1500", "simatic", "contrologix", "compactlogix", "modicon", "plc cpu", "digital input module", "analog input"],
     "mandatory_attrs": ["supply_voltage", "input_points", "output_points", "communication_protocol"]
+  },
+  {
+    "path": ["Building Materials", "Exterior Structures", "Decking & Railing"],
+    "unspsc_code": "30161801",
+    "segment": "Building and Construction Machinery and Accessories",
+    "family": "Building and exterior structures",
+    "class": "Composite Decking and Railing",
+    "keywords": ["trex", "lineage", "biscayne", "decking", "deck board", "grooved edge", "composite decking", "timbertech", "azek", "transcend", "enhance", "543140016", "porch floor", "fascia board", "decking board", "deck"],
+    "mandatory_attrs": ["profile_type", "material", "finish", "nominal_dimensions", "application"]
+  },
+  {
+    "path": ["Appliances", "Kitchen Appliances", "Dishwashers"],
+    "unspsc_code": "52141501",
+    "segment": "Domestic Appliances and Supplies and Consumer Goods",
+    "family": "Domestic kitchen appliances",
+    "class": "Dishwashers",
+    "keywords": ["dishwasher", "pdsh4816af", "wdts7024rz", "frigidaire", "whirlpool", "kitchenaid", "built-in dishwasher", "top control dishwasher", "front control dishwasher", "tub material", "decibel rating", "dba", "dishwash"],
+    "mandatory_attrs": ["voltage", "amperage", "tub_material", "sound_level_dba", "color_finish"]
+  },
+  {
+    "path": ["Appliances", "Laundry Appliances", "Dryers & Washers"],
+    "unspsc_code": "52141510",
+    "segment": "Domestic Appliances and Supplies and Consumer Goods",
+    "family": "Domestic laundry appliances",
+    "class": "Clothes dryers",
+    "keywords": ["dryer", "washer", "speed queen", "laundry", "commercial dryer", "washing machine", "front load", "top load"],
+    "mandatory_attrs": ["capacity_cu_ft", "voltage", "fuel_type", "color_finish"]
+  },
+  {
+    "path": ["Electrical", "Lighting", "Luminaires & Fixtures"],
+    "unspsc_code": "39112102",
+    "segment": "Electrical Systems and Lighting",
+    "family": "Lamps and lightbulbs and lamp components",
+    "class": "LED Luminaires and Fixtures",
+    "keywords": ["lighting", "luminaire", "philips", "signify", "kichler", "satco", "led fixture", "downlight", "troffer", "high bay", "floodlight", "wall pack", "cct", "lumens"],
+    "mandatory_attrs": ["wattage", "lumen_output", "color_temperature_k", "input_voltage", "cri"]
+  },
+  {
+    "path": ["Electrical", "Wiring Devices", "Switches & Outlets"],
+    "unspsc_code": "39121406",
+    "segment": "Electrical Systems and Lighting",
+    "family": "Electrical switches and relays",
+    "class": "Wiring devices and switches",
+    "keywords": ["leviton", "southwire", "receptacle", "wall switch", "dimmer switch", "gfci", "duplex receptacle", "toggle switch", "decora"],
+    "mandatory_attrs": ["voltage_rating", "current_rating", "gangs", "color_finish"]
+  },
+  {
+    "path": ["Safety", "PPE", "Eye Protection"],
+    "unspsc_code": "46181802",
+    "segment": "Defense and Law Enforcement and Security and Safety Equipment",
+    "family": "Personal safety and protection",
+    "class": "Safety glasses and goggles",
+    "keywords": ["edge eyewear", "safety glasses", "protective eyewear", "safety goggles", "anti-fog", "polarized", "ansi z87.1"],
+    "mandatory_attrs": ["lens_tint", "frame_material", "standards_approvals", "uv_protection"]
   }
 ]
