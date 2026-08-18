@@ -4,11 +4,9 @@ zerops:
     build:
       base: python@3.11
       buildCommands:
-        - python -m venv .venv
-        - ./.venv/bin/pip install --upgrade pip
-        - ./.venv/bin/pip install -r requirements.txt
+        - pip install --target=./packages -r requirements.txt
       deployFiles:
-        - .venv
+        - packages
         - agents
         - data
         - llm
@@ -19,7 +17,6 @@ zerops:
         - state.py
         - cache.py
         - graph.py
-        - requirements.txt
         - PIMpulse_Unilog_Enriched_1000.xlsx
         - PIMpulse_Unilog_Enriched_1000.csv
     run:
@@ -27,7 +24,8 @@ zerops:
       ports:
         - port: 8000
           httpSupport: true
-      start: ./.venv/bin/uvicorn main:app --host 0.0.0.0 --port 8000
+      start: PYTHONPATH=./packages python3 -m uvicorn main:app --host 0.0.0.0 --port 8000
       envVariables:
+        PYTHONPATH: ./packages
         PORT: 8000
         HOST: 0.0.0.0
