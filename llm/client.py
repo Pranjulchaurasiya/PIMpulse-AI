@@ -54,7 +54,7 @@ def _is_mock_mode() -> bool:
         return True
     if settings.PROVIDER == "nvidia" and (not settings.NVIDIA_API_KEY or settings.NVIDIA_API_KEY.startswith("nvapi-your")):
         return True
-    if settings.PROVIDER == "anthropic" and (not settings.ANTHROPIC_API_KEY or settings.ANTHROPIC_API_KEY.startswith("sk-ant")):
+    if settings.PROVIDER == "anthropic" and (not settings.ANTHROPIC_API_KEY or settings.ANTHROPIC_API_KEY.startswith("sk-ant-your")):
         return True
     return False
 

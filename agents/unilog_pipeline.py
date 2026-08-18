@@ -23,9 +23,9 @@ from agents.unilog_rules import (
 )
 from config import settings
 
-# Master 253 delivery columns from official Unilog delivery format
+# Master 252 delivery columns from official Unilog delivery format
 UNILOG_DELIVERY_COLUMNS = [
-    'MFR URL', 'SOURCE_URL', 'Ref URL 1', 'Ref URL 2', 'Ref URL 3', 'Ref URL 4', 'Ref URL 5',
+    'MFR URL', 'Ref URL 1', 'Ref URL 2', 'Ref URL 3', 'Ref URL 4', 'Ref URL 5',
     'PART_NUMBER', 'Dept', 'Class', 'Fine', 'SKU - MY_PART_NUMBER', 'Mfg_Part_Num',
     'Part_Desc', 'E1_Brand', 'Unilog_Brand', 'DIB_Brand', 'Part_Manuf',
     'MANUFACTURER_NAME', 'BRAND_NAME', 'TRADE_NAME', 'MANUFACTURER_PART_NUMBER',
@@ -235,18 +235,16 @@ async def enrich_unilog_row(row: Dict[str, Any]) -> Dict[str, Any]:
     out["Product Name"] = item_type
     out["Application"] = application
     out["UNSPSC"] = unspsc
-    out["Country Of Origin"] = "US"
-    out["Discontinued"] = "No"
-    out["Actual Image (Yes/No)"] = "Yes"
+    out["Country Of Origin"] = str(row.get("Country Of Origin", "")).strip()
+    out["Discontinued"] = str(row.get("Discontinued", "")).strip()
+    out["Actual Image (Yes/No)"] = str(row.get("Actual Image (Yes/No)", "")).strip()
 
-    # Reference URLs
-    clean_mfr_url = mfr_name.lower().replace(" ", "").replace(",", "").replace(".", "").replace("corporation", "").replace("company", "")
-    primary_source = f"https://www.milwaukeetool.com/Products/{mpn}" if "milwaukee" in mfr_name.lower() else f"https://www.{clean_mfr_url}.com/product/{mpn}"
-    out["MFR URL"] = primary_source
-    out["SOURCE_URL"] = primary_source
-    out["Ref URL 1"] = f"https://www.grainger.com/search?q={mpn}"
-    out["Ref URL 2"] = f"https://www.mcmaster.com/{mpn}"
-    out["Ref URL 3"] = f"https://www.fastenal.com/products/details/{mpn}"
+    # Reference URLs (only populated if present in input/verified catalog)
+    primary_source = f"https://www.milwaukeetool.com/Products/{mpn}" if "milwaukee" in mfr_name.lower() and mpn else ""
+    out["MFR URL"] = str(row.get("MFR URL", primary_source)).strip()
+    out["Ref URL 1"] = str(row.get("Ref URL 1", "")).strip()
+    out["Ref URL 2"] = str(row.get("Ref URL 2", "")).strip()
+    out["Ref URL 3"] = str(row.get("Ref URL 3", "")).strip()
 
     # Features (up to 20)
     for f_idx, feat in enumerate(features, start=1):

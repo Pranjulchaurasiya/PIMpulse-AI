@@ -36,9 +36,12 @@ async def main():
     inv_violations = df.filter(pl.col("INVOICE_DESC").str.len_chars() > 40).height
     mob_violations = df.filter((pl.col("MOBILE_DESC").str.len_chars() < 60) | (pl.col("MOBILE_DESC").str.len_chars() > 80)).height
 
+    inv_pct = ((processed - inv_violations) / max(processed, 1)) * 100.0
+    mob_pct = ((processed - mob_violations) / max(processed, 1)) * 100.0
+
     print(f"\n[MDM DATA QUALITY AUDIT]")
-    print(f"INVOICE_DESC Compliance: {processed - inv_violations}/{processed} (100.0%) [Max: {inv_lens.max()}, Min: {inv_lens.min()}]")
-    print(f"MOBILE_DESC Compliance:  {processed - mob_violations}/{processed} (100.0%) [Max: {mob_lens.max()}, Min: {mob_lens.min()}]")
+    print(f"INVOICE_DESC Compliance: {processed - inv_violations}/{processed} ({inv_pct:.1f}%) [Max: {inv_lens.max()}, Min: {inv_lens.min()}]")
+    print(f"MOBILE_DESC Compliance:  {processed - mob_violations}/{processed} ({mob_pct:.1f}%) [Max: {mob_lens.max()}, Min: {mob_lens.min()}]")
     print(f"Zero Length Violations:  {'PASSED [100% PERFECT]' if inv_violations == 0 and mob_violations == 0 else 'FAILED'}")
 
     brands = df["BRAND_NAME"].unique().to_list()

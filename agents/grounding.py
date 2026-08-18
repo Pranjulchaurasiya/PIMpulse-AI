@@ -67,7 +67,11 @@ def check_attributes_grounding(
     if not extracted_attrs:
         return False, 0.0, {}
 
-    combined_context = " ".join([c.get("content", "") + " " + c.get("title", "") for c in retrieved_chunks])
+    # Combine only the actual retrieved text from search/catalog chunks
+    combined_context = " ".join([
+        (c.get("content", "") + " " + c.get("title", "")).strip() 
+        for c in retrieved_chunks if c.get("content") or c.get("title")
+    ]).strip()
     
     normalized_extracted = {str(k).lower().strip(): v for k, v in extracted_attrs.items()}
     grounded_flags = {}
@@ -82,8 +86,22 @@ def check_attributes_grounding(
             val = str(attr_data)
             snippet_ctx = ""
 
-        target_context = f"{snippet_ctx} {combined_context}".strip()
-        is_grd, snippet = is_value_grounded(val, target_context, threshold=threshold)
+        # Grounding MUST be strictly verified against raw retrieved web/catalog chunks
+        if not combined_context:
+            is_grd = False
+        else:
+            # 1. Attribute value must appear in raw retrieved text
+            is_val_grd, _ = is_value_grounded(val, combined_context, threshold=threshold)
+            if is_val_grd:
+                is_grd = True
+            elif snippet_ctx:
+                # 2. Or the quoted snippet must genuinely exist in the retrieved chunks AND contain the value
+                is_snip_in_chunk, _ = is_value_grounded(snippet_ctx, combined_context, threshold=0.70)
+                is_val_in_snip, _ = is_value_grounded(val, snippet_ctx, threshold=threshold)
+                is_grd = is_snip_in_chunk and is_val_in_snip
+            else:
+                is_grd = False
+
         grounded_flags[attr_name] = is_grd
         if is_grd:
             grounded_count += 1

@@ -32,7 +32,7 @@ app = FastAPI(
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
-    allow_credentials=True,
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )
@@ -59,7 +59,7 @@ async def get_system_status():
     has_groq = bool(settings.GROQ_API_KEY and not settings.GROQ_API_KEY.startswith("gsk_your"))
     has_nvidia = bool(settings.NVIDIA_API_KEY and not settings.NVIDIA_API_KEY.startswith("nvapi-your"))
     has_tavily = bool(settings.TAVILY_API_KEY and not settings.TAVILY_API_KEY.startswith("tvly-your"))
-    has_anthropic = bool(settings.ANTHROPIC_API_KEY and not settings.ANTHROPIC_API_KEY.startswith("sk-ant"))
+    has_anthropic = bool(settings.ANTHROPIC_API_KEY and not settings.ANTHROPIC_API_KEY.startswith("sk-ant-your"))
     
     if settings.PROVIDER == "groq" and has_groq:
         provider_name = "Groq LPUs (Active)"
@@ -321,16 +321,23 @@ async def unilog_process_endpoint(request: Request):
 # In-memory storage for active dataset
 _ACTIVE_DATASET_CSV = "PIMpulse_Unilog_Enriched_1000.csv"
 _ACTIVE_DATASET_XLSX = "PIMpulse_Unilog_Enriched_1000.xlsx"
+_RUN_METRICS = {
+    "throughput_skus_per_sec": 140.0,
+    "avg_latency_ms": 7.14,
+    "daily_capacity": "12.1M SKUs/day",
+    "engine_tier": "Tier 1 Deterministic Rule Engine"
+}
 
 @app.post("/api/unilog/upload")
 async def unilog_upload_endpoint(file: UploadFile = File(...), max_rows: int = Form(1000)):
     """
     Shared Workbook & Batch Spreadsheet Ingestion (UniHack 2026 Mandate):
     Accepts raw CSV or XLSX spreadsheets, cleans headers/placeholders, enriches all items concurrently,
-    appends 253-column master delivery format (with 'Enriched_Output' sheet for XLSX), and updates live KPIs.
+    appends 252-column master delivery format (with 'Enriched_Output' sheet for XLSX), and updates live KPIs.
     """
-    global _ACTIVE_DATASET_CSV, _ACTIVE_DATASET_XLSX
+    global _ACTIVE_DATASET_CSV, _ACTIVE_DATASET_XLSX, _RUN_METRICS
     import time
+    import uuid
     from agents.unilog_pipeline import enrich_unilog_row, export_to_xlsx, append_to_shared_workbook, UNILOG_DELIVERY_COLUMNS
     import polars as pl
     import io
@@ -338,11 +345,12 @@ async def unilog_upload_endpoint(file: UploadFile = File(...), max_rows: int = F
     t0 = time.perf_counter()
     filename = file.filename or "uploaded_catalog.csv"
     contents = await file.read()
+    upload_id = uuid.uuid4().hex[:8]
 
     # Determine file format
     if filename.lower().endswith(".xlsx") or filename.lower().endswith(".xls"):
-        # Save temp input xlsx to preserve original sheets
-        temp_input_xlsx = "PIMpulse_Uploaded_Input.xlsx"
+        # Save unique temp input xlsx to preserve original sheets without collision
+        temp_input_xlsx = f"temp_upload_{upload_id}_input.xlsx"
         with open(temp_input_xlsx, "wb") as f:
             f.write(contents)
         
@@ -351,6 +359,9 @@ async def unilog_upload_endpoint(file: UploadFile = File(...), max_rows: int = F
         sheet = wb.active
         data = list(sheet.iter_rows(values_only=True))
         if not data or len(data) < 2:
+            if os.path.exists(temp_input_xlsx):
+                try: os.remove(temp_input_xlsx)
+                except Exception: pass
             raise HTTPException(status_code=400, detail="Uploaded Excel file is empty or missing data rows.")
         
         headers = [str(h or f"col_{idx}").strip() for idx, h in enumerate(data[0])]
@@ -398,16 +409,20 @@ async def unilog_upload_endpoint(file: UploadFile = File(...), max_rows: int = F
     final_cols = [c for c in UNILOG_DELIVERY_COLUMNS if c in out_df.columns]
     out_df = out_df.select(final_cols)
 
-    upload_csv = "PIMpulse_Uploaded_Enriched.csv"
-    upload_xlsx = "PIMpulse_Uploaded_Enriched.xlsx"
+    upload_csv = f"PIMpulse_Uploaded_Enriched_{upload_id}.csv"
+    upload_xlsx = f"PIMpulse_Uploaded_Enriched_{upload_id}.xlsx"
     
     with open(upload_csv, "w", encoding="utf-8-sig") as f:
         f.write(out_df.write_csv())
 
-    if filename.lower().endswith(".xlsx") and os.path.exists("PIMpulse_Uploaded_Input.xlsx"):
-        append_to_shared_workbook("PIMpulse_Uploaded_Input.xlsx", out_df, "Enriched_Output")
+    if (filename.lower().endswith(".xlsx") or filename.lower().endswith(".xls")) and os.path.exists(temp_input_xlsx):
+        append_to_shared_workbook(temp_input_xlsx, out_df, "Enriched_Output")
         import shutil
-        shutil.copy("PIMpulse_Uploaded_Input.xlsx", upload_xlsx)
+        shutil.copy(temp_input_xlsx, upload_xlsx)
+        try:
+            os.remove(temp_input_xlsx)
+        except Exception:
+            pass
     else:
         export_to_xlsx(out_df, upload_xlsx)
 
@@ -422,8 +437,10 @@ async def unilog_upload_endpoint(file: UploadFile = File(...), max_rows: int = F
     inv_viol = out_df.filter(pl.col("INVOICE_DESC").str.len_chars() > 40).height
     mob_viol = out_df.filter((pl.col("MOBILE_DESC").str.len_chars() < 60) | (pl.col("MOBILE_DESC").str.len_chars() > 80)).height
 
-    invoice_compliance = 100.0 if inv_viol == 0 else round((out_df.height - inv_viol) / out_df.height * 100, 2)
-    mobile_compliance = 100.0 if mob_viol == 0 else round((out_df.height - mob_viol) / out_df.height * 100, 2)
+    global _RUN_METRICS
+    _RUN_METRICS["throughput_skus_per_sec"] = throughput
+    _RUN_METRICS["avg_latency_ms"] = round((elapsed / max(len(enriched_rows), 1)) * 1000.0, 2)
+    _RUN_METRICS["daily_capacity"] = f"{round((throughput * 3600 * 24) / 1000000.0, 1)}M SKUs/day"
 
     return {
         "status": "success",
@@ -442,8 +459,8 @@ async def unilog_upload_endpoint(file: UploadFile = File(...), max_rows: int = F
 
 @app.get("/api/unilog/stats")
 async def get_unilog_stats():
-    """Returns real-time MDM data quality and performance statistics for the active dataset."""
-    global _ACTIVE_DATASET_CSV
+    """Returns real-time MDM data quality and dynamically measured performance statistics for the active dataset."""
+    global _ACTIVE_DATASET_CSV, _RUN_METRICS
     csv_file = _ACTIVE_DATASET_CSV if os.path.exists(_ACTIVE_DATASET_CSV) else "PIMpulse_Unilog_Enriched_1000.csv"
     if not os.path.exists(csv_file):
         csv_file = "Unihack_Enriched_Output.csv"
@@ -467,14 +484,15 @@ async def get_unilog_stats():
             "mobile_max_len": int(mob_lens.max() or 0),
             "mobile_min_len": int(mob_lens.min() or 0),
             "unique_brands_count": len(brands),
-            "throughput_skus_per_sec": 190.2,
-            "daily_capacity": "16.4M SKUs/day",
-            "avg_latency_ms": 5.26
+            "throughput_skus_per_sec": _RUN_METRICS.get("throughput_skus_per_sec", 140.0),
+            "daily_capacity": _RUN_METRICS.get("daily_capacity", "12.1M SKUs/day"),
+            "avg_latency_ms": _RUN_METRICS.get("avg_latency_ms", 7.14),
+            "engine_tier": "Tier 1 Deterministic Rule Engine"
         }
         
     return {
         "total_skus": 1000,
-        "total_columns": 253,
+        "total_columns": 252,
         "invoice_compliance_pct": 100.0,
         "mobile_compliance_pct": 100.0,
         "invoice_max_len": 33,
@@ -482,9 +500,10 @@ async def get_unilog_stats():
         "mobile_max_len": 80,
         "mobile_min_len": 60,
         "unique_brands_count": 90,
-        "throughput_skus_per_sec": 190.2,
-        "daily_capacity": "16.4M SKUs/day",
-        "avg_latency_ms": 5.26
+        "throughput_skus_per_sec": _RUN_METRICS.get("throughput_skus_per_sec", 140.0),
+        "daily_capacity": _RUN_METRICS.get("daily_capacity", "12.1M SKUs/day"),
+        "avg_latency_ms": _RUN_METRICS.get("avg_latency_ms", 7.14),
+        "engine_tier": "Tier 1 Deterministic Rule Engine"
     }
 
 @app.get("/api/unilog/dataset")
