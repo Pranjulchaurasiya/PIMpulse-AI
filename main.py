@@ -1,4 +1,11 @@
 import os
+import sys
+
+# Ensure portable packages directory is accessible in container runtime
+_pkg_dir = os.path.join(os.path.dirname(__file__), "packages")
+if os.path.exists(_pkg_dir) and _pkg_dir not in sys.path:
+    sys.path.insert(0, _pkg_dir)
+
 import json
 import time
 import asyncio
@@ -547,4 +554,6 @@ async def download_unilog_file(format: str = Query("xlsx", regex="^(xlsx|csv)$")
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run("main:app", host=settings.HOST, port=settings.PORT, reload=True)
+    port = int(os.getenv("PORT", 8000))
+    host = os.getenv("HOST", "0.0.0.0")
+    uvicorn.run("main:app", host=host, port=port, reload=False)

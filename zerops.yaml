@@ -24,8 +24,7 @@ zerops:
       ports:
         - port: 8000
           httpSupport: true
-      start: PYTHONPATH=./packages python3 -m uvicorn main:app --host 0.0.0.0 --port 8000
+      start: python3 main.py
       envVariables:
-        PYTHONPATH: ./packages
         PORT: 8000
         HOST: 0.0.0.0
