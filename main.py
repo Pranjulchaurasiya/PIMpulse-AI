@@ -97,12 +97,81 @@ async def cost_summary():
 async def get_sample_queries():
     return {
         "samples": [
-            {"query": "chv-blt-1/2-ss-316", "category": "Bolts & Fasteners", "expected_code": "316SS Heavy Bolt"},
-            {"query": "Siemens 3RT2015-1BB41", "category": "Contactors & Relays", "expected_code": "SIRIUS 3-Pole 4kW"},
-            {"query": "3P 20A CB", "category": "Circuit Breakers", "expected_code": "415V 10kA MCB"},
-            {"query": "SKF 6205-2RSH", "category": "Bearings", "expected_code": "Deep Groove Ball Bearing"}
+            {"query": "PDSH4816AF", "category": "Appliances (Ground Truth)", "expected_code": "Frigidaire Dishwasher"},
+            {"query": "MlLW_  49/94/0107  (4031) !!", "category": "Mangled Input (Abrasive)", "expected_code": "Milwaukee Cut-Off Wheel"},
+            {"query": "Trex 543140016 Lineage", "category": "Building Materials", "expected_code": "Decking Board Biscayne"},
+            {"query": "Siemens 3RT2015-1BB41", "category": "Electrical", "expected_code": "SIRIUS 3-Pole Contactor"},
+            {"query": "SKF 6205-2RSH", "category": "Mechanical", "expected_code": "Deep Groove Ball Bearing"},
+            {"query": "///_SKF-6205/2RSH_&_3RT2015_CONTACTOR_SPL-PKG_", "category": "Adversarial Trap", "expected_code": "Chimeric Multi-Entity"}
         ]
     }
+
+@app.get("/api/compare")
+async def compare_products(skus: str = Query("49-94-0107,DBDS14125G01F,DWA8062")):
+    """
+    Returns side-by-side parametric attribute matrices for 2-4 SKUs from the master catalog.
+    """
+    sku_list = [s.strip() for s in skus.split(",") if s.strip()]
+    if not sku_list:
+        raise HTTPException(status_code=400, detail="Please provide at least one SKU to compare.")
+
+    csv_file = "PIMpulse_Unilog_Enriched_1000.csv"
+    if not os.path.exists(csv_file):
+        csv_file = "Unihack_Enriched_Output.csv"
+
+    if not os.path.exists(csv_file):
+        raise HTTPException(status_code=404, detail="Catalog file not found.")
+
+    import polars as pl
+    df = pl.read_csv(csv_file)
+
+    matched_rows = []
+    for s in sku_list[:4]:
+        s_lower = s.lower()
+        sub = df.filter(
+            pl.col("MANUFACTURER_PART_NUMBER").str.to_lowercase().str.contains(s_lower) |
+            pl.col("Mfg_Part_Num").str.to_lowercase().str.contains(s_lower) |
+            pl.col("SHORT_DESC").str.to_lowercase().str.contains(s_lower)
+        )
+        if sub.height > 0:
+            matched_rows.append(sub.to_dicts()[0])
+
+    if not matched_rows:
+        # Fallback to the first 3 rows if no exact matches found
+        matched_rows = df.slice(0, min(3, df.height)).to_dicts()
+
+    # Extract parametric attributes from triplets for each item
+    items_data = []
+    all_attr_labels = set()
+
+    for r in matched_rows:
+        attrs = {}
+        for i in range(1, 51):
+            lbl = r.get(f"ATTRIBUTE_LABEL {i}")
+            val = r.get(f"ATTRIBUTE_VALUE {i}")
+            uom = r.get(f"ATTRIBUTE_UOM {i}")
+            if lbl and str(lbl).strip() and val and str(val).strip():
+                full_val = f"{val} {uom}".strip() if uom and str(uom).strip() else str(val).strip()
+                attrs[str(lbl).strip()] = full_val
+                all_attr_labels.add(str(lbl).strip())
+
+        items_data.append({
+            "mpn": r.get("MANUFACTURER_PART_NUMBER") or r.get("Mfg_Part_Num") or "N/A",
+            "brand": r.get("BRAND_NAME") or "N/A",
+            "mfr": r.get("MANUFACTURER_NAME") or "N/A",
+            "short_desc": r.get("SHORT_DESC") or "N/A",
+            "invoice_desc": r.get("INVOICE_DESC") or "N/A",
+            "mobile_desc": r.get("MOBILE_DESC") or "N/A",
+            "unspsc": r.get("UNSPSC") or "N/A",
+            "mfr_url": r.get("MFR URL") or "#",
+            "attributes": attrs
+        })
+
+    return {
+        "labels": sorted(list(all_attr_labels)),
+        "items": items_data
+    }
+
 
 @app.post("/api/enrich", response_model=Dict[str, Any])
 async def enrich_product(req: EnrichRequest):
