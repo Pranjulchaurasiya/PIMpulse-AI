@@ -12,7 +12,9 @@ zerops:
       ports:
         - port: 8000
           httpSupport: true
-      start: uvicorn main:app --host 0.0.0.0 --port 8000
+      prepareCommands:
+        - pip install -r requirements.txt
+      start: python -m uvicorn main:app --host 0.0.0.0 --port 8000
       envVariables:
         PROVIDER: groq
         PORT: 8000
