@@ -9,7 +9,7 @@ Built for **[UniHack 2026](https://unilogcorp.com)** — Master Data Management 
 
 <br />
 
-[![UniHack 2026](https://img.shields.io/badge/UniHack-2026%20Finalist-0284c7?style=for-the-badge&logo=rocket)](https://unilogcorp.com)
+[![UniHack 2026](https://img.shields.io/badge/UniHack-2026%20Submission-0284c7?style=for-the-badge&logo=rocket)](https://unilogcorp.com)
 [![Python Version](https://img.shields.io/badge/Python-3.11%20%7C%203.12%20%7C%203.13-38bdf8?style=for-the-badge&logo=python)](https://python.org)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.110+-009688?style=for-the-badge&logo=fastapi)](https://fastapi.tiangolo.com)
 [![LangGraph](https://img.shields.io/badge/Orchestrator-LangGraph%20v0.2-8b5cf6?style=for-the-badge)](https://langchain-ai.github.io/langgraph/)
