@@ -18,6 +18,7 @@ from agents.unilog_rules import (
     match_lov_value,
     format_fraction_value,
     standardize_uom,
+    sanitize_raw_industrial_input,
     APPROVED_MATERIAL_LOV,
     APPROVED_APPLICATION_LOV
 )
@@ -65,24 +66,38 @@ async def enrich_unilog_row(row: Dict[str, Any]) -> Dict[str, Any]:
     Universal Unilog catalog row enrichment supporting all 252 official delivery columns.
     Combines deterministic rules, canonical resolution, and dynamic 50-attribute slotting.
     """
-    mpn = str(row.get("Mfg_Part_Num", row.get("MANUFACTURER_PART_NUMBER", ""))).strip()
+    raw_mpn = str(row.get("Mfg_Part_Num", row.get("MANUFACTURER_PART_NUMBER", ""))).strip()
     raw_desc = str(row.get("Part_Desc", row.get("raw_input", ""))).strip()
     part_manuf = str(row.get("Part_Manuf", row.get("MANUFACTURER_NAME", ""))).strip()
     e1_brand = row.get("E1_Brand", "")
     unilog_brand = row.get("Unilog_Brand", "")
     dib_brand = row.get("DIB_Brand", "")
 
-    # 1. Canonical Manufacturer and Brand Resolution
+    # 0. Defensive Preprocessor Sanitizer
+    sanitized = sanitize_raw_industrial_input(raw_desc or raw_mpn)
+    mpn = raw_mpn
+    if not mpn or mpn == raw_desc or "/" in mpn or "_" in mpn or "." in mpn:
+        mpn = sanitized["normalized_mpn"] or mpn
+    
+    if not part_manuf or part_manuf in {"-- Unbranded --", "-- No Unilog Brand --"}:
+        part_manuf = sanitized["inferred_mfr"] or part_manuf
+        
     best_brand = e1_brand or unilog_brand or dib_brand
+    if not best_brand or best_brand in {"-- Unbranded --", "-- No Unilog Brand --"}:
+        best_brand = sanitized["inferred_brand"] or best_brand
+
+    clean_desc = sanitized["cleaned_text"] or raw_desc
+
+    # 1. Canonical Manufacturer and Brand Resolution
     mfr_name, brand_name, mfr_code = resolve_manufacturer_and_brand(
         part_manuf=part_manuf,
-        part_desc=raw_desc,
+        part_desc=clean_desc,
         e1_brand=best_brand
     )
 
     # 2. Dimension and Category Parsing
-    dims = parse_abrasive_dimensions(raw_desc)
-    desc_lower = raw_desc.lower()
+    dims = sanitized.get("dimensions") or parse_abrasive_dimensions(clean_desc)
+    desc_lower = clean_desc.lower()
 
     # Category taxonomy, class path, and series defaults
     dept = "Abrasives"

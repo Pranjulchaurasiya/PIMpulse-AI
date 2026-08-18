@@ -15,6 +15,8 @@ from agents.vision import vision_describe, reconcile_vision_with_text
 from agents.auditor import audit_enrichment_state
 from agents.confidence import calculate_mathematical_confidence, build_final_product_profile
 
+from agents.unilog_rules import sanitize_raw_industrial_input
+
 logger = logging.getLogger("pimpulse.graph")
 
 def _create_log_entry(node_name: str, status: str, message: str, details: Dict[str, Any] = None) -> Dict[str, Any]:
@@ -32,8 +34,11 @@ def _create_log_entry(node_name: str, status: str, message: str, details: Dict[s
 
 async def node_taxonomy_pre(state: ProductState) -> Dict[str, Any]:
     raw_input = state.get("raw_input", "")
+    sanitized = sanitize_raw_industrial_input(raw_input)
+    clean_input = sanitized["cleaned_text"] or raw_input
+
     t0 = time.perf_counter()
-    tax_res = await classify_taxonomy_pre_hybrid(raw_input)
+    tax_res = await classify_taxonomy_pre_hybrid(clean_input)
     dur_ms = round((time.perf_counter() - t0) * 1000, 2)
     
     prod_type_str = f" ({tax_res.get('product_type')})" if tax_res.get('product_type') else ""
@@ -60,6 +65,7 @@ async def node_taxonomy_pre(state: ProductState) -> Dict[str, Any]:
 async def node_hyde(state: ProductState) -> Dict[str, Any]:
     raw_input = state.get("raw_input", "")
     class_name = state.get("unspsc_class", "Industrial Part")
+    sanitized = sanitize_raw_industrial_input(raw_input)
     
     # If search_query already rewritten by auditor retry, keep it
     if state.get("retry_count", 0) > 0 and state.get("search_query"):
@@ -67,7 +73,10 @@ async def node_hyde(state: ProductState) -> Dict[str, Any]:
         is_expanded = False
         hypothesis = None
     else:
-        search_query, hypothesis, is_expanded = await expand_query_hyde(raw_input, class_name)
+        clean_input = sanitized["cleaned_text"] or raw_input
+        prefix = f"{sanitized['inferred_brand']} {sanitized['normalized_mpn']}".strip()
+        search_target = f"{prefix} {clean_input}".strip() if prefix and prefix not in clean_input else clean_input
+        search_query, hypothesis, is_expanded = await expand_query_hyde(search_target, class_name)
     
     msg = f"HyDE expanded query ({len(search_query)} chars)" if is_expanded else "Short query expansion skipped (sufficient vocabulary)"
     log = _create_log_entry(

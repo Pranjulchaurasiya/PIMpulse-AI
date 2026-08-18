@@ -164,10 +164,24 @@ async def extract_attributes_targeted(
 
     ambiguity_flag = not (has_brand or has_mpn)
 
+    from agents.unilog_rules import sanitize_raw_industrial_input
+    sanitized = sanitize_raw_industrial_input(raw_input)
+    
+    std_title = res.get("standardized_title")
+    if not std_title or std_title == raw_input or any(j in std_title for j in ["!!", "MlLW_", "(4031)"]):
+        brand_str = sanitized.get("inferred_brand") or "Industrial"
+        mpn_str = sanitized.get("normalized_mpn") or ""
+        dims = sanitized.get("dimensions", {})
+        dia = dims.get("diameter", "")
+        thk = dims.get("thickness", "")
+        arb = dims.get("arbor_size", "")
+        dim_str = f'{dia}" x {thk}" x {arb}"' if dia and thk and arb else f'{dia}"' if dia else ""
+        std_title = f"{brand_str} {mpn_str} {dim_str} {category_class}".replace("  ", " ").strip()
+
     return {
         "extracted_attrs": clean_attrs,
-        "standardized_title": res.get("standardized_title", raw_input),
-        "marketing_description": res.get("marketing_description", f"Industrial product specification for {raw_input}"),
+        "standardized_title": std_title,
+        "marketing_description": res.get("marketing_description", f"Industrial product specification for {std_title}"),
         "feature_bullets": res.get("feature_bullets", ["High quality industrial component", "Manufactured to OEM standards"]),
         "provenance": provenance,
         "ambiguity_flag": ambiguity_flag

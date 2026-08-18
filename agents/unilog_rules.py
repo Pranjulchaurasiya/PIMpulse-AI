@@ -348,20 +348,21 @@ def parse_abrasive_dimensions_hardened(desc: str) -> Dict[str, str]:
     res = {}
     desc_clean = re.sub(r'(\d+)\s+(\d+/\d+)', r'\1-\2', desc)
     
-    # 3-dimension pattern: e.g. 4-1/2"x.045"x7/8" or 12"x1/8"x20mm or 14"x7/64"x1"
+    # 3-dimension pattern: e.g. 4-1/2"x.045"x7/8" or 4-1/2"x3/64" w/7/8_in or 12"x1/8"x20mm
     dim3_match = re.search(
-        r'(\d+(?:-\d+/\d+|\.\d+|/\d+)?)\s*["\']?\s*[xX]\s*(\.?\d+(?:/\d+)?)\s*["\']?\s*[xX]\s*(\d+(?:-\d+/\d+|\.\d+|/\d+)?\s*(?:mm|in)?)',
-        desc_clean
+        r'(\d+(?:-\d+/\d+|\.\d+|/\d+)?)\s*["\']?\s*[xX]\s*(\d+/\d+|\.?\d+)\s*["\']?\s*(?:[xX]|\s*w/\s*|\s*with\s*|\s+)?\s*(\d+(?:-\d+/\d+|\.\d+|/\d+)?\s*(?:mm|in)?)',
+        desc_clean,
+        re.IGNORECASE
     )
     if dim3_match:
         res["diameter"] = dim3_match.group(1).replace('"', '').strip()
         res["thickness"] = dim3_match.group(2).replace('"', '').strip()
-        arbor_raw = dim3_match.group(3).replace('"', '').strip()
-        if "mm" in arbor_raw:
-            res["arbor_size"] = arbor_raw.replace("mm", "").strip()
+        arbor_raw = dim3_match.group(3).replace('"', '').replace('_', ' ').strip()
+        if "mm" in arbor_raw.lower():
+            res["arbor_size"] = re.sub(r'[a-zA-Z]', '', arbor_raw).strip()
             res["arbor_uom"] = "mm"
         else:
-            res["arbor_size"] = arbor_raw.replace("in", "").strip()
+            res["arbor_size"] = re.sub(r'[a-zA-Z]', '', arbor_raw).strip()
             res["arbor_uom"] = "in"
     else:
         # 2-dimension pattern: e.g. 1/2"x18" (sanding belt) or 2.75x30
@@ -381,6 +382,80 @@ def parse_abrasive_dimensions_hardened(desc: str) -> Dict[str, str]:
         res["grit"] = grit_match.group(1) or grit_match.group(2)
 
     return res
+
+def sanitize_raw_industrial_input(raw_input: str) -> Dict[str, Any]:
+    """
+    Deterministic Defensive Preprocessor Module:
+    Cleans raw, heavily corrupted vendor data strings (e.g. 'MlLW_ 49/94/0107 !! 4-1/2"x3/64" w/7/8_in (4031)')
+    into standardized terms BEFORE hitting search engines or LLM extraction.
+    """
+    if not raw_input:
+        return {
+            "cleaned_text": "",
+            "normalized_mpn": "",
+            "inferred_mfr": "",
+            "inferred_brand": "",
+            "dimensions": {}
+        }
+
+    raw = str(raw_input).strip()
+    
+    # 1. Normalization of malformed MPN delimiters (e.g. 49/94/0107 -> 49-94-0107, 49.94.0107 -> 49-94-0107)
+    normalized_mpn = ""
+    mpn_match = re.search(r'\b(\d{2})[\/\._](\d{2})[\/\._](\d{4})\b', raw)
+    if mpn_match:
+        normalized_mpn = f"{mpn_match.group(1)}-{mpn_match.group(2)}-{mpn_match.group(3)}"
+        raw = raw.replace(mpn_match.group(0), normalized_mpn)
+    else:
+        mpn_alt = re.search(r'\b([A-Z0-9]{3,})[_\.]([A-Z0-9\-]{2,})\b', raw, re.IGNORECASE)
+        if mpn_alt:
+            normalized_mpn = f"{mpn_alt.group(1)}-{mpn_alt.group(2)}"
+
+    # 2. Known vendor prefix cleaning and canonical mapping (e.g. MlLW_, SKF_, SIEM_, BSH_)
+    mfg_prefix_map = {
+        r'\bmll?w_?\b': ("Milwaukee Tool", "Milwaukee"),
+        r'\bmilw(?:aukee)?_?(?:acc_?)?\b': ("Milwaukee Tool", "Milwaukee"),
+        r'\bskf_?(?:exp_?)?\b': ("SKF USA Inc.", "SKF"),
+        r'\bsiem(?:ens)?_?\b': ("Siemens Industry, Inc.", "Siemens"),
+        r'\bmirk(?:a)?_?\b': ("Mirka Abrasives, Inc.", "Mirka"),
+        r'\bdew(?:alt)?_?\b': ("DeWalt Industrial Tool Co.", "DEWALT"),
+        r'\bbosh(?:art)?_?\b': ("Boshart Industries", "Boshart"),
+        r'\bdiab(?:lo)?_?\b': ("Freud America, Inc.", "Diablo"),
+        r'\bnort(?:on)?_?\b': ("Saint-Gobain Abrasives, Inc.", "Norton")
+    }
+
+    inferred_mfr = ""
+    inferred_brand = ""
+    for pat, (mfr, brand) in mfg_prefix_map.items():
+        if re.search(pat, raw, re.IGNORECASE):
+            inferred_mfr = mfr
+            inferred_brand = brand
+            raw = re.sub(pat, "", raw, flags=re.IGNORECASE)
+            break
+
+    # 3. Strip internal ERP key wrappers and noise tokens (e.g. (4031), (MIRK), (Pack of 10), !! )
+    raw = re.sub(r'\(\s*\d{3,5}\s*\)', '', raw)       # Internal vendor system numbers like (4031)
+    raw = re.sub(r'\[\s*PKG\s*\d+\s*\]', '', raw, flags=re.IGNORECASE)
+    raw = re.sub(r'\(\s*Pack\s+of\s+\d+\s*\)', '', raw, flags=re.IGNORECASE)
+    raw = re.sub(r'[!@#\$%\^&*_+=~`|<>?]+', ' ', raw) # Junk symbols
+    raw = re.sub(r'\bw\s*/\s*', ' ', raw, flags=re.IGNORECASE) # 'w/' notation
+    raw = re.sub(r'--+', '-', raw)                    # Multiple dashes
+
+    # 4. Dimension & Arbor notation normalization (e.g. 7/8_in -> 7/8 in)
+    raw = re.sub(r'(\d+)_in\b', r'\1 in', raw, flags=re.IGNORECASE)
+    raw = re.sub(r'(\d+/\d+)_in\b', r'\1 in', raw, flags=re.IGNORECASE)
+    raw = re.sub(r'\s+', ' ', raw).strip()
+
+    # 5. Extract structured dimensions
+    dims = parse_abrasive_dimensions_hardened(raw)
+
+    return {
+        "cleaned_text": raw,
+        "normalized_mpn": normalized_mpn,
+        "inferred_mfr": inferred_mfr,
+        "inferred_brand": inferred_brand,
+        "dimensions": dims
+    }
 
 def parse_abrasive_dimensions(desc: str) -> Dict[str, str]:
     """Alias for parse_abrasive_dimensions_hardened."""
