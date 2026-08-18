@@ -196,6 +196,126 @@ CANONICAL_MFR_BRAND = {
         "brand_name": "SMC",
         "mfr_code": "SMC",
         "default_unspsc": "40141600"
+    },
+    "phillips": {
+        "mfr_name": "Signify North America Corporation",
+        "brand_name": "Philips",
+        "mfr_code": "PHIL",
+        "default_unspsc": "39112102"
+    },
+    "philips": {
+        "mfr_name": "Signify North America Corporation",
+        "brand_name": "Philips",
+        "mfr_code": "PHIL",
+        "default_unspsc": "39112102"
+    },
+    "kichler": {
+        "mfr_name": "Kichler Lighting LLC",
+        "brand_name": "Kichler",
+        "mfr_code": "KICH",
+        "default_unspsc": "39111800"
+    },
+    "satco": {
+        "mfr_name": "Satco Products, Inc.",
+        "brand_name": "Satco",
+        "mfr_code": "SATC",
+        "default_unspsc": "39112102"
+    },
+    "trex": {
+        "mfr_name": "Trex Company, Inc.",
+        "brand_name": "Trex",
+        "mfr_code": "TREX",
+        "default_unspsc": "30161801"
+    },
+    "azek": {
+        "mfr_name": "The AZEK Company Inc.",
+        "brand_name": "AZEK",
+        "mfr_code": "AZEK",
+        "default_unspsc": "30161801"
+    },
+    "timbertech": {
+        "mfr_name": "The AZEK Company Inc.",
+        "brand_name": "TimberTech",
+        "mfr_code": "TIMB",
+        "default_unspsc": "30161801"
+    },
+    "dewalt": {
+        "mfr_name": "Stanley Black & Decker / DEWALT",
+        "brand_name": "DEWALT",
+        "mfr_code": "DWLT",
+        "default_unspsc": "27112800"
+    },
+    "makita": {
+        "mfr_name": "Makita U.S.A., Inc.",
+        "brand_name": "Makita",
+        "mfr_code": "MAKT",
+        "default_unspsc": "27112800"
+    },
+    "festool": {
+        "mfr_name": "Festool USA",
+        "brand_name": "Festool",
+        "mfr_code": "FEST",
+        "default_unspsc": "27112800"
+    },
+    "speed queen": {
+        "mfr_name": "Alliance Laundry Systems LLC",
+        "brand_name": "Speed Queen",
+        "mfr_code": "SPDQ",
+        "default_unspsc": "52141510"
+    },
+    "kitchenaid": {
+        "mfr_name": "Whirlpool Corporation",
+        "brand_name": "KitchenAid",
+        "mfr_code": "KTCH",
+        "default_unspsc": "52141501"
+    },
+    "whirlpool": {
+        "mfr_name": "Whirlpool Corporation",
+        "brand_name": "Whirlpool",
+        "mfr_code": "WHR",
+        "default_unspsc": "52141505"
+    },
+    "frigidaire": {
+        "mfr_name": "Electrolux Home Products",
+        "brand_name": "Frigidaire",
+        "mfr_code": "FRIG",
+        "default_unspsc": "52141502"
+    },
+    "ge": {
+        "mfr_name": "GE Appliances, a Haier company",
+        "brand_name": "GE",
+        "mfr_code": "GEAP",
+        "default_unspsc": "52141510"
+    },
+    "leviton": {
+        "mfr_name": "Leviton Manufacturing Co., Inc.",
+        "brand_name": "Leviton",
+        "mfr_code": "LEVT",
+        "default_unspsc": "39121406"
+    },
+    "southwire": {
+        "mfr_name": "Southwire Company, LLC",
+        "brand_name": "Southwire",
+        "mfr_code": "SOUT",
+        "default_unspsc": "26121600"
+    },
+    "kreg": {
+        "mfr_name": "Kreg Tool Company",
+        "brand_name": "Kreg",
+        "mfr_code": "KREG",
+        "default_unspsc": "27112800"
+    },
+    "wera": {
+        "mfr_name": "Wera Tools Inc.",
+        "brand_name": "Wera",
+        "mfr_code": "WERA",
+        "default_unspsc": "27111700"
+    },
+    "edge eyewear": {
+        "mfr_name": "Wolf Peak International / Edge Eyewear",
+        "brand_name": "Edge Eyewear",
+        "mfr_code": "EDGE",
+        "default_unspsc": "46181802"
     }
 }
 
@@ -211,7 +331,15 @@ APPROVED_MATERIAL_LOV = [
     "Carbon Steel",
     "Brass",
     "Bronze",
-    "Chrome Steel"
+    "Chrome Steel",
+    "Composite",
+    "PVC",
+    "Glass",
+    "Polycarbonate",
+    "Enameled Steel",
+    "Thermoplastic",
+    "Copper",
+    "High Speed Steel"
 ]
 
 APPROVED_APPLICATION_LOV = [
@@ -225,7 +353,15 @@ APPROVED_APPLICATION_LOV = [
     "Polishing",
     "Fastening",
     "Motor Control",
-    "Circuit Protection"
+    "Circuit Protection",
+    "Decking Construction",
+    "Commercial Lighting",
+    "Residential Laundry",
+    "Cutting & Drilling",
+    "Worker Safety",
+    "Electrical Distribution",
+    "Food Preparation",
+    "Dishwashing"
 ]
 
 def match_lov_value(raw_val: str, approved_list: List[str], score_cutoff: float = 65.0) -> str:

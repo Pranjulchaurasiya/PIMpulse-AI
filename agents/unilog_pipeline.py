@@ -112,7 +112,77 @@ async def enrich_unilog_row(row: Dict[str, Any]) -> Dict[str, Any]:
     features = []
 
     # Category-specific heuristics
-    if "sanding belt" in desc_lower or "sand belt" in desc_lower:
+    if "decking" in desc_lower or "trex" in desc_lower or "azek" in desc_lower or "timbertech" in desc_lower or "rail kit" in desc_lower or "baluster" in desc_lower or "fascia" in desc_lower or "grooved" in desc_lower or "t-rail" in desc_lower or "boica" in (part_manuf or "").lower() or "parksite" in (part_manuf or "").lower() or "lumber" in (part_manuf or "").lower():
+        dept = "Building Materials"
+        cat_class = "Decking & Railing"
+        fine = "Composite Decking & Railing"
+        classpath = "Building Materials > Decking & Railing > Composite"
+        item_type = "Composite Decking Board" if "deck" in desc_lower or "fascia" in desc_lower or "grooved" in desc_lower else "Railing Kit"
+        unspsc = "30161801"
+        raw_material = "Composite"
+        raw_application = "Decking Construction"
+        features = ["High-performance composite shell", "Resists fading, staining, and scratching", "Low maintenance construction"]
+    elif "dryer" in desc_lower or "washer" in desc_lower or "dish" in desc_lower or "refrigerator" in desc_lower or "fridge" in desc_lower or "appliance" in desc_lower or "appde" in (part_manuf or "").lower() or "vvapp" in (part_manuf or "").lower():
+        dept = "Appliances"
+        cat_class = "Laundry & Kitchen Appliances"
+        fine = "Residential & Commercial Appliances"
+        classpath = "Appliances > Major Appliances > Laundry & Kitchen"
+        item_type = "Clothes Dryer" if "dryer" in desc_lower else ("Washing Machine" if "washer" in desc_lower else ("Dishwasher" if "dish" in desc_lower else "Commercial Appliance"))
+        unspsc = "52141510" if "dryer" in desc_lower else ("52141505" if "washer" in desc_lower else "52141501")
+        raw_material = "Enameled Steel"
+        raw_application = "Residential Laundry" if "dryer" in desc_lower or "washer" in desc_lower else "Dishwashing"
+        features = ["Heavy-duty commercial drive system", "Energy efficient operation", "Durable porcelain/steel drum"]
+    elif "lamp" in desc_lower or "led" in desc_lower or "bulb" in desc_lower or "kichler" in desc_lower or "satco" in desc_lower or "philips" in desc_lower or "phillips" in desc_lower or "lighting" in (part_manuf or "").lower() or "sconce" in desc_lower or "fixture" in desc_lower or "27k" in desc_lower or "50k" in desc_lower or "60w" in desc_lower or "40w" in desc_lower:
+        dept = "Electrical & Lighting"
+        cat_class = "Luminaires & Lamps"
+        fine = "LED Lamps & Fixtures"
+        classpath = "Electrical & Lighting > Lamps & Fixtures > LED"
+        item_type = "LED Light Bulb" if "lamp" in desc_lower or "bulb" in desc_lower or "led" in desc_lower else "Lighting Fixture"
+        unspsc = "39112102"
+        raw_material = "Glass"
+        raw_application = "Commercial Lighting"
+        features = ["High-efficiency LED output", "Long rated operating life", "Standard base compatibility"]
+    elif "dewalt" in desc_lower or "makita" in desc_lower or "festool" in desc_lower or "kreg" in desc_lower or "blade" in desc_lower or "drill" in desc_lower or "driver" in desc_lower or "impact" in desc_lower or "router" in desc_lower or "bit" in desc_lower or "saw" in desc_lower:
+        dept = "Tools & Hardware"
+        cat_class = "Power Tools & Accessories"
+        fine = "Cutting Blades & Power Tool Accessories"
+        classpath = "Tools & Hardware > Power Tools > Cutting & Drilling"
+        item_type = "Saw Blade" if "blade" in desc_lower or "saw" in desc_lower else ("Drill Bit" if "bit" in desc_lower else "Power Tool Accessory")
+        unspsc = "27112800"
+        raw_material = "High Speed Steel"
+        raw_application = "Cutting & Drilling"
+        features = ["Precision machined cutting geometry", "High impact durability", "Universal tool shank fit"]
+    elif "leviton" in desc_lower or "southwire" in desc_lower or "switch" in desc_lower or "receptacle" in desc_lower or "outlet" in desc_lower or "cable" in desc_lower or "wire" in desc_lower:
+        dept = "Electrical"
+        cat_class = "Wiring Devices"
+        fine = "Switches & Receptacles"
+        classpath = "Electrical > Wiring Devices > Switches & Outlets"
+        item_type = "Wiring Device"
+        unspsc = "39121406"
+        raw_material = "Thermoplastic"
+        raw_application = "Electrical Distribution"
+        features = ["Impact resistant thermoplastic", "Quick-wire push-in terminals", "Meets UL and NEMA standards"]
+    elif "eyewear" in desc_lower or "glasses" in desc_lower or "glove" in desc_lower or "safety" in desc_lower or "kneeling" in desc_lower or "knee pad" in desc_lower or "edgsa" in (part_manuf or "").lower() or "tecge" in (part_manuf or "").lower():
+        dept = "Safety & PPE"
+        cat_class = "Personal Protective Equipment"
+        fine = "Safety Eyewear & Protective Gear"
+        classpath = "Safety & Security > PPE > Eye & Body Protection"
+        item_type = "Safety Eyewear" if "eyewear" in desc_lower or "glasses" in desc_lower else "Protective Workwear"
+        unspsc = "46181802"
+        raw_material = "Polycarbonate"
+        raw_application = "Worker Safety"
+        features = ["ANSI Z87.1+ impact rated", "Anti-scratch and anti-fog coating", "Ergonomic protective fit"]
+    elif "mortar" in desc_lower or "joint system" in desc_lower or "emseal" in desc_lower or "stone" in desc_lower or "reeca" in (part_manuf or "").lower() or "emsjo" in (part_manuf or "").lower():
+        dept = "Building Materials"
+        cat_class = "Masonry & Sealants"
+        fine = "Mortar & Expansion Joints"
+        classpath = "Building Materials > Masonry > Mortars & Joint Systems"
+        item_type = "Mortar Compound" if "mortar" in desc_lower else "Expansion Joint System"
+        unspsc = "30111500"
+        raw_material = "Composite"
+        raw_application = "Masonry Cutting"
+        features = ["High bond strength formula", "Pre-blended for consistency", "Meets ASTM C270 standards"]
+    elif "sanding belt" in desc_lower or "sand belt" in desc_lower:
         dept = "Abrasives"
         cat_class = "Sanding Belts"
         fine = "Abrasive Belts"
