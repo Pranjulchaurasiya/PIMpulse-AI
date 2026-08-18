@@ -8,6 +8,7 @@ zerops:
       deployFiles:
         - packages
         - agents
+        - retrieval
         - data
         - llm
         - rules
@@ -19,6 +20,8 @@ zerops:
         - graph.py
         - PIMpulse_Unilog_Enriched_1000.xlsx
         - PIMpulse_Unilog_Enriched_1000.csv
+        - Unihack__Expected_Output_-_Delivery_Format.csv
+        - Unihack__Sample_Dataset_-_Input.csv
     run:
       base: python@3.11
       ports:
