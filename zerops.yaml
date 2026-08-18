@@ -1,6 +1,6 @@
 # Zerops deployment configuration for PIMpulse AI
 zerops:
-  - setup: pimpulse-ai
+  - setup: pimpulseai
     build:
       base: python@3.11
       buildCommands:
