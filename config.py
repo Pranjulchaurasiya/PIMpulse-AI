@@ -10,9 +10,9 @@ class Settings(BaseSettings):
     # Groq Cloud settings (Ultra-Fast LPUs)
     GROQ_API_KEY: str = Field(default="")
     GROQ_BASE_URL: str = "https://api.groq.com/openai/v1"
-    GROQ_TEXT_MODEL: str = "llama-3.1-8b-instant"
-    GROQ_FAST_MODEL: str = "llama-3.1-8b-instant"
-    GROQ_VISION_MODEL: str = "llama-3.2-11b-vision-preview"
+    GROQ_TEXT_MODEL: str = "openai/gpt-oss-20b"
+    GROQ_FAST_MODEL: str = "openai/gpt-oss-20b"
+    GROQ_VISION_MODEL: str = "openai/gpt-oss-20b"
 
     # NVIDIA NIM settings
     NVIDIA_API_KEY: str = Field(default="")

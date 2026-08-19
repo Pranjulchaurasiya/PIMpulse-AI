@@ -169,13 +169,27 @@ def get_master_industrial_catalog() -> List[Dict[str, Any]]:
             "unspsc": unspsc
         })
 
-    # 6. Pneumatics & Cylinders (Festo, SMC)
-    pneu_items = [
-        ("Festo Corporation", "Festo", "DSBC-32-100-PPVA-N3", "ISO 15552 Standard Pneumatic Cylinder 32mm Bore 100mm Stroke", "40142100", {"bore_size": "32 mm", "stroke_length": "100 mm", "operating_pressure": "1 to 12 bar", "action_type": "Double-acting"}),
-        ("Festo Corporation", "Festo", "DSBC-40-160-PPVA-N3", "ISO 15552 Standard Pneumatic Cylinder 40mm Bore 160mm Stroke", "40142100", {"bore_size": "40 mm", "stroke_length": "160 mm", "operating_pressure": "1 to 12 bar", "action_type": "Double-acting"}),
-        ("SMC Corporation of America", "SMC", "CDQ2B32-50DZ", "Compact Air Cylinder Double Acting Single Rod 32mm Bore 50mm Stroke", "40142100", {"bore_size": "32 mm", "stroke_length": "50 mm", "operating_pressure": "0.05 to 1.0 MPa", "action_type": "Double-acting"})
+    # 7. Appliances & Dishwashers (Frigidaire, Whirlpool, KitchenAid)
+    appliance_items = [
+        ("Frigidaire", "Frigidaire", "PDSH4816AF", "24-in Top Control Built-In Dishwasher 49 dBA Stainless Steel", "52141501", {
+            "voltage": "120 V",
+            "amperage": "15 A",
+            "tub_material": "Stainless Steel",
+            "sound_level_dba": "49 dBA",
+            "color_finish": "Smudge-Proof Stainless Steel",
+            "capacity": "14 Place Settings",
+            "certifications": "ENERGY STAR Certified, NSF International"
+        }),
+        ("Whirlpool Corporation", "Whirlpool", "WDTS7024RZ", "24-in Fingerprint Resistant Dishwasher with 3rd Rack", "52141501", {
+            "voltage": "120 V",
+            "amperage": "15 A",
+            "tub_material": "Stainless Steel",
+            "sound_level_dba": "47 dBA",
+            "color_finish": "Fingerprint Resistant Stainless Steel",
+            "capacity": "15 Place Settings"
+        })
     ]
-    for mfr, brand, mpn, desc, unspsc, attrs in pneu_items:
+    for mfr, brand, mpn, desc, unspsc, attrs in appliance_items:
         catalog.append({
             "id": f"spec_{mpn.replace('-', '_')}",
             "mfr_name": mfr,
@@ -183,9 +197,34 @@ def get_master_industrial_catalog() -> List[Dict[str, Any]]:
             "mpn": mpn,
             "title": f"{mfr} {mpn} {desc} Specification",
             "url": f"https://www.{brand.lower()}.com/products/{mpn}",
-            "content": f"{mfr} {brand} #{mpn}: {desc}. Industrial pneumatic actuator. Specifications: {attrs}.",
+            "content": f"{mfr} {brand} Model #{mpn}: {desc}. Voltage: {attrs.get('voltage', '120 V')}, Amperage: {attrs.get('amperage', '15 A')}, Tub Material: {attrs.get('tub_material')}, Sound Level: {attrs.get('sound_level_dba')}, Color/Finish: {attrs.get('color_finish')}. UNSPSC {unspsc}.",
+            "attributes": {k: {"value": v, "unit": ""} for k, v in attrs.items()},
+            "unspsc": unspsc
+        })
+
+    # 8. Building Materials & Composite Decking (Trex, TimberTech)
+    decking_items = [
+        ("Trex Company, Inc.", "Trex", "543140016", "Transcend Lineage 1-in x 6-in x 16-ft Biscayne Grooved Deck Board", "30161801", {
+            "profile_type": "Grooved Edge",
+            "material": "Composite Wood-Plastic",
+            "finish": "Biscayne",
+            "nominal_dimensions": "1 in x 6 in x 16 ft",
+            "application": "Exterior Decking",
+            "warranty": "25-Year Limited Residential"
+        })
+    ]
+    for mfr, brand, mpn, desc, unspsc, attrs in decking_items:
+        catalog.append({
+            "id": f"spec_{mpn.replace('-', '_')}",
+            "mfr_name": mfr,
+            "brand_name": brand,
+            "mpn": mpn,
+            "title": f"{mfr} {mpn} {desc} Technical Datasheet",
+            "url": f"https://www.{brand.lower()}.com/products/decking/{mpn}",
+            "content": f"{mfr} {brand} Part #{mpn}: {desc}. Profile: {attrs.get('profile_type')}, Material: {attrs.get('material')}, Finish: {attrs.get('finish')}, Nominal Dimensions: {attrs.get('nominal_dimensions')}, Application: {attrs.get('application')}. UNSPSC {unspsc}.",
             "attributes": {k: {"value": v, "unit": ""} for k, v in attrs.items()},
             "unspsc": unspsc
         })
 
     return catalog
+

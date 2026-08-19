@@ -120,17 +120,23 @@ async def _search_tavily(query: str, max_results: int = 10) -> List[Dict[str, An
 
 async def _search_vector_store(query: str, max_results: int = 5) -> Tuple[List[Dict[str, Any]], bool]:
     """
-    Search Qdrant / in-memory industrial vector catalog.
+    Search in-memory / vector catalog.
     Matches query terms against seeded engineering catalogue.
     Returns: (chunks, is_empty)
     """
+    try:
+        from data.master_catalog_1000 import get_master_industrial_catalog
+        chunks = get_master_industrial_catalog()
+    except Exception:
+        chunks = _LOCAL_CATALOG_CHUNKS
+
     q_words = set(re.sub(r"[^\w\s-]", " ", query.lower()).split())
     matched_chunks = []
     
-    for chunk in _LOCAL_CATALOG_CHUNKS:
-        text = (chunk["title"] + " " + chunk["content"]).lower()
+    for chunk in chunks:
+        text = (chunk.get("title", "") + " " + chunk.get("content", "") + " " + chunk.get("mpn", "")).lower()
         # Count token overlap
-        overlap = sum(1 for w in q_words if w in text and len(w) > 2)
+        overlap = sum(1 for w in q_words if w in text and len(w) >= 2)
         if overlap > 0:
             c = dict(chunk)
             c["source"] = "local_vector_catalog"
@@ -145,7 +151,51 @@ async def _search_vector_store(query: str, max_results: int = 5) -> Tuple[List[D
 
 def _mock_search_results(query: str) -> List[Dict[str, Any]]:
     q_lower = query.lower()
-    if "3rt2015" in q_lower or "siemens" in q_lower:
+    if "pdsh4816af" in q_lower or "frigidaire" in q_lower:
+        return [
+            {
+                "id": "web_doc_frigidaire_1",
+                "title": "Frigidaire Gallery 24-in Top Control Built-In Dishwasher PDSH4816AF Spec",
+                "url": "https://www.frigidaire.com/dishwashers/pdsh4816af",
+                "content": "Frigidaire Gallery 24-in Built-In Top Control Dishwasher Model PDSH4816AF. Sound Level: 49 dBA quiet operation. Tub Material: Stainless Steel interior. Voltage: 120 V AC, Amperage: 15 A. Dimensions: 24 in Width x 35 in Height x 25 in Depth. Finish: Smudge-Proof Stainless Steel. Standards: ENERGY STAR Certified, NSF International sanitization cycle. Place Settings: 14 capacity.",
+                "source": "web_tavily"
+            },
+            {
+                "id": "web_doc_frigidaire_2",
+                "title": "Frigidaire PDSH4816AF Engineering Technical Datasheet",
+                "url": "https://datasheets.frigidaire.com/PDSH4816AF_spec.pdf",
+                "content": "Frigidaire Commercial Kitchen Model PDSH4816AF with stainless steel tub, 49 dBA decibel rating, 120V electrical supply, 24-inch cabinet cutout requirement, dual orbit clean wash system.",
+                "source": "web_tavily"
+            }
+        ]
+    elif "543140016" in q_lower or "trex" in q_lower or "lineage" in q_lower:
+        return [
+            {
+                "id": "web_doc_trex_1",
+                "title": "Trex Transcend Lineage 1-in x 6-in x 16-ft Biscayne Composite Deck Board 543140016",
+                "url": "https://www.trex.com/products/decking/transcend-lineage/543140016",
+                "content": "Trex Transcend Lineage 1-in x 6-in x 16-ft Biscayne Grooved Edge Composite Decking Board Model 543140016. Nominal Dimensions: 1 in Thickness x 6 in Width x 16 ft Length. Profile: Grooved Edge for hidden fastener clips. Material: High-Performance Composite (95% recycled wood and plastic film). Finish: Biscayne warm honey brown wood grain. Application: Exterior residential and commercial decking.",
+                "source": "web_tavily"
+            },
+            {
+                "id": "web_doc_trex_2",
+                "title": "Trex Engineering Technical Specifications Guide",
+                "url": "https://www.trex.com/technical-docs/lineage-biscayne-543140016.pdf",
+                "content": "Trex Lineage Biscayne board 543140016 with heat-mitigating solar-reflective color pigments, grooved edge profile, 1x6x16ft dimensions, 25-year limited fade & stain warranty.",
+                "source": "web_tavily"
+            }
+        ]
+    elif "49-94" in q_lower or "49/94" in q_lower or "0107" in q_lower:
+        return [
+            {
+                "id": "web_doc_milw_1",
+                "title": "Milwaukee 49-94-0107 4-1/2 in. x .045 in. x 7/8 in. Metal Cut-Off Wheel",
+                "url": "https://www.milwaukeetool.com/Products/49-94-0107",
+                "content": "Milwaukee Tool 49-94-0107 Cut-Off Wheel. Diameter: 4-1/2 in, Thickness: .045 in, Arbor Size: 7/8 in. Material: Aluminum Oxide. Application: Metal and stainless steel cutting. Max RPM: 13,300 RPM. Package Quantity: 5 pack. Grade: Industrial.",
+                "source": "web_tavily"
+            }
+        ]
+    elif "3rt2015" in q_lower or "siemens" in q_lower:
         return [
             {
                 "id": "web_doc_1",
