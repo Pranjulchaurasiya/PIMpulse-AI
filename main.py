@@ -203,6 +203,11 @@ async def enrich_product(req: EnrichRequest):
     if profile:
         profile["latency_ms"] = elapsed_ms
         record_sku_processed()
+        try:
+            from agents.unilog_pipeline import append_profile_to_master_sheet
+            append_profile_to_master_sheet(profile)
+        except Exception as e:
+            logger.warning(f"Could not auto-append to master sheet: {e}")
         return profile
         
     raise HTTPException(status_code=500, detail="Failed to generate product profile")
@@ -270,6 +275,11 @@ async def stream_enrichment(query: str = Query(...), image: Optional[str] = Quer
         if final_profile:
             final_profile["latency_ms"] = elapsed_ms
             record_sku_processed()
+            try:
+                from agents.unilog_pipeline import append_profile_to_master_sheet
+                append_profile_to_master_sheet(final_profile)
+            except Exception as e:
+                logger.warning(f"Could not auto-append to master sheet: {e}")
             yield f"data: {json.dumps({'type': 'result', 'payload': final_profile})}\n\n"
 
     return StreamingResponse(

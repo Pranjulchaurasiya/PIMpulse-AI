@@ -552,3 +552,110 @@ async def process_unilog_dataset(
         "output_xlsx": effective_out_xlsx,
         "sample_rows": enriched_rows[:3]
     }
+
+def profile_to_unilog_row(profile: Dict[str, Any]) -> Dict[str, Any]:
+    """Converts a single enriched profile from LangGraph state into the canonical 252-column Unilog dictionary."""
+    row = {col: "" for col in UNILOG_DELIVERY_COLUMNS}
+    
+    brand = profile.get("brand", "") or "Industrial"
+    mpn = profile.get("mpn", "") or profile.get("raw_input", "")
+    title = profile.get("standardized_title", "")
+    invoice = profile.get("invoice_desc", "")
+    mobile = profile.get("mobile_desc", "")
+    short_d = profile.get("short_desc", "")
+    mkt_d = profile.get("marketing_description", "")
+    tax = profile.get("taxonomy", {}) or {}
+    unspsc = tax.get("unspsc_code", "")
+    classpath = " > ".join([tax.get("segment", "Industrial"), tax.get("family", "Equipment"), tax.get("class_name", "General")])
+    
+    row["PART_NUMBER"] = mpn
+    row["Mfg_Part_Num"] = mpn
+    row["MANUFACTURER_PART_NUMBER"] = mpn
+    row["SKU - MY_PART_NUMBER"] = mpn
+    row["MANUFACTURER_NAME"] = brand
+    row["BRAND_NAME"] = brand
+    row["Unilog_Brand"] = brand
+    row["E1_Brand"] = brand
+    row["Part_Desc"] = title
+    row["Product Name"] = title
+    row["INVOICE_DESC"] = invoice
+    row["MOBILE_DESC"] = mobile
+    row["SHORT_DESC"] = short_d
+    row["MARKETING_DESCRIPTION"] = mkt_d
+    row["UNSPSC"] = unspsc
+    row["Classpath"] = classpath
+    
+    # Feature bullets
+    bullets = profile.get("feature_bullets", [])
+    for idx, bullet in enumerate(bullets[:20], start=1):
+        row[f"ITEM_FEATURES_{idx}"] = bullet
+        
+    # Attributes
+    attrs = profile.get("attributes", {})
+    idx = 1
+    for attr_name, attr_data in attrs.items():
+        if idx > 50:
+            break
+        if isinstance(attr_data, dict):
+            val = attr_data.get("value", "")
+            uom = attr_data.get("unit", "")
+        else:
+            val = str(attr_data)
+            uom = ""
+        row[f"ATTRIBUTE_LABEL {idx}"] = str(attr_name).replace("_", " ").title()
+        row[f"ATTRIBUTE_VALUE {idx}"] = str(val) if val is not None else ""
+        row[f"ATTRIBUTE_UOM {idx}"] = str(uom) if uom is not None else ""
+        idx += 1
+        
+    return row
+
+def append_profile_to_master_sheet(
+    profile: Dict[str, Any],
+    master_csv: str = "PIMpulse_Unilog_Enriched_1000.csv",
+    master_xlsx: str = "PIMpulse_Unilog_Enriched_1000.xlsx"
+) -> bool:
+    """Appends a single newly enriched SKU into both the master CSV and XLSX files."""
+    try:
+        new_row = profile_to_unilog_row(profile)
+        
+        # 1. Append to CSV (infer_schema_length=0 reads all columns as String to avoid type mismatch)
+        if os.path.exists(master_csv):
+            df_curr = pl.read_csv(master_csv, truncate_ragged_lines=True, infer_schema_length=0)
+            df_new = pl.DataFrame({k: [str(v or "")] for k, v in new_row.items()})
+            for col in df_curr.columns:
+                if col not in df_new.columns:
+                    df_new = df_new.with_columns(pl.lit("").alias(col))
+            df_new = df_new.select(df_curr.columns)
+            df_combined = pl.concat([df_curr, df_new], how="vertical")
+            with open(master_csv, "w", encoding="utf-8-sig") as f:
+                f.write(df_combined.write_csv())
+        else:
+            df_new = pl.DataFrame({k: [str(v or "")] for k, v in new_row.items()}).select(UNILOG_DELIVERY_COLUMNS)
+            with open(master_csv, "w", encoding="utf-8-sig") as f:
+                f.write(df_new.write_csv())
+
+        # 2. Append to XLSX if openpyxl available
+        if os.path.exists(master_xlsx):
+            import openpyxl
+            wb = openpyxl.load_workbook(master_xlsx)
+            ws = wb["Enriched_Output"] if "Enriched_Output" in wb.sheetnames else wb.active
+            headers = [cell.value for cell in ws[1]]
+            row_vals = [str(new_row.get(h, "") or "") for h in headers]
+            ws.append(row_vals)
+            # Apply text format to last row
+            last_row_idx = ws.max_row
+            text_format_cols = {f"ATTRIBUTE_VALUE {i}" for i in range(1, 51)} | {
+                "Mfg_Part_Num", "MANUFACTURER_PART_NUMBER", "SKU - MY_PART_NUMBER",
+                "INVOICE_DESC", "MOBILE_DESC", "SHORT_DESC", "UNSPSC"
+            }
+            for col_idx, header in enumerate(headers, start=1):
+                if header in text_format_cols:
+                    ws.cell(row=last_row_idx, column=col_idx).number_format = "@"
+            wb.save(master_xlsx)
+            
+        logger.info(f"Successfully appended SKU '{profile.get('raw_input')}' to master catalog.")
+        return True
+    except Exception as e:
+        logger.error(f"Failed to append SKU to master sheet: {e}")
+        return False
+
