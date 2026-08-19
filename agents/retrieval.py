@@ -62,7 +62,34 @@ except Exception as e:
 
 @with_retry(max_attempts=2)
 async def _search_tavily(query: str, max_results: int = 10) -> List[Dict[str, Any]]:
-    """Async Tavily web search with advanced depth, industrial inclusion, and consumer site exclusion."""
+    """Async Tavily web search with direct live URL scraping, advanced depth, and consumer site exclusion."""
+    query_str = query.strip()
+    
+    # Direct Live URL Ingestion: if input is a URL, fetch and extract specifications directly
+    if query_str.startswith("http://") or query_str.startswith("https://"):
+        try:
+            import httpx
+            from bs4 import BeautifulSoup
+            async with httpx.AsyncClient(timeout=10.0, follow_redirects=True) as client:
+                headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"}
+                resp = await client.get(query_str, headers=headers)
+                if resp.status_code == 200:
+                    soup = BeautifulSoup(resp.text, "html.parser")
+                    for tag in soup(["script", "style", "nav", "footer", "noscript"]):
+                        tag.decompose()
+                    title = soup.title.string.strip() if soup.title else query_str
+                    body_text = " ".join(soup.stripped_strings)[:5000]
+                    logger.info(f"Direct live URL fetched successfully: {query_str}")
+                    return [{
+                        "id": f"live_url_{hash(query_str) % 10000}",
+                        "title": title,
+                        "url": query_str,
+                        "content": f"{title}\n{body_text}",
+                        "source": "live_url_direct"
+                    }]
+        except Exception as e:
+            logger.warning(f"Could not fetch live URL directly ({e}), proceeding with Tavily search.")
+
     if not settings.TAVILY_API_KEY or settings.TAVILY_API_KEY.startswith("tvly-your"):
         return _mock_search_results(query)
         
