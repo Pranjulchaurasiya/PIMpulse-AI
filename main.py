@@ -511,10 +511,12 @@ async def unilog_upload_endpoint(file: UploadFile = File(...), max_rows: int = F
     elapsed = round(time.perf_counter() - t0, 2)
     throughput = round(len(enriched_rows) / max(elapsed, 0.001), 1)
 
-    inv_lens = out_df["INVOICE_DESC"].str.len_chars()
-    mob_lens = out_df["MOBILE_DESC"].str.len_chars()
-    inv_viol = out_df.filter(pl.col("INVOICE_DESC").str.len_chars() > 40).height
-    mob_viol = out_df.filter((pl.col("MOBILE_DESC").str.len_chars() < 60) | (pl.col("MOBILE_DESC").str.len_chars() > 80)).height
+    inv_lens = out_df["INVOICE_DESC"].fill_null("").str.len_chars()
+    mob_lens = out_df["MOBILE_DESC"].fill_null("").str.len_chars()
+    inv_viol = out_df.filter(pl.col("INVOICE_DESC").fill_null("").str.len_chars() > 40).height
+    mob_viol = out_df.filter((pl.col("MOBILE_DESC").fill_null("").str.len_chars() < 60) | (pl.col("MOBILE_DESC").fill_null("").str.len_chars() > 80)).height
+    invoice_compliance = 100.0 if inv_viol == 0 else round((len(enriched_rows) - inv_viol) / len(enriched_rows) * 100, 2)
+    mobile_compliance = 100.0 if mob_viol == 0 else round((len(enriched_rows) - mob_viol) / len(enriched_rows) * 100, 2)
 
     global _RUN_METRICS
     _RUN_METRICS["throughput_skus_per_sec"] = throughput

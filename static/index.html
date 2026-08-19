@@ -2015,8 +2015,14 @@ Where GroundingRatio = (Verbatim Substring Verified Attributes) / (Total Attribu
         progressPct.textContent = '85%';
 
         if (!res.ok) {
-          const err = await res.json();
-          throw new Error(err.detail || 'Upload processing failed');
+          let errMsg = 'Upload processing failed';
+          try {
+            const err = await res.json();
+            errMsg = err.detail || errMsg;
+          } catch (_) {
+            errMsg = await res.text() || errMsg;
+          }
+          throw new Error(errMsg);
         }
 
         const data = await res.json();
