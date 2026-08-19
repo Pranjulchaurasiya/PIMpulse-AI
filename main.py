@@ -546,11 +546,11 @@ async def get_unilog_stats():
         
     if os.path.exists(csv_file):
         import polars as pl
-        df = pl.read_csv(csv_file)
-        inv_lens = df["INVOICE_DESC"].str.len_chars()
-        mob_lens = df["MOBILE_DESC"].str.len_chars()
-        inv_viol = df.filter(pl.col("INVOICE_DESC").str.len_chars() > 40).height
-        mob_viol = df.filter((pl.col("MOBILE_DESC").str.len_chars() < 60) | (pl.col("MOBILE_DESC").str.len_chars() > 80)).height
+        df = pl.read_csv(csv_file, truncate_ragged_lines=True, infer_schema_length=0)
+        inv_lens = df["INVOICE_DESC"].fill_null("").str.len_chars()
+        mob_lens = df["MOBILE_DESC"].fill_null("").str.len_chars()
+        inv_viol = df.filter(pl.col("INVOICE_DESC").fill_null("").str.len_chars() > 40).height
+        mob_viol = df.filter((pl.col("MOBILE_DESC").fill_null("").str.len_chars() < 60) | (pl.col("MOBILE_DESC").fill_null("").str.len_chars() > 80)).height
         brands = df["BRAND_NAME"].unique().to_list() if "BRAND_NAME" in df.columns else []
         
         return {
@@ -602,7 +602,7 @@ async def get_unilog_dataset_paginated(
         raise HTTPException(status_code=404, detail="Catalog not yet generated. Please run /api/unilog/process first.")
 
     import polars as pl
-    df = pl.read_csv(csv_file)
+    df = pl.read_csv(csv_file, truncate_ragged_lines=True, infer_schema_length=0)
 
     if brand and brand.strip() and "BRAND_NAME" in df.columns:
         b_clean = brand.strip().lower()

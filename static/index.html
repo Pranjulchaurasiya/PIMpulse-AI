@@ -2094,6 +2094,11 @@ Where GroundingRatio = (Verbatim Substring Verified Attributes) / (Total Attribu
 
             renderProductProfile(data.payload);
             updateCostSummary();
+            fetchUnilogStats();
+            const datasetBtn = document.getElementById('tabDatasetBtn');
+            if (datasetBtn && datasetBtn.classList.contains('active')) {
+              loadDatasetPage(currentDatasetPage);
+            }
             eventSource.close();
             enrichBtn.disabled = false;
             enrichBtn.innerHTML = '<span>⚡ Enrich Profile</span>';
