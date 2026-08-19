@@ -147,7 +147,7 @@ async def generate_text(prompt: str, system_prompt: str = "", max_tokens: int = 
 async def generate_json(prompt: str, system_prompt: str = "", schema_description: str = "") -> Dict[str, Any]:
     """Generate structured JSON output from LLM."""
     full_prompt = f"{prompt}\n\nReturn strictly valid JSON adhering to: {schema_description}. Do NOT include markdown code fences or conversational text."
-    raw_text = await generate_text(full_prompt, system_prompt=system_prompt, temperature=0.0)
+    raw_text = await generate_text(full_prompt, system_prompt=system_prompt, max_tokens=2048, temperature=0.0)
     
     # Clean json formatting
     cleaned = raw_text.strip()
@@ -170,6 +170,24 @@ async def generate_json(prompt: str, system_prompt: str = "", schema_description
                 return json.loads(match.group(1))
             except Exception:
                 pass
+        
+        # Attempt auto-completing trailing braces/quotes for truncated LLM responses
+        try:
+            trimmed = cleaned
+            if trimmed.startswith("{"):
+                # Count open vs close braces
+                open_b = trimmed.count("{")
+                close_b = trimmed.count("}")
+                if open_b > close_b:
+                    # Strip any trailing comma or dangling quote
+                    trimmed = re.sub(r',\s*$', '', trimmed)
+                    if trimmed.count('"') % 2 != 0:
+                        trimmed += '"'
+                    trimmed += "}" * (open_b - close_b)
+                    return json.loads(trimmed)
+        except Exception:
+            pass
+
         return {"error": "Invalid JSON returned", "raw": raw_text}
 
 @with_retry(max_attempts=3)

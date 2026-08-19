@@ -101,6 +101,8 @@ async def extract_attributes_targeted(
     
     # Deterministic grounded extraction fallback if LLM returned empty attributes but technical chunks exist
     if not raw_attrs and graded_chunks:
+        full_text = " ".join([c.get("content", "") for c in graded_chunks])
+        fallback_attrs = {}
         # Multi-domain deterministic extraction fallbacks
         if "dishwasher" in category_class.lower() or "pdsh4816af" in clean_target.lower():
             if "120" in full_text:
