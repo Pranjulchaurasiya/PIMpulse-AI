@@ -58,7 +58,6 @@ Built for **[UniHack 2026](https://unilogcorp.com)** — Master Data Management 
 | Surface | URL / Location | Description |
 | :--- | :--- | :--- |
 | **PIMpulse Studio UI** | `http://localhost:8000` | Real-time telemetry, lineage drawer, and shared workbook studio |
-| **Live Master Google Sheet** | [**📊 View 252-Col Master Sheet ↗**](https://docs.google.com/spreadsheets/d/13bnKaCj8rCDzc8oINo3aQgybyKRVQBNnrd5VkjRZA-0/edit?usp=sharing) | Live interactive 252-column Unilog delivery catalog with 1,000 SKUs |
 | **Master Delivery Excel** | `PIMpulse_Unilog_Enriched_1000.xlsx` | 1,000 SKUs formatted with `@` text cells across 252 columns |
 | **Master Delivery CSV** | `PIMpulse_Unilog_Enriched_1000.csv` | UTF-8-BOM (`utf-8-sig`) delivery dataset |
 | **Stress Suite** | `test_stress_and_evaluator_simulation.py` | 200-item hidden evaluator simulation with zero invariant breaches |
