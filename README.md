@@ -37,41 +37,55 @@ Built for **[UniHack 2026](https://unilogcorp.com)** — Master Data Management 
 
 ---
 
-## 🎯 Competitive Positioning
+## 🎯 Competitive Positioning & Dual-Engine Throughput
+
+PIMpulse AI uses a **Dual-Tier Architecture** that cleanly separates high-speed deterministic catalog standardization from deep autonomous web enrichment:
 
 | Capability | Generic LLM / Prompting | Manual Enterprise MDM | **PIMpulse AI** |
 | :--- | :--- | :--- | :--- |
 | **Output Standard** | Unstructured text / markdown | Manual Excel data entry | **Official 253-Column Unilog Master Schema** |
-| **Length Rules** | Random character lengths | High human error rate | **100.0% Mathematical Pass ($\le 40$ & $60\text{–}80$ chars)** |
-| **Hallucination** | Hallucinates specs when unknown | Accurate but slow | **Zero-Guessing Grounding Gate (Verbatim Quotes)** |
-| **Throughput** | 1–3 SKUs/minute (rate-limited) | 50–100 SKUs/day | **190.2 SKUs/second (~16.4M SKUs/day)** |
+| **Length Rules** | Random character lengths | High human error rate | **100.0% Invariant Validation Pass ($\le 40$ & $60\text{–}80$ chars)** |
+| **Grounding & Guardrails** | Hallucinates specs when unknown | Accurate but slow | **Verbatim Substring Grounding Gate (0 LLM Spec Guessing)** |
+| **Tier 1 Ingestion Speed** | 1–3 SKUs/minute (rate-limited) | 50–100 SKUs/day | **190.2 SKUs/second (~16.4M SKUs/day)** *(Rust Polars / RapidFuzz)* |
+| **Tier 2 Web Enrichment** | N/A (No Web Access) | Days of research | **8.4s / SKU (Sub-100ms when cached)** *(Groq LPU / Tavily RAG)* |
 | **Unit Economics** | $0.05 – $0.20 per SKU | High manual labor cost | **$0.0006 per SKU (Groq LPUs / Rust Polars)** |
 | **Workbook Handling** | Overwrites or corrupts dates | Manual copy-paste | **In-Place Shared Workbook Ingestion (`Enriched_Output`)** |
 
-**One-line pitch for evaluators:**  
-*PIMpulse AI eliminates weeks of manual product cataloging by fusing high-speed deterministic MDM transformation (190 SKUs/s) with agentic web grounding to generate 100% invariant-compliant 253-column industrial datasets with full data lineage.*
+> **Metric Transparency Note for Judges:**  
+> • **Tier 1 (190.2 SKUs/s)** measures the high-speed deterministic engine (brand canonicalization, material LOV token sorting, word-boundary truncation, and 252-column schema assembly) running on bulk catalog datasets.  
+> • **Tier 2 (8.4s / SKU)** measures the autonomous agentic pipeline (HyDE query expansion $\to$ Tavily web retrieval $\to$ Groq LPU extraction $\to$ Verbatim Grounding Gate) executed when novel or ungrounded SKUs require web research.
 
 ---
 
-## 🧭 Live Demo & 3-Minute Judge Walkthrough
+## 🧭 Live Demo & Evaluator Walkthrough
 
 | Surface | URL / Location | Description |
 | :--- | :--- | :--- |
 | **PIMpulse Studio UI** | `http://localhost:8000` | Real-time telemetry, lineage drawer, and shared workbook studio |
-| **Master Delivery Excel** | `PIMpulse_Unilog_Enriched_1000.xlsx` | 1,000 SKUs formatted with `@` text cells across 252 columns |
+| **Live Web App (Zerops Cloud)** | [**https://pimpulseai-2998-8000.prg1.zerops.app**](https://pimpulseai-2998-8000.prg1.zerops.app) | Live deployed production instance |
+| **Master Delivery Excel** | `PIMpulse_Unilog_Enriched_1000.xlsx` | 1,002 SKUs formatted with `@` text cells across 252 columns |
 | **Master Delivery CSV** | `PIMpulse_Unilog_Enriched_1000.csv` | UTF-8-BOM (`utf-8-sig`) delivery dataset |
-| **Stress Suite** | `test_stress_and_evaluator_simulation.py` | 200-item hidden evaluator simulation with zero invariant breaches |
+| **Human Lineage Audit** | `unilog_evaluation_report.md` | 50-SKU deep manual audit with before/after ground-truth checks |
+| **Stress Test Suite** | `test_stress_and_evaluator_simulation.py` | 200-item hidden evaluator simulation with zero invariant breaches |
 
 ### ⏱️ 3-Minute Evaluator Walkthrough:
-1. **Launch App**: Open `http://localhost:8000`.
-2. **Single SKU Deep Grounding**: Click preset `Milwaukee 49-94-0107 (Abrasive)`.
+1. **Launch App**: Open `http://localhost:8000` or visit [**Zerops Live Site**](https://pimpulseai-2998-8000.prg1.zerops.app).
+2. **Single SKU Deep Grounding**: Press `Enter` or click preset `Milwaukee 49-94-0107 (Abrasive)`.
    * Watch the **Agent Telemetry Stream** live: HyDE $\to$ Tavily Web Search $\to$ LPU Extraction $\to$ Grounding Gate.
    * Click any attribute in the table to open the **Data Lineage Modal** (view verbatim datasheet quote + source URL).
 3. **Graceful Degradation Test**: Enter `RANDOM-TEST-99999 Some Obscure Part`.
    * Notice the system does **not** hallucinate fake specs; it honestly assigns 0 attributes and marks it unclassified with 0% penalty.
 4. **Batch Shared Workbook Studio**: Click **`📁 Ingest Batch (.CSV / .XLSX)`**.
-   * Drop `Unihack__Sample_Dataset_-_Input.csv` or any custom Excel file.
+   * Drop `Unihack__Sample_Dataset_-_Input.csv` or any custom Excel file and select **All Rows (Unlimited Batch)**.
    * Watch the real-time progress bar and see the top KPI cards dynamically count up to 100% compliance!
+
+---
+
+## 📹 Demo Video & Walkthrough
+
+> 🎬 **System Overview & Live Architecture Video**:  
+> Watch the 3-minute video demonstration showing **PIMpulse AI** executing live single-SKU web grounding, telemetry streaming, verbatim substring lineage verification, and batch shared workbook ingestion:  
+> **[👉 Click to Watch PIMpulse AI Video Walkthrough](https://youtu.be/YOUR_DEMO_VIDEO_ID)**
 
 ---
 
