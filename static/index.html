@@ -1235,6 +1235,7 @@
             class="search-input" 
             placeholder="Enter messy industrial string (e.g. 'PDSH4816AF', 'MlLW_  49/94/0107  (4031) !!', 'Trex 543140016 Lineage', 'Siemens 3RT2015-1BB41')..."
             value="PDSH4816AF"
+            onkeydown="if(event.key==='Enter') startEnrichment()"
           />
         </div>
         <button id="enrichBtn" class="btn-enrich" onclick="startEnrichment()">
@@ -1528,7 +1529,9 @@
           <select id="uploadLimit" style="background: var(--bg-surface); border: 1px solid var(--border-bright); color: var(--text-main); padding: 4px 8px; border-radius: 6px; font-size: 12px;">
             <option value="50">50 Rows (Quick Demo)</option>
             <option value="200">200 Rows (Hidden Evaluator Spec)</option>
-            <option value="1000" selected>All Rows (Up to 1,000)</option>
+            <option value="1000">1,000 Rows</option>
+            <option value="5000">5,000 Rows</option>
+            <option value="100000" selected>All Rows (Unlimited Batch)</option>
           </select>
         </div>
         <button class="btn-enrich" id="uploadSubmitBtn" onclick="submitBatchUpload()" style="padding: 10px 20px;">
