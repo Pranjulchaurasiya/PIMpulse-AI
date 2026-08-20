@@ -56,9 +56,13 @@ def semantic_truncate_invoice_desc(
 
     candidate = " ".join(current_list)
 
-    # Step 4: Hard word-boundary safety net if still over max_length
+    # Step 4: Hard word-boundary safety net if still over max_length (never truncate mid-word)
     if len(candidate) > max_length:
-        candidate = candidate[:max_length].rstrip(" ,.-/")
+        truncated_slice = candidate[:max_length]
+        if " " in truncated_slice:
+            candidate = truncated_slice.rsplit(" ", 1)[0].rstrip(" ,.-/")
+        else:
+            candidate = truncated_slice.rstrip(" ,.-/")
 
     # Invariant assertion: must be ALL CAPS and <= 40 chars
     return candidate.upper()

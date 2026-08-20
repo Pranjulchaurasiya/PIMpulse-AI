@@ -50,19 +50,33 @@ def classify_source_authority(url: str, mfr_domain: str = "") -> Tuple[str, floa
 
     return "distributor", AUTHORITY_HIERARCHY["distributor"]
 
+VOLTAGE_CLEANER = {
+    "18V MAX": "18 V",
+    "20V PEAK": "18 V",
+    "20V MAX": "18 V",
+    "12V MAX": "10.8 V",
+    "10.8V": "10.8 V",
+    "60V MAX": "54 V"
+}
+
 def normalize_marketing_units(value_str: str) -> str:
     """
     Normalizes industrial marketing platform traps.
-    e.g., '18V MAX' / '20V Peak' -> '18 V', '5inch' -> '5 in'
+    e.g., '18V MAX' / '20V Peak' -> '18 V', '12V MAX' -> '10.8 V', '5inch' -> '5 in'
     """
     if not value_str:
         return value_str
 
     val = str(value_str).strip()
 
-    # 18V MAX / 20V Peak power platform trap
+    # Marketing voltage platform traps
+    for mkt, norm in VOLTAGE_CLEANER.items():
+        if re.search(rf"(?i)\b{re.escape(mkt)}\b", val):
+            val = re.sub(rf"(?i)\b{re.escape(mkt)}\b", norm, val)
+
     val = re.sub(r"(?i)\b20\s*v\s*(max|peak)\b", "18 V", val)
     val = re.sub(r"(?i)\b18\s*v\s*(max|nominal)\b", "18 V", val)
+    val = re.sub(r"(?i)\b12\s*v\s*max\b", "10.8 V", val)
 
     # Separate unit spaces (e.g. 5inch -> 5 in, 10mm -> 10 mm)
     val = re.sub(r"(?i)(\d+)\s*(inch|in\b)", r"\1 in", val)

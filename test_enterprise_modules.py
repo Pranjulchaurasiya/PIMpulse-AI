@@ -99,7 +99,7 @@ def test_audit_ledger_cryptographic_verification():
     assert valid is False, "Chain verification must detect record tampering"
 
 # ==============================================================================
-# TEST 4: Semantic Token-Importance Truncator
+# TEST 4: Semantic Token-Importance Truncator & Word-Boundary Safety
 # ==============================================================================
 
 def test_semantic_truncator():
@@ -110,6 +110,12 @@ def test_semantic_truncator():
     assert truncated == truncated.upper()
     assert "MILWAUKEE" in truncated
     assert "SPECIAL" not in truncated, "Noise stop words should be stripped first"
+
+    # Test word boundary truncation safety (never cut mid-word e.g. MOTOR ASY -> MOTOR A)
+    raw_motor = "DEWALT CARBON BRUSH FOR MOTOR ASY"
+    trunc_motor = semantic_truncate_invoice_desc(raw_motor, brand_name="DEWALT", mpn="", max_length=30)
+    assert len(trunc_motor) <= 30
+    assert not trunc_motor.endswith(" A"), "Must not slice token mid-word"
 
 # ==============================================================================
 # TEST 5: Attribute Confidence Tiers (A/B/C/D)

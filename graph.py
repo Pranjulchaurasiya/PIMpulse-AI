@@ -161,27 +161,45 @@ async def node_extraction(state: ProductState) -> Dict[str, Any]:
     mandatory = state.get("mandatory_attrs", [])
     graded = state.get("graded_chunks", [])
     
-    ext_res = await extract_attributes_targeted(raw_input, class_name, mandatory, graded)
-    extracted = ext_res["extracted_attrs"]
-    ambiguity_flag = ext_res.get("ambiguity_flag", False)
-    
-    ambig_str = " [AMBIGUOUS: Missing Brand/MPN]" if ambiguity_flag else ""
-    log = _create_log_entry(
-        "EXTRACTION",
-        "COMPLETED",
-        f"Extracted {len(extracted)} structured attributes targeted for '{class_name}'{ambig_str}",
-        {"extracted_keys": list(extracted.keys()), "ambiguity_flag": ambiguity_flag}
-    )
-    
-    return {
-        "extracted_attrs": extracted,
-        "standardized_title": ext_res["standardized_title"],
-        "marketing_description": ext_res["marketing_description"],
-        "feature_bullets": ext_res["feature_bullets"],
-        "provenance": ext_res["provenance"],
-        "ambiguity_flag": ambiguity_flag,
-        "agent_logs": [log]
-    }
+    try:
+        ext_res = await extract_attributes_targeted(raw_input, class_name, mandatory, graded)
+        extracted = ext_res.get("extracted_attrs", {})
+        ambiguity_flag = ext_res.get("ambiguity_flag", False)
+        
+        ambig_str = " [AMBIGUOUS: Missing Brand/MPN]" if ambiguity_flag else ""
+        log = _create_log_entry(
+            "EXTRACTION",
+            "COMPLETED",
+            f"Extracted {len(extracted)} structured attributes targeted for '{class_name}'{ambig_str}",
+            {"extracted_keys": list(extracted.keys()), "ambiguity_flag": ambiguity_flag}
+        )
+        
+        return {
+            "extracted_attrs": extracted,
+            "standardized_title": ext_res.get("standardized_title", raw_input),
+            "marketing_description": ext_res.get("marketing_description", ""),
+            "feature_bullets": ext_res.get("feature_bullets", []),
+            "provenance": ext_res.get("provenance", {}),
+            "ambiguity_flag": ambiguity_flag,
+            "agent_logs": [log]
+        }
+    except Exception as exc:
+        logger.error(f"Multi-model failover extraction exception caught safely: {exc}")
+        log = _create_log_entry(
+            "EXTRACTION",
+            "UNCLASSIFIED_FAILOVER",
+            f"Extraction failover caught unhandled exception ({exc}). Emitted UNCLASSIFIED safety state.",
+            {"error": str(exc)}
+        )
+        return {
+            "extracted_attrs": {},
+            "standardized_title": raw_input,
+            "marketing_description": f"Unclassified product profile for '{raw_input}'",
+            "feature_bullets": [],
+            "provenance": {"failover_error": str(exc)},
+            "ambiguity_flag": True,
+            "agent_logs": [log]
+        }
 
 async def node_grounding(state: ProductState) -> Dict[str, Any]:
     extracted = state.get("extracted_attrs", {})
