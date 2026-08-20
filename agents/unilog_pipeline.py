@@ -22,6 +22,7 @@ from agents.unilog_rules import (
     APPROVED_MATERIAL_LOV,
     APPROVED_APPLICATION_LOV
 )
+from agents.semantic_truncator import semantic_truncate_invoice_desc
 from config import settings
 
 # Master 252 delivery columns from official Unilog delivery format
@@ -273,7 +274,7 @@ async def enrich_unilog_row(row: Dict[str, Any]) -> Dict[str, Any]:
     application = match_lov_value(raw_application, APPROVED_APPLICATION_LOV)
 
     # 3. MDM Descriptions with strict word-boundary guarantees
-    invoice_desc = format_invoice_desc(mfr_code, mpn, dims, raw_desc)
+    invoice_desc = semantic_truncate_invoice_desc(raw_desc, brand_name=brand_name, mpn=mpn, max_length=40)
     mobile_desc = format_mobile_desc(mfr_name, brand_name, mpn, item_type, dims, series=series)
     short_desc = format_short_desc(brand_name, series, mpn, item_type, dims)
     

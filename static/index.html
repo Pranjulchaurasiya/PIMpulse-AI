@@ -1605,40 +1605,87 @@
       </div>
 
       <div>
-        <h3 style="font-size: 13px; color: var(--text-main); margin-bottom: 8px;">1. Autonomous 26-Node LangGraph State Machine</h3>
+        <!-- Data Ingestion & Commerce-Ready Output Boundary Header -->
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; font-size: 11px;">
+          <div style="background: rgba(56, 189, 248, 0.1); color: var(--accent-cyan); border: 1px solid rgba(56, 189, 248, 0.3); padding: 4px 10px; border-radius: 6px; font-weight: 600; display: flex; align-items: center; gap: 6px;">
+            <span>📥 Data Ingestion</span>
+            <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--text-main);">[Raw Part # + Brand + Desc]</span>
+          </div>
+          <div style="font-size: 12px; color: var(--text-dim); font-weight: 700;">➔ Flow Direction: Node 1 ➔ 2 ➔ 3 ⬇ 4 ➔ 5 ➔ 6 ➔</div>
+          <div style="background: rgba(16, 185, 129, 0.1); color: var(--accent-emerald); border: 1px solid rgba(16, 185, 129, 0.3); padding: 4px 10px; border-radius: 6px; font-weight: 600; display: flex; align-items: center; gap: 6px;">
+            <span>📤 Commerce-Ready Output</span>
+            <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--text-main);">[Clean Unilog 252-Column File]</span>
+          </div>
+        </div>
+
+        <h3 style="font-size: 13px; color: var(--text-main); margin-bottom: 8px;">1. Autonomous 26-Node LangGraph State Machine (Directed Pipeline)</h3>
         <div class="arch-flow-grid">
-          <div class="arch-node-card">
-            <span class="arch-node-title">1. Taxonomy Pre-Filter</span>
+          <div class="arch-node-card" style="position: relative;">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <span class="arch-node-title">1. Taxonomy Pre-Filter</span>
+              <span style="color: var(--accent-cyan); font-weight: 700; font-size: 11px;">➔</span>
+            </div>
             <span class="arch-node-desc">Rapid sub-millisecond keyword, regex and LOV matcher mapping to official UNSPSC codes.</span>
           </div>
-          <div class="arch-node-card">
-            <span class="arch-node-title">2. HyDE Query Expansion</span>
+
+          <div class="arch-node-card" style="position: relative;">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <span class="arch-node-title">2. HyDE Query Expansion</span>
+              <span style="color: var(--accent-cyan); font-weight: 700; font-size: 11px;">➔</span>
+            </div>
             <span class="arch-node-desc">Generates hypothetical technical datasheets to construct high-precision multi-keyword search vectors.</span>
           </div>
-          <div class="arch-node-card">
-            <span class="arch-node-title">3. Reciprocal Rank Fusion (RRF)</span>
+
+          <div class="arch-node-card" style="position: relative;">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <span class="arch-node-title">3. Reciprocal Rank Fusion</span>
+              <span style="color: var(--accent-amber); font-weight: 700; font-size: 11px;">⬇</span>
+            </div>
             <span class="arch-node-desc">Fuses dense vector and sparse keyword search results via <code>RRF = &Sigma; (w_d / (60 + rank_d))</code>.</span>
           </div>
-          <div class="arch-node-card">
-            <span class="arch-node-title">4. Grounding Substring Gate</span>
+
+          <div class="arch-node-card" style="position: relative;">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <span class="arch-node-title">4. Grounding Substring Gate</span>
+              <span style="color: var(--accent-cyan); font-weight: 700; font-size: 11px;">➔</span>
+            </div>
             <span class="arch-node-desc">Strictly validates verbatim character substrings against raw OEM HTML chunks before confirming any attribute.</span>
           </div>
-          <div class="arch-node-card">
-            <span class="arch-node-title">5. Length & LOV Invariants</span>
+
+          <div class="arch-node-card" style="position: relative;">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <span class="arch-node-title">5. Length & LOV Invariants</span>
+              <span style="color: var(--accent-cyan); font-weight: 700; font-size: 11px;">➔</span>
+            </div>
             <span class="arch-node-desc">Hardened deterministic token formatting: <code>INVOICE_DESC</code> (&le;40 chars) and <code>MOBILE_DESC</code> (60–80 chars).</span>
           </div>
-          <div class="arch-node-card">
-            <span class="arch-node-title">6. Auditor Escalation Gate</span>
+
+          <div class="arch-node-card" style="border: 1.5px solid var(--accent-amber); background: rgba(245, 158, 11, 0.08); position: relative;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+              <span class="arch-node-title" style="color: var(--accent-amber);">6. Auditor Escalation Gate</span>
+              <span style="background: rgba(245, 158, 11, 0.2); color: var(--accent-amber); border: 1px solid rgba(245, 158, 11, 0.4); font-size: 9px; padding: 1px 5px; border-radius: 4px; font-weight: 700;">⚠️ Human-in-the-Loop Safety Valve</span>
+            </div>
             <span class="arch-node-desc">Computes mathematical confidence score. If &lt;70% or ungrounded, routes to <code>ask_user</code> review without hallucinating.</span>
           </div>
         </div>
       </div>
 
-      <div>
+      <div style="margin-top: 16px;">
         <h3 style="font-size: 13px; color: var(--text-main); margin-bottom: 8px;">2. Zero-Hallucination Confidence Equation</h3>
-        <div class="arch-math-box">
-Confidence = 0.30 &middot; Coverage + 0.30 &middot; GroundingRatio + 0.20 &middot; TaxonomyConf + 0.20 &middot; RRF_Agreement - ConflictPenalty
-Where GroundingRatio = (Verbatim Substring Verified Attributes) / (Total Attributes Extracted)
+        <div class="arch-math-box" style="background: #090d14; border: 1px solid var(--border-bright); border-radius: 8px; padding: 14px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--text-main); line-height: 1.6;">
+          <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-weight: 600;">
+            <span style="color: var(--accent-cyan);">Confidence</span>
+            <span>=</span>
+            <span style="background: rgba(56, 189, 248, 0.1); color: var(--accent-cyan); padding: 2px 6px; border-radius: 4px; border: 1px solid rgba(56, 189, 248, 0.2);">( 0.30 &middot; Coverage + 0.30 &middot; GroundingRatio + 0.20 &middot; TaxonomyConf + 0.20 &middot; RRF_Agreement )</span>
+          </div>
+          <div style="margin-top: 6px; display: flex; align-items: center; gap: 8px;">
+            <span style="color: var(--accent-rose); font-weight: 700; font-size: 14px;">&minus;</span>
+            <span style="background: rgba(244, 63, 94, 0.15); color: var(--accent-rose); padding: 3px 8px; border-radius: 4px; border: 1px solid rgba(244, 63, 94, 0.3); font-weight: 700;">ConflictPenalty</span>
+            <span style="font-size: 10.5px; color: var(--text-muted); font-style: italic;">(&minus;0.08 per source variance)</span>
+          </div>
+          <div style="margin-top: 8px; font-size: 11px; color: var(--text-dim); border-top: 1px dashed var(--border-subtle); padding-top: 6px;">
+            Where <strong>GroundingRatio</strong> = <code>(Verbatim Substring Verified Attributes) / (Total Attributes Extracted)</code>
+          </div>
         </div>
       </div>
 

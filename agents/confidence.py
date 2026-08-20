@@ -165,3 +165,29 @@ def build_final_product_profile(
         cached=cached,
         latency_ms=latency_ms
     )
+
+def classify_attribute_confidence_tier(
+    attr_name: str,
+    value: str,
+    is_verbatim_grounded: bool,
+    source_authority_tier: str,
+    has_conflict: bool = False
+) -> Dict[str, Any]:
+    """
+    Classifies an attribute into Enterprise Trust Tiers:
+      Tier A: Autopublish (Verbatim OEM grounded + no conflicts)
+      Tier B: Spot-check (Single OEM source, verified domain)
+      Tier C: Review Required (Distributor source or conflict detected)
+      Tier D: Rejected/Null (Failed grounding gate)
+    """
+    if not value or str(value).strip().lower() in ("", "null", "none", "n/a", "unknown"):
+        return {"tier": "D", "action": "REJECTED_NULL", "description": "Null or ungrounded value emitted"}
+
+    if is_verbatim_grounded and source_authority_tier in ("oem_pdf", "oem_web") and not has_conflict:
+        return {"tier": "A", "action": "AUTOPUBLISH", "description": "Verbatim OEM grounded without conflicts"}
+
+    if is_verbatim_grounded and source_authority_tier == "distributor" and not has_conflict:
+        return {"tier": "B", "action": "SPOT_CHECK", "description": "Authorized distributor grounded; 5% audit sample"}
+
+    return {"tier": "C", "action": "REVIEW_REQUIRED", "description": "Distributor/marketplace source or conflict detected"}
+

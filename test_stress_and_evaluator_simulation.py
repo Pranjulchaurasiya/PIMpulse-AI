@@ -165,4 +165,4 @@ async def test_hidden_200_item_evaluator_simulation():
         # 4. UNSPSC must be 8 digits
         assert len(r["UNSPSC"]) == 8 and r["UNSPSC"].isdigit(), f"Row {idx} UNSPSC '{r['UNSPSC']}' is not 8 digits"
         
-    print("\n✅ Successfully validated all 200 hidden simulation test items with 100% compliance!")
+    print("\n[SUCCESS] Successfully validated all 200 hidden simulation test items with 100% compliance!")

@@ -36,12 +36,26 @@ def get_openai_client():
         )
     return _openai_client
 
+AGENTROUTER_HEADERS = {
+    "User-Agent": "claude-cli/2.1.119 (external, cli)",
+    "x-app": "cli",
+    "anthropic-beta": "interleaved-thinking-2025-05-14,redact-thinking-2026-02-12,context-management-2025-06-27,prompt-caching-scope-2026-01-05,claude-code-20250219",
+    "anthropic-version": "2023-06-01",
+    "x-stainless-arch": "x64",
+    "x-stainless-lang": "js",
+    "x-stainless-os": "Linux"
+}
+
 def get_anthropic_client():
     global _anthropic_client
     if _anthropic_client is None:
         from anthropic import AsyncAnthropic
         api_key = settings.ANTHROPIC_API_KEY or os.environ.get("ANTHROPIC_API_KEY", "mock-key")
-        kwargs = {"api_key": api_key, "timeout": 15.0}
+        kwargs = {
+            "api_key": api_key,
+            "timeout": 20.0,
+            "default_headers": AGENTROUTER_HEADERS
+        }
         if settings.ANTHROPIC_BASE_URL:
             kwargs["base_url"] = settings.ANTHROPIC_BASE_URL
         _anthropic_client = AsyncAnthropic(**kwargs)

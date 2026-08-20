@@ -1,0 +1,51 @@
+version: "1.0.0"
+name: "Unilog Master Catalog Data Contract"
+description: "Declarative MDM Schema Specification for UniHack 2026 Unilog Delivery Format"
+
+columns:
+  INVOICE_DESC:
+    type: "string"
+    required: true
+    max_length: 40
+    transform: "uppercase"
+    regex: "^[A-Z0-9\\s\\.\\-\\/'\",#%+&()]+$"
+    description: "ERP Invoice Description <= 40 chars ALL CAPS"
+
+  MOBILE_DESC:
+    type: "string"
+    required: true
+    min_length: 60
+    max_length: 80
+    regex: "^.+$"
+    description: "E-Commerce Mobile Description strictly within 60 to 80 chars"
+
+  UNSPSC:
+    type: "string"
+    required: true
+    exact_length: 8
+    regex: "^[0-9]{8}$"
+    description: "Standardized 8-digit UNSPSC commodity code"
+
+  MANUFACTURER_NAME:
+    type: "string"
+    required: true
+    max_length: 100
+    description: "Canonical OEM Manufacturer Name"
+
+  BRAND_NAME:
+    type: "string"
+    required: true
+    max_length: 100
+    description: "Canonical OEM Brand Name"
+
+  MANUFACTURER_PART_NUMBER:
+    type: "string"
+    required: true
+    max_length: 50
+    description: "Raw OEM Part Number"
+
+  MFR_URL:
+    type: "string"
+    required: false
+    regex: "^(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?$"
+    description: "OEM Product Specification Datasheet URL"
