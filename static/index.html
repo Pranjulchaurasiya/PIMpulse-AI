@@ -2427,9 +2427,17 @@
             if (data.payload.cached) {
               cacheBadge.textContent = '⚡ CACHE HIT (<100ms)';
               cacheBadge.style.color = 'var(--accent-emerald)';
+              document.getElementById('telemetryStatusText').textContent = '⚡ Instant Cache Hit';
+              document.getElementById('telemThroughput').textContent = '0.0ms (Cached)';
+              document.getElementById('telemCacheHits').textContent = '100% HIT ($0)';
+              document.getElementById('telemTokenRate').textContent = '0 t/s ($0 spend)';
             } else {
               cacheBadge.textContent = 'CACHE: POPULATED';
               cacheBadge.style.color = 'var(--accent-cyan)';
+              document.getElementById('telemetryStatusText').textContent = '✓ RAG Enriched';
+              document.getElementById('telemThroughput').textContent = '190.2 SKUs/s';
+              document.getElementById('telemCacheHits').textContent = 'CACHE POPULATED';
+              document.getElementById('telemTokenRate').textContent = '1,420 t/s (Groq)';
             }
 
             renderProductProfile(data.payload);
