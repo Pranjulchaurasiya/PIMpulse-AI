@@ -23,7 +23,7 @@ class Settings(BaseSettings):
 
     # Anthropic settings
     ANTHROPIC_API_KEY: str = Field(default="")
-    ANTHROPIC_MODEL: str = "claude-opus-5"
+    ANTHROPIC_MODEL: str = "claude-3-5-sonnet-20241022"
     ANTHROPIC_BASE_URL: str = Field(default="")
 
     # Tavily Web Search

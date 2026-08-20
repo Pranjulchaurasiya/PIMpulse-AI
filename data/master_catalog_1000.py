@@ -1,5 +1,5 @@
 """
-Master Industrial Engineering Catalog Knowledge Base (1000+ Distinct Industrial SKUs)
+Master Industrial Engineering Catalog Knowledge Base (64 Core Hand-Curated Industrial Reference Seed SKUs)
 Provides pre-seeded engineering technical specifications across 25 industrial categories
 for local hybrid retrieval and RRF multi-source fusion.
 """

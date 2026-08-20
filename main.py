@@ -9,6 +9,7 @@ if os.path.exists(_pkg_dir) and _pkg_dir not in sys.path:
 import json
 import time
 import asyncio
+import logging
 from typing import Optional, Dict, Any, List
 from fastapi import FastAPI, Query, Request, HTTPException, UploadFile, File, Form
 from fastapi.responses import HTMLResponse, StreamingResponse, JSONResponse, FileResponse
@@ -22,6 +23,8 @@ from cache import semantic_cache
 from graph import pimpulse_pipeline
 from agents.excel_export import export_to_excel
 from llm.cost_tracker import get_cost_summary, record_sku_processed
+
+logger = logging.getLogger("pimpulse.main")
 
 app = FastAPI(
     title="PIMpulse AI",
@@ -639,8 +642,8 @@ async def download_unilog_file(format: str = Query("xlsx", regex="^(xlsx|csv)$")
     """Provides 1-click download of the active enriched Unilog dataset."""
     global _ACTIVE_DATASET_CSV, _ACTIVE_DATASET_XLSX
     
-    if source == "upload" and os.path.exists("PIMpulse_Uploaded_Enriched.xlsx"):
-        file_path = "PIMpulse_Uploaded_Enriched.xlsx" if format == "xlsx" else "PIMpulse_Uploaded_Enriched.csv"
+    if source == "upload" and _ACTIVE_DATASET_XLSX and os.path.exists(_ACTIVE_DATASET_XLSX):
+        file_path = _ACTIVE_DATASET_XLSX if format == "xlsx" else _ACTIVE_DATASET_CSV
         filename = f"PIMpulse_Enriched_Uploaded_Catalog.{format}"
     else:
         file_path = "PIMpulse_Unilog_Enriched_1000.xlsx" if format == "xlsx" else "PIMpulse_Unilog_Enriched_1000.csv"

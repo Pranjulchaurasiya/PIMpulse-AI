@@ -3,7 +3,7 @@
 # ⚡ PIMpulse AI
 ### **Autonomous Enterprise Product Enrichment & MDM Delivery Engine**
 
-> **Paste any messy industrial string or upload raw spreadsheets (`.csv` / `.xlsx`) → PIMpulse AI normalizes brands, extracts physical specifications, grounds attributes against OEM datasheets, enforces strict length invariants, and generates 253-column Unilog master catalogs at 190 SKUs/sec.**
+> **Paste any messy industrial string or upload raw spreadsheets (`.csv` / `.xlsx`) → PIMpulse AI normalizes brands, extracts physical specifications, grounds attributes against OEM datasheets, enforces strict length invariants, and generates 252-column Unilog master catalogs at 190 SKUs/sec.**
 
 Built for **[UniHack 2026](https://unilogcorp.com)** — Master Data Management & Agentic AI Track.
 
@@ -43,7 +43,7 @@ PIMpulse AI uses a **Dual-Tier Architecture** that cleanly separates high-speed 
 
 | Capability | Generic LLM / Prompting | Manual Enterprise MDM | **PIMpulse AI** |
 | :--- | :--- | :--- | :--- |
-| **Output Standard** | Unstructured text / markdown | Manual Excel data entry | **Official 253-Column Unilog Master Schema** |
+| **Output Standard** | Unstructured text / markdown | Manual Excel data entry | **Official 252-Column Unilog Master Schema** |
 | **Length Rules** | Random character lengths | High human error rate | **100.0% Invariant Validation Pass ($\le 40$ & $60\text{–}80$ chars)** |
 | **Grounding & Guardrails** | Hallucinates specs when unknown | Accurate but slow | **Verbatim Substring Grounding Gate (0 LLM Spec Guessing)** |
 | **Tier 1 Ingestion Speed** | 1–3 SKUs/minute (rate-limited) | 50–100 SKUs/day | **190.2 SKUs/second (~16.4M SKUs/day)** *(Rust Polars / RapidFuzz)* |
@@ -63,7 +63,7 @@ PIMpulse AI uses a **Dual-Tier Architecture** that cleanly separates high-speed 
 | :--- | :--- | :--- |
 | **PIMpulse Studio UI** | `http://localhost:8000` | Real-time telemetry, lineage drawer, and shared workbook studio |
 | **Live Web App (Zerops Cloud)** | [**https://pimpulseai-2998-8000.prg1.zerops.app**](https://pimpulseai-2998-8000.prg1.zerops.app) | Live deployed production instance |
-| **Master Delivery Excel** | `PIMpulse_Unilog_Enriched_1000.xlsx` | 1,002 SKUs formatted with `@` text cells across 252 columns |
+| **Master Delivery Excel** | `PIMpulse_Unilog_Enriched_1000.xlsx` | 1,000 SKUs formatted with `@` text cells across 252 columns |
 | **Master Delivery CSV** | `PIMpulse_Unilog_Enriched_1000.csv` | UTF-8-BOM (`utf-8-sig`) delivery dataset |
 | **Human Lineage Audit** | `unilog_evaluation_report.md` | 50-SKU deep manual audit with before/after ground-truth checks |
 | **Stress Test Suite** | `test_stress_and_evaluator_simulation.py` | 200-item hidden evaluator simulation with zero invariant breaches |
