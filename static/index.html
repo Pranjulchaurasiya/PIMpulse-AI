@@ -1455,17 +1455,17 @@
   <!-- Main Container -->
   <main class="app-container">
 
-    <!-- Interactive How-To-Use Quickstart Section -->
-    <section class="how-to-use-card" id="howToUseSection">
+    <!-- Interactive How-To-Use Quickstart Section (Collapsible) -->
+    <section class="how-to-use-card" id="howToUseSection" style="padding: 10px 16px;">
       <div style="display: flex; justify-content: space-between; align-items: center; cursor: pointer;" onclick="toggleHowToUse()">
-        <div style="display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 13px; color: var(--accent-cyan);">
+        <div style="display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 12.5px; color: var(--accent-cyan);">
           <span>🚀 How to Use PIMpulse AI (Judge Quickstart Guide)</span>
-          <span style="font-size: 10px; background: rgba(56, 189, 248, 0.15); border: 1px solid rgba(56, 189, 248, 0.3); padding: 1px 6px; border-radius: 4px; color: var(--accent-cyan);">3 Simple Steps</span>
+          <span style="font-size: 9.5px; background: rgba(56, 189, 248, 0.15); border: 1px solid rgba(56, 189, 248, 0.3); padding: 1px 6px; border-radius: 4px; color: var(--accent-cyan);">3 Simple Steps</span>
         </div>
-        <span id="howToUseToggleIcon" style="font-size: 11px; color: var(--text-muted); font-weight: 600;">▼ Minimize</span>
+        <span id="howToUseToggleIcon" style="font-size: 11px; color: var(--text-muted); font-weight: 600;">▶ Expand Quickstart Guide</span>
       </div>
       
-      <div id="howToUseContent" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; margin-top: 12px;">
+      <div id="howToUseContent" style="display: none; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; margin-top: 12px;">
         <div class="use-step-box">
           <div class="use-step-num">Step 1</div>
           <div class="use-step-title">📥 Input Part # or Upload File</div>
@@ -2134,10 +2134,10 @@
       if (!content) return;
       if (content.style.display === 'none') {
         content.style.display = 'grid';
-        if (icon) icon.textContent = '▼ Minimize';
+        if (icon) icon.textContent = '▼ Minimize Guide';
       } else {
         content.style.display = 'none';
-        if (icon) icon.textContent = '▲ Expand Quickstart';
+        if (icon) icon.textContent = '▶ Expand Quickstart Guide';
       }
     }
 
