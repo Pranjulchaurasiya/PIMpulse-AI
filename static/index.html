@@ -27,19 +27,156 @@
       --glow-green: rgba(16, 185, 129, 0.15);
     }
 
-    /* Light Theme Color Tokens */
+    /* Enhanced Light Theme Color Tokens & High-Contrast Overrides */
     [data-theme="light"] {
-      --bg-base: #f8fafc;
+      --bg-base: #f1f5f9;
       --bg-surface: #ffffff;
       --bg-card: #ffffff;
-      --bg-card-hover: #f1f5f9;
+      --bg-card-hover: #e2e8f0;
       --border-subtle: #cbd5e1;
       --border-bright: #94a3b8;
       --text-main: #0f172a;
       --text-muted: #334155;
-      --text-dim: #64748b;
-      --glow-cyan: rgba(56, 189, 248, 0.25);
-      --glow-green: rgba(16, 185, 129, 0.25);
+      --text-dim: #475569;
+      --accent-cyan: #0284c7;
+      --accent-emerald: #059669;
+      --accent-amber: #d97706;
+      --accent-violet: #6d28d9;
+      --accent-rose: #e11d48;
+      --glow-cyan: rgba(2, 132, 199, 0.2);
+      --glow-green: rgba(5, 150, 105, 0.2);
+    }
+
+    [data-theme="light"] header {
+      background: rgba(255, 255, 255, 0.95);
+      border-bottom-color: #cbd5e1;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+
+    [data-theme="light"] .brand-tag {
+      background: rgba(2, 132, 199, 0.1);
+      color: #0284c7;
+      border-color: rgba(2, 132, 199, 0.3);
+    }
+
+    [data-theme="light"] .meta-pill {
+      background: #f8fafc;
+      border-color: #cbd5e1;
+      color: #0f172a;
+    }
+
+    [data-theme="light"] .btn-arch {
+      background: rgba(109, 40, 217, 0.1);
+      border-color: rgba(109, 40, 217, 0.3);
+      color: #6d28d9;
+    }
+    [data-theme="light"] .btn-arch:hover {
+      background: rgba(109, 40, 217, 0.2);
+    }
+
+    [data-theme="light"] .btn-upload-trigger {
+      background: rgba(109, 40, 217, 0.1);
+      border-color: rgba(109, 40, 217, 0.3);
+      color: #6d28d9;
+    }
+
+    [data-theme="light"] .search-input {
+      background: #ffffff;
+      border-color: #cbd5e1;
+      color: #0f172a;
+    }
+    [data-theme="light"] .search-input::placeholder {
+      color: #94a3b8;
+    }
+
+    [data-theme="light"] .sample-pill {
+      background: #f8fafc;
+      border-color: #cbd5e1;
+      color: #1e293b;
+    }
+    [data-theme="light"] .sample-pill:hover {
+      background: #e2e8f0;
+      color: #0284c7;
+      border-color: #0284c7;
+    }
+
+    [data-theme="light"] .pane-header {
+      background: #f8fafc;
+      border-bottom-color: #cbd5e1;
+      color: #0f172a;
+    }
+
+    [data-theme="light"] .tab-btn {
+      color: #475569;
+    }
+    [data-theme="light"] .tab-btn:hover {
+      background: #f1f5f9;
+      color: #0f172a;
+    }
+    [data-theme="light"] .tab-btn.active {
+      background: #e2e8f0;
+      color: #0284c7;
+      border-color: #94a3b8;
+    }
+
+    [data-theme="light"] .btn-copy {
+      background: #f8fafc;
+      border-color: #cbd5e1;
+      color: #0f172a;
+    }
+
+    [data-theme="light"] .telemetry-pane,
+    [data-theme="light"] .result-pane,
+    [data-theme="light"] .control-card,
+    [data-theme="light"] .profile-card,
+    [data-theme="light"] .score-card,
+    [data-theme="light"] .attrs-table-card,
+    [data-theme="light"] .diff-card,
+    [data-theme="light"] .weights-table,
+    [data-theme="light"] .how-to-use-card,
+    [data-theme="light"] .telemetry-ledger-card {
+      background: #ffffff;
+      border-color: #cbd5e1;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+    }
+
+    [data-theme="light"] .use-step-box,
+    [data-theme="light"] .telem-box,
+    [data-theme="light"] .diff-box,
+    [data-theme="light"] .arch-node-card {
+      background: #f8fafc;
+      border-color: #e2e8f0;
+    }
+
+    [data-theme="light"] .attrs-table th,
+    [data-theme="light"] .dataset-table th,
+    [data-theme="light"] .comparator-table th {
+      background: #f1f5f9;
+      color: #0284c7;
+      border-bottom-color: #cbd5e1;
+    }
+
+    [data-theme="light"] .attrs-table td,
+    [data-theme="light"] .dataset-table td,
+    [data-theme="light"] .comparator-table td {
+      border-bottom-color: #e2e8f0;
+      color: #0f172a;
+    }
+
+    [data-theme="light"] .log-node {
+      background: #f8fafc;
+      border-color: #e2e8f0;
+    }
+
+    [data-theme="light"] .node-details {
+      background: #f1f5f9;
+      color: #1e293b;
+    }
+
+    [data-theme="light"] .json-viewer {
+      background: #f8fafc;
+      color: #0f172a;
+      border-color: #cbd5e1;
     }
 
     .btn-theme-toggle {
