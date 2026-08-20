@@ -1149,6 +1149,11 @@
       transition: width 0.3s ease;
     }
 
+    @keyframes tracePath {
+      from { stroke-dashoffset: 1000; }
+      to { stroke-dashoffset: 0; }
+    }
+
     /* Architecture Modal */
     .arch-modal-backdrop {
       position: fixed;
@@ -1788,6 +1793,77 @@
             <span>📤 Commerce-Ready Output</span>
             <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--text-main);">[Clean Unilog 252-Column File]</span>
           </div>
+        </div>
+
+        <!-- Live Animated SVG Facility Data Flow Map -->
+        <div style="background: var(--bg-surface); border: 1px solid var(--border-bright); border-radius: 10px; padding: 14px 12px; margin-bottom: 16px; overflow-x: auto;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+            <span style="font-size: 11px; font-weight: 700; color: var(--accent-cyan); font-family: 'JetBrains Mono', monospace; display: flex; align-items: center; gap: 6px;">
+              <span>🌐 LIVE PIPELINE FACILITY FLOW MAP (REAL-TIME CIRCUIT)</span>
+            </span>
+            <span style="font-size: 9px; background: rgba(16, 185, 129, 0.15); color: var(--accent-emerald); border: 1px solid rgba(16, 185, 129, 0.3); padding: 1px 6px; border-radius: 4px; font-weight: 600;">● Active Data Packet</span>
+          </div>
+
+          <svg viewBox="0 0 800 150" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 100%; max-width: 800px; height: auto; display: block; margin: 0 auto;">
+            <!-- Connection Flow Routes -->
+            <path id="pipelinePath" d="M 60 75 C 120 75, 150 30, 200 30 S 280 120, 340 120 S 420 30, 480 30 S 560 120, 620 120 S 680 75, 740 75" stroke="var(--border-bright)" stroke-width="1.5" stroke-dasharray="4 4"/>
+            <path d="M 60 75 C 120 75, 150 30, 200 30 S 280 120, 340 120 S 420 30, 480 30 S 560 120, 620 120 S 680 75, 740 75" stroke="var(--accent-cyan)" stroke-width="2" stroke-dasharray="1000" stroke-dashoffset="1000" style="animation: tracePath 8s linear infinite;"/>
+
+            <!-- Animated Traveling Glowing Data Packet -->
+            <circle r="5" fill="var(--accent-emerald)" style="filter: drop-shadow(0 0 6px var(--accent-emerald));">
+              <animateMotion dur="4.5s" repeatCount="indefinite">
+                <mpath href="#pipelinePath" />
+              </animateMotion>
+            </circle>
+
+            <!-- Node 1: Raw Catalog Ingestion -->
+            <g transform="translate(60, 75)">
+              <circle r="18" fill="var(--bg-card)" stroke="var(--accent-cyan)" stroke-width="2"/>
+              <circle r="5" fill="var(--accent-cyan)"/>
+              <text y="-25" text-anchor="middle" fill="var(--accent-cyan)" font-size="9" font-weight="700" font-family="JetBrains Mono">01 · INGEST</text>
+              <text y="30" text-anchor="middle" fill="var(--text-main)" font-size="9.5" font-weight="600">Raw Input</text>
+            </g>
+
+            <!-- Node 2: UNSPSC Pre-Filter -->
+            <g transform="translate(200, 30)">
+              <circle r="18" fill="var(--bg-card)" stroke="var(--accent-violet)" stroke-width="2"/>
+              <circle r="5" fill="var(--accent-violet)"/>
+              <text y="-25" text-anchor="middle" fill="var(--accent-violet)" font-size="9" font-weight="700" font-family="JetBrains Mono">02 · PRE-FILTER</text>
+              <text y="30" text-anchor="middle" fill="var(--text-main)" font-size="9.5" font-weight="600">UNSPSC Regex</text>
+            </g>
+
+            <!-- Node 3: HyDE & RRF Search -->
+            <g transform="translate(340, 120)">
+              <circle r="18" fill="var(--bg-card)" stroke="var(--accent-cyan)" stroke-width="2"/>
+              <circle r="5" fill="var(--accent-cyan)"/>
+              <text y="-25" text-anchor="middle" fill="var(--accent-cyan)" font-size="9" font-weight="700" font-family="JetBrains Mono">03 · HYDE & RRF</text>
+              <text y="30" text-anchor="middle" fill="var(--text-main)" font-size="9.5" font-weight="600">Tavily RAG</text>
+            </g>
+
+            <!-- Node 4: Grounding Gate -->
+            <g transform="translate(480, 30)">
+              <circle r="18" fill="var(--bg-card)" stroke="var(--accent-emerald)" stroke-width="2"/>
+              <circle r="5" fill="var(--accent-emerald)"/>
+              <text y="-25" text-anchor="middle" fill="var(--accent-emerald)" font-size="9" font-weight="700" font-family="JetBrains Mono">04 · GROUNDING</text>
+              <text y="30" text-anchor="middle" fill="var(--text-main)" font-size="9.5" font-weight="600">Verbatim OEM</text>
+            </g>
+
+            <!-- Node 5: Length Invariants -->
+            <g transform="translate(620, 120)">
+              <circle r="18" fill="var(--bg-card)" stroke="var(--accent-amber)" stroke-width="2"/>
+              <circle r="5" fill="var(--accent-amber)"/>
+              <text y="-25" text-anchor="middle" fill="var(--accent-amber)" font-size="9" font-weight="700" font-family="JetBrains Mono">05 · INVARIANTS</text>
+              <text y="30" text-anchor="middle" fill="var(--text-main)" font-size="9.5" font-weight="600">POS & Mobile</text>
+            </g>
+
+            <!-- Node 6: 252-Cols Unilog Output -->
+            <g transform="translate(740, 75)">
+              <circle r="20" fill="var(--bg-card)" stroke="var(--accent-rose)" stroke-width="2.5"/>
+              <circle r="6" fill="var(--accent-rose)"/>
+              <text y="-27" text-anchor="middle" fill="var(--accent-rose)" font-size="9" font-weight="700" font-family="JetBrains Mono">06 · UNILOG OUT</text>
+              <text y="32" text-anchor="middle" fill="var(--text-main)" font-size="9.5" font-weight="600">252 Columns</text>
+            </g>
+          </svg>
         </div>
 
         <h3 style="font-size: 13px; color: var(--text-main); margin-bottom: 8px;">1. Autonomous 26-Node LangGraph State Machine (Directed Pipeline)</h3>
