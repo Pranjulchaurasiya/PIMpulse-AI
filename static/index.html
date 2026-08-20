@@ -27,9 +27,9 @@
       --glow-green: rgba(16, 185, 129, 0.15);
     }
 
-    /* Enhanced Light Theme Color Tokens & High-Contrast Overrides */
+    /* Vibrant Premium Light Theme Styling */
     [data-theme="light"] {
-      --bg-base: #f1f5f9;
+      --bg-base: #f0f4f9;
       --bg-surface: #ffffff;
       --bg-card: #ffffff;
       --bg-card-hover: #e2e8f0;
@@ -48,81 +48,107 @@
     }
 
     [data-theme="light"] header {
-      background: rgba(255, 255, 255, 0.95);
-      border-bottom-color: #cbd5e1;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+      border-bottom: 1px solid #cbd5e1;
+      border-top: 3px solid #0284c7;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
     }
 
     [data-theme="light"] .brand-tag {
-      background: rgba(2, 132, 199, 0.1);
-      color: #0284c7;
-      border-color: rgba(2, 132, 199, 0.3);
+      background: linear-gradient(135deg, #e0f2fe, #bae6fd);
+      color: #0369a1;
+      border-color: #38bdf8;
+      font-weight: 700;
     }
 
     [data-theme="light"] .meta-pill {
-      background: #f8fafc;
+      background: #ffffff;
       border-color: #cbd5e1;
       color: #0f172a;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
     }
 
     [data-theme="light"] .btn-arch {
-      background: rgba(109, 40, 217, 0.1);
-      border-color: rgba(109, 40, 217, 0.3);
-      color: #6d28d9;
+      background: linear-gradient(135deg, #7c3aed, #4f46e5);
+      border: none;
+      color: #ffffff;
+      box-shadow: 0 2px 8px rgba(124, 58, 237, 0.25);
     }
     [data-theme="light"] .btn-arch:hover {
-      background: rgba(109, 40, 217, 0.2);
+      background: linear-gradient(135deg, #6d28d9, #4338ca);
+      box-shadow: 0 4px 12px rgba(124, 58, 237, 0.35);
     }
 
     [data-theme="light"] .btn-upload-trigger {
-      background: rgba(109, 40, 217, 0.1);
-      border-color: rgba(109, 40, 217, 0.3);
-      color: #6d28d9;
+      background: linear-gradient(135deg, #8b5cf6, #6d28d9);
+      border: none;
+      color: #ffffff;
+      box-shadow: 0 2px 8px rgba(109, 40, 217, 0.25);
+    }
+    [data-theme="light"] .btn-upload-trigger:hover {
+      background: linear-gradient(135deg, #7c3aed, #5b21b6);
+      box-shadow: 0 4px 12px rgba(109, 40, 217, 0.35);
     }
 
     [data-theme="light"] .search-input {
       background: #ffffff;
       border-color: #cbd5e1;
       color: #0f172a;
+      box-shadow: inset 0 1px 2px rgba(0,0,0,0.03);
     }
-    [data-theme="light"] .search-input::placeholder {
-      color: #94a3b8;
+    [data-theme="light"] .search-input:focus {
+      border-color: #0284c7;
+      box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
     }
 
     [data-theme="light"] .sample-pill {
-      background: #f8fafc;
-      border-color: #cbd5e1;
-      color: #1e293b;
+      background: #ffffff;
+      border-color: #93c5fd;
+      color: #1e40af;
+      font-weight: 600;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.03);
     }
     [data-theme="light"] .sample-pill:hover {
-      background: #e2e8f0;
-      color: #0284c7;
-      border-color: #0284c7;
+      background: #dbeafe;
+      color: #1d4ed8;
+      border-color: #2563eb;
     }
 
     [data-theme="light"] .pane-header {
-      background: #f8fafc;
-      border-bottom-color: #cbd5e1;
-      color: #0f172a;
+      background: linear-gradient(135deg, #f0f7ff, #e0f2fe);
+      border-bottom-color: #bae6fd;
+      color: #0369a1;
+      font-weight: 700;
     }
 
     [data-theme="light"] .tab-btn {
-      color: #475569;
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      color: #334155;
+      font-weight: 600;
     }
     [data-theme="light"] .tab-btn:hover {
       background: #f1f5f9;
-      color: #0f172a;
+      color: #0284c7;
+      border-color: #0284c7;
     }
     [data-theme="light"] .tab-btn.active {
-      background: #e2e8f0;
-      color: #0284c7;
-      border-color: #94a3b8;
+      background: linear-gradient(135deg, #0284c7, #2563eb);
+      color: #ffffff;
+      border: none;
+      box-shadow: 0 2px 8px rgba(2, 132, 199, 0.3);
     }
 
     [data-theme="light"] .btn-copy {
-      background: #f8fafc;
+      background: #ffffff;
       border-color: #cbd5e1;
       color: #0f172a;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+    }
+    [data-theme="light"] .btn-copy:hover {
+      background: #f1f5f9;
+      border-color: #0284c7;
+      color: #0284c7;
     }
 
     [data-theme="light"] .telemetry-pane,
@@ -137,7 +163,7 @@
     [data-theme="light"] .telemetry-ledger-card {
       background: #ffffff;
       border-color: #cbd5e1;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
     }
 
     [data-theme="light"] .use-step-box,
@@ -148,12 +174,18 @@
       border-color: #e2e8f0;
     }
 
+    [data-theme="light"] .telem-box {
+      background: #f0f7ff;
+      border-color: #bfdbfe;
+    }
+
     [data-theme="light"] .attrs-table th,
     [data-theme="light"] .dataset-table th,
     [data-theme="light"] .comparator-table th {
-      background: #f1f5f9;
-      color: #0284c7;
-      border-bottom-color: #cbd5e1;
+      background: #e0f2fe;
+      color: #0369a1;
+      border-bottom-color: #bae6fd;
+      font-weight: 700;
     }
 
     [data-theme="light"] .attrs-table td,
@@ -164,13 +196,14 @@
     }
 
     [data-theme="light"] .log-node {
-      background: #f8fafc;
+      background: #ffffff;
       border-color: #e2e8f0;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.02);
     }
 
     [data-theme="light"] .node-details {
       background: #f1f5f9;
-      color: #1e293b;
+      color: #0f172a;
     }
 
     [data-theme="light"] .json-viewer {
