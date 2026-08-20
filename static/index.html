@@ -1804,10 +1804,10 @@
             <span style="font-size: 9px; background: rgba(16, 185, 129, 0.15); color: var(--accent-emerald); border: 1px solid rgba(16, 185, 129, 0.3); padding: 1px 6px; border-radius: 4px; font-weight: 600;">● Active Data Packet</span>
           </div>
 
-          <svg viewBox="0 0 800 150" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 100%; max-width: 800px; height: auto; display: block; margin: 0 auto;">
+          <svg viewBox="0 0 800 170" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 100%; max-width: 800px; height: auto; display: block; margin: 0 auto;">
             <!-- Connection Flow Routes -->
-            <path id="pipelinePath" d="M 60 75 C 120 75, 150 30, 200 30 S 280 120, 340 120 S 420 30, 480 30 S 560 120, 620 120 S 680 75, 740 75" stroke="var(--border-bright)" stroke-width="1.5" stroke-dasharray="4 4"/>
-            <path d="M 60 75 C 120 75, 150 30, 200 30 S 280 120, 340 120 S 420 30, 480 30 S 560 120, 620 120 S 680 75, 740 75" stroke="var(--accent-cyan)" stroke-width="2" stroke-dasharray="1000" stroke-dashoffset="1000" style="animation: tracePath 8s linear infinite;"/>
+            <path id="pipelinePath" d="M 60 90 C 120 90, 150 48, 200 48 S 280 135, 340 135 S 420 48, 480 48 S 560 135, 620 135 S 680 90, 740 90" stroke="var(--border-bright)" stroke-width="1.5" stroke-dasharray="4 4"/>
+            <path d="M 60 90 C 120 90, 150 48, 200 48 S 280 135, 340 135 S 420 48, 480 48 S 560 135, 620 135 S 680 90, 740 90" stroke="var(--accent-cyan)" stroke-width="2" stroke-dasharray="1000" stroke-dashoffset="1000" style="animation: tracePath 8s linear infinite;"/>
 
             <!-- Animated Traveling Glowing Data Packet -->
             <circle r="5" fill="var(--accent-emerald)" style="filter: drop-shadow(0 0 6px var(--accent-emerald));">
@@ -1817,7 +1817,7 @@
             </circle>
 
             <!-- Node 1: Raw Catalog Ingestion -->
-            <g transform="translate(60, 75)">
+            <g transform="translate(60, 90)">
               <circle r="18" fill="var(--bg-card)" stroke="var(--accent-cyan)" stroke-width="2"/>
               <circle r="5" fill="var(--accent-cyan)"/>
               <text y="-25" text-anchor="middle" fill="var(--accent-cyan)" font-size="9" font-weight="700" font-family="JetBrains Mono">01 · INGEST</text>
@@ -1825,42 +1825,42 @@
             </g>
 
             <!-- Node 2: UNSPSC Pre-Filter -->
-            <g transform="translate(200, 30)">
+            <g transform="translate(200, 48)">
               <circle r="18" fill="var(--bg-card)" stroke="var(--accent-violet)" stroke-width="2"/>
               <circle r="5" fill="var(--accent-violet)"/>
-              <text y="-25" text-anchor="middle" fill="var(--accent-violet)" font-size="9" font-weight="700" font-family="JetBrains Mono">02 · PRE-FILTER</text>
+              <text y="-24" text-anchor="middle" fill="var(--accent-violet)" font-size="9" font-weight="700" font-family="JetBrains Mono">02 · PRE-FILTER</text>
               <text y="30" text-anchor="middle" fill="var(--text-main)" font-size="9.5" font-weight="600">UNSPSC Regex</text>
             </g>
 
             <!-- Node 3: HyDE & RRF Search -->
-            <g transform="translate(340, 120)">
+            <g transform="translate(340, 135)">
               <circle r="18" fill="var(--bg-card)" stroke="var(--accent-cyan)" stroke-width="2"/>
               <circle r="5" fill="var(--accent-cyan)"/>
-              <text y="-25" text-anchor="middle" fill="var(--accent-cyan)" font-size="9" font-weight="700" font-family="JetBrains Mono">03 · HYDE & RRF</text>
+              <text y="-24" text-anchor="middle" fill="var(--accent-cyan)" font-size="9" font-weight="700" font-family="JetBrains Mono">03 · HYDE & RRF</text>
               <text y="30" text-anchor="middle" fill="var(--text-main)" font-size="9.5" font-weight="600">Tavily RAG</text>
             </g>
 
             <!-- Node 4: Grounding Gate -->
-            <g transform="translate(480, 30)">
+            <g transform="translate(480, 48)">
               <circle r="18" fill="var(--bg-card)" stroke="var(--accent-emerald)" stroke-width="2"/>
               <circle r="5" fill="var(--accent-emerald)"/>
-              <text y="-25" text-anchor="middle" fill="var(--accent-emerald)" font-size="9" font-weight="700" font-family="JetBrains Mono">04 · GROUNDING</text>
+              <text y="-24" text-anchor="middle" fill="var(--accent-emerald)" font-size="9" font-weight="700" font-family="JetBrains Mono">04 · GROUNDING</text>
               <text y="30" text-anchor="middle" fill="var(--text-main)" font-size="9.5" font-weight="600">Verbatim OEM</text>
             </g>
 
             <!-- Node 5: Length Invariants -->
-            <g transform="translate(620, 120)">
+            <g transform="translate(620, 135)">
               <circle r="18" fill="var(--bg-card)" stroke="var(--accent-amber)" stroke-width="2"/>
               <circle r="5" fill="var(--accent-amber)"/>
-              <text y="-25" text-anchor="middle" fill="var(--accent-amber)" font-size="9" font-weight="700" font-family="JetBrains Mono">05 · INVARIANTS</text>
+              <text y="-24" text-anchor="middle" fill="var(--accent-amber)" font-size="9" font-weight="700" font-family="JetBrains Mono">05 · INVARIANTS</text>
               <text y="30" text-anchor="middle" fill="var(--text-main)" font-size="9.5" font-weight="600">POS & Mobile</text>
             </g>
 
             <!-- Node 6: 252-Cols Unilog Output -->
-            <g transform="translate(740, 75)">
+            <g transform="translate(740, 90)">
               <circle r="20" fill="var(--bg-card)" stroke="var(--accent-rose)" stroke-width="2.5"/>
               <circle r="6" fill="var(--accent-rose)"/>
-              <text y="-27" text-anchor="middle" fill="var(--accent-rose)" font-size="9" font-weight="700" font-family="JetBrains Mono">06 · UNILOG OUT</text>
+              <text y="-26" text-anchor="middle" fill="var(--accent-rose)" font-size="9" font-weight="700" font-family="JetBrains Mono">06 · UNILOG OUT</text>
               <text y="32" text-anchor="middle" fill="var(--text-main)" font-size="9.5" font-weight="600">252 Columns</text>
             </g>
           </svg>
@@ -2077,6 +2077,26 @@
       fetchUnilogStats();
       updateCostSummary();
       setupDropZone();
+
+      // Keyboard ESC key modal close handler
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          closeArchModal();
+          closeLineageModal();
+          closeUploadModal();
+        }
+      });
+
+      // Click-outside backdrop modal close handler
+      document.addEventListener('click', (e) => {
+        const archModal = document.getElementById('archModal');
+        const lineageModal = document.getElementById('lineageModal');
+        const uploadModal = document.getElementById('uploadModal');
+
+        if (e.target === archModal) closeArchModal();
+        if (e.target === lineageModal) closeLineageModal();
+        if (e.target === uploadModal) closeUploadModal();
+      });
     });
 
     function setQuery(q) {
