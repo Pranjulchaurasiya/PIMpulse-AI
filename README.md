@@ -56,11 +56,35 @@
 
 ### Jump to
 
-[See it transform a real row](#see-it-transform-a-real-row) · [Why PIMpulse](#competitive-positioning) · [Live Demo](#live-demo) · [Architecture](#system-architecture) · [Quickstart](#quickstart) · [Benchmark](#benchmark)
+[The problem](#the-problem) · [The solution](#the-solution) · [See it transform a real row](#see-it-transform-a-real-row) · [Why PIMpulse](#competitive-positioning) · [Live Demo](#live-demo) · [Architecture](#system-architecture) · [Quickstart](#quickstart) · [Benchmark](#benchmark)
 
 </div>
 
 </div>
+
+---
+
+<a name="the-problem"></a>
+## 📌 The Problem
+
+Industrial distributors receive millions of raw, messy catalog records from hundreds of manufacturers with severe data quality issues:
+* **Cryptic POS Strings**: Point-of-Sale strings with non-standard abbreviations (`3/8 CPLG BRS 150#`, `PDSH4816AF Dishwasher SS`).
+* **Brand Fragmentation**: Identical manufacturers entered under cryptic supplier spellings without canonical legal trademarks (`APPDE` $\rightarrow$ `FRIGIDAIRE®`).
+* **Length Violations**: Descriptions overflowing Point-of-Sale character limits ($>40$ chars) or collapsing on mobile commerce viewports.
+* **Unsearchable Specifications**: Missing UNSPSC classifications, unformatted fractions (`50.25 in`), and blank parametric attributes.
+* **Manual Data Entry Bottleneck**: High human error rates and expensive manual Excel processing ($0.05–$0.20/SKU).
+
+---
+
+<a name="the-solution"></a>
+## 💡 The Solution
+
+**PIMpulse AI** is an autonomous, high-throughput product intelligence and catalog enrichment engine designed for B2B industrial commerce:
+* **252-Column Unilog Master Compliance**: Automatically maps and populates all 252 official delivery columns, including 50 parametric attribute triplets (`LABEL 1..50`, `VALUE 1..50`, `UOM 1..50`).
+* **100% Length Invariants**: Enforces strict POS `INVOICE_DESC` ($\le 40$ ALL-CAPS chars via word-boundary semantic truncation) and `MOBILE_DESC` ($60\text{--}80$ chars).
+* **Zero-Hallucination OEM Grounding**: Combines Tavily technical datasheet retrieval with a verbatim OEM character substring verifier. Attributes are only accepted when backed by verbatim source quotes.
+* **Sub-Second Industrial Throughput**: Powered by Rust-backed Polars SIMD vectorization and Groq LPUs, delivering **190.2 SKUs/sec** (~16.4M SKUs/day) at **$0.0006/SKU**.
+* **Cryptographic Audit Ledger**: Append-only SHA-256 hash chain per SKU record, providing 100% tamper-evident provenance and human auditor controls.
 
 ---
 
