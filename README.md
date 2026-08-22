@@ -169,9 +169,49 @@ PIMpulse AI uses a **Dual-Tier Architecture** that cleanly separates high-speed 
 
 ## 🏗️ System Architecture
 
-<p align="center">
-  <img src="docs/architecture-diagram.png" alt="PIMpulse AI Architecture" width="100%" style="max-width: 1000px;" />
-</p>
+```text
+========================================================================================================================
+                                     PIMpulse AI — SYSTEM ARCHITECTURE DIAGRAM
+========================================================================================================================
+
+ [ Raw Supplier Feed ] ───► ( CSV / XLSX / Single SKU / Mangled POS Strings: "MlLW_ 49/94/0107" )
+                                     │
+                                     ▼
+ ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+ │ 1. INGESTION & DETERMINISTIC PRE-FILTERING LAYER                                                                   │
+ │  ├── Defensive Sanitizer          : Strips placeholder tokens ("N/A", "TBD", "NONE") & normalizes MPNs             │
+ │  ├── Canonical Brand Resolver    : Maps 27k+ Master Brands with legal trademarks (Diablo®, 3M™, Mirka®, DEWALT®)  │
+ │  ├── UNSPSC Pre-Filter Gate      : Sub-millisecond regex & LOV category classification                            │
+ │  └── UOM & Trade Fraction Table  : 63 exact fraction lookup tables (e.g., 50.25 in -> 50-1/4 in)                    │
+ └────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+                                     │
+                                     ▼
+ ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+ │ 2. AUTONOMOUS 26-NODE LANGGRAPH STATE MACHINE CORE                                                                 │
+ │  ├── HyDE Query Expansion        : Synthesizes hypothetical OEM datasheets for dense search vectors               │
+ │  ├── RRF Hybrid Retrieval        : Dense Vector + Tavily Keyword RAG fused via RRF = Σ(w_d / (60 + rank_d))       │
+ │  ├── Verbatim Substring Gate     : Zero-hallucination validation against raw OEM HTML datasheet quotes            │
+ │  └── Semantic Truncator          : Enforces POS INVOICE_DESC (≤40 ALL-CAPS) & MOBILE_DESC (60-80 chars)           │
+ └────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+                                     │
+                                     ▼
+ ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+ │ 3. HIGH-THROUGHPUT COMPUTE & CACHE INFRASTRUCTURE                                                                  │
+ │  ├── Polars SIMD Vectorizer      : 190.2 SKUs/sec throughput (16.4M SKUs/day capacity)                             │
+ │  ├── Groq LPU Token Engine       : 1,420 tokens/sec LPU inference ($0.0006/SKU token cost)                        │
+ │  ├── Semantic Delta Cache        : Sub-10ms cache hit rate ($0 spend on repeated items)                            │
+ │  └── Change Ledger Auditor       : Idempotent fingerprint comparison & breaking change detection                   │
+ └────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+                                     │
+                                     ▼
+ ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+ │ 4. SECURITY, GOVERNANCE & 252-COLUMN DELIVERY LAYER                                                                │
+ │  ├── SHA-256 Cryptographic Chain : Append-only record hash ledger proving 100% tamper-evident provenance            │
+ │  ├── Human Auditor Valve         : Interactive UI safety controls (Approve, Override, Rollback, Refuse)             │
+ │  ├── 252-Column Unilog MDM Out   : 50 Parametric Attribute Triplets (LABEL 1..50, VALUE 1..50, UOM 1..50)        │
+ │  └── Styled Excel Generator      : Generates formatted .XLSX with Cell '@' Text Format protection                  │
+ └────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+```
 
 ---
 
