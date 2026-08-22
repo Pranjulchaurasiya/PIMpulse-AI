@@ -1910,6 +1910,79 @@
             </div>
           </div>
 
+          <!-- Tab 5: Cryptographic Audit Engine -->
+          <div id="auditView" style="display: none; flex-direction: column; gap: 16px;">
+            <div style="background: var(--bg-card); border: 1px solid var(--border-bright); border-radius: 8px; padding: 16px;">
+              <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-subtle); padding-bottom: 10px; margin-bottom: 12px;">
+                <div>
+                  <h3 style="font-size: 14px; font-weight: 700; color: var(--accent-cyan); margin-bottom: 2px;">🛡️ Cryptographic SHA-256 Audit Trail & Ledger</h3>
+                  <span style="font-size: 11px; color: var(--text-muted);">Append-only hash chain proving 0% record tampering and exact OEM verbatim provenance.</span>
+                </div>
+                <span style="font-size: 11px; font-family: 'JetBrains Mono'; background: rgba(16, 185, 129, 0.15); color: var(--accent-emerald); border: 1px solid rgba(16, 185, 129, 0.3); padding: 4px 10px; border-radius: 4px; font-weight: 700;">● Ledger Chain Verified</span>
+              </div>
+
+              <!-- Live Audit Metrics Grid -->
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-bottom: 16px;">
+                <div style="background: rgba(0, 0, 0, 0.2); border: 1px solid var(--border-subtle); padding: 10px 14px; border-radius: 6px;">
+                  <span style="font-size: 10px; color: var(--text-dim); font-weight: 700; display: block; margin-bottom: 4px;">CURRENT HASH (SHA-256)</span>
+                  <span style="font-size: 11px; font-family: 'JetBrains Mono'; color: var(--accent-cyan); word-break: break-all;" id="auditCurrentHash">e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855</span>
+                </div>
+                <div style="background: rgba(0, 0, 0, 0.2); border: 1px solid var(--border-subtle); padding: 10px 14px; border-radius: 6px;">
+                  <span style="font-size: 10px; color: var(--text-dim); font-weight: 700; display: block; margin-bottom: 4px;">GENESIS PREVIOUS HASH</span>
+                  <span style="font-size: 11px; font-family: 'JetBrains Mono'; color: var(--accent-emerald); word-break: break-all;" id="auditPrevHash">0000000000000000000000000000000000000000000000000000000000000000</span>
+                </div>
+                <div style="background: rgba(0, 0, 0, 0.2); border: 1px solid var(--border-subtle); padding: 10px 14px; border-radius: 6px;">
+                  <span style="font-size: 10px; color: var(--text-dim); font-weight: 700; display: block; margin-bottom: 4px;">VERBATIM GROUNDING RATIO</span>
+                  <span style="font-size: 14px; font-weight: 700; color: var(--accent-emerald);" id="auditGroundingRatio">100% Grounded</span>
+                </div>
+              </div>
+
+              <!-- Mathematical Confidence Breakdown -->
+              <h4 style="font-size: 12px; font-weight: 700; color: var(--text-main); margin-bottom: 8px;">Zero-Hallucination Confidence Formula Weights</h4>
+              <div style="background: rgba(0, 0, 0, 0.3); border: 1px solid var(--border-subtle); border-radius: 6px; padding: 12px; font-family: 'JetBrains Mono', monospace; font-size: 11.5px; color: var(--text-main); line-height: 1.6;">
+                <div><span style="color: var(--accent-cyan); font-weight: 700;">Confidence = </span> (0.30 &middot; Coverage) + (0.30 &middot; VerbatimGrounding) + (0.20 &middot; UNSPSC_Taxonomy) + (0.20 &middot; RRF_Agreement) &minus; ConflictPenalty</div>
+                <div style="font-size: 10.5px; color: var(--text-muted); margin-top: 4px;">
+                  Current Score: <strong style="color: var(--accent-emerald);" id="auditConfidenceScore">0.985 (PASS &ge; 0.70)</strong> &bull; Conflict Penalty: <strong style="color: var(--accent-rose);">0.00</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tab 6: Historical Execution Runs -->
+          <div id="historyView" style="display: none; flex-direction: column; gap: 16px;">
+            <div style="background: var(--bg-card); border: 1px solid var(--border-bright); border-radius: 8px; padding: 16px;">
+              <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-subtle); padding-bottom: 10px; margin-bottom: 12px;">
+                <div>
+                  <h3 style="font-size: 14px; font-weight: 700; color: var(--accent-cyan); margin-bottom: 2px;">📜 Historical Batch & Execution Run Log</h3>
+                  <span style="font-size: 11px; color: var(--text-muted);">Real-time log of previous catalog enrichment batches and evaluation runs.</span>
+                </div>
+                <button onclick="clearRunHistory()" style="background: rgba(244, 63, 94, 0.15); border: 1px solid rgba(244, 63, 94, 0.3); color: var(--accent-rose); padding: 4px 10px; border-radius: 4px; font-size: 11px; font-weight: 600; cursor: pointer;">Clear History</button>
+              </div>
+
+              <div style="overflow-x: auto;">
+                <table style="width: 100%; border-collapse: collapse; font-size: 11.5px;">
+                  <thead>
+                    <tr style="border-bottom: 1px solid var(--border-bright); color: var(--accent-cyan); font-weight: 700; text-align: left;">
+                      <th style="padding: 8px;">RUN ID</th>
+                      <th style="padding: 8px;">TIMESTAMP</th>
+                      <th style="padding: 8px;">INPUT / FILE</th>
+                      <th style="padding: 8px;">SKUs</th>
+                      <th style="padding: 8px;">THROUGHPUT</th>
+                      <th style="padding: 8px;">PASS RATE</th>
+                      <th style="padding: 8px;">AUDIT LEDGER</th>
+                      <th style="padding: 8px;">EXPORT SNAPSHOT</th>
+                    </tr>
+                  </thead>
+                  <tbody id="historyTableBody">
+                    <tr>
+                      <td colspan="8" style="padding: 16px; text-align: center; color: var(--text-dim);">No historical runs recorded yet. Perform an enrichment query to populate history.</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
         </div>
       </section>
 
@@ -2181,84 +2254,10 @@
         </div>
       </div>
 
-      <div>
-        <h3 style="font-size: 13px; color: var(--text-main); margin-bottom: 8px;">3. Unilog 252 Master Delivery Columns Standard</h3>
         <p style="font-size: 12px; color: var(--text-muted); line-height: 1.5;">
           Conforms strictly to 56 Core Commerce Columns + 150 Parametric Attribute Triplets (<code>ATTRIBUTE_LABEL 1..50</code>, <code>ATTRIBUTE_VALUE 1..50</code>, <code>ATTRIBUTE_UOM 1..50</code>) + 46 Digital Asset &amp; Regulatory Columns. Formatted with <code>@</code> Text Format in Excel to prevent dimension fraction corruption.
-          <!-- Tab 5: Cryptographic Audit Engine -->
-          <div id="auditView" style="display: none; flex-direction: column; gap: 16px;">
-            <div style="background: var(--bg-card); border: 1px solid var(--border-bright); border-radius: 8px; padding: 16px;">
-              <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-subtle); padding-bottom: 10px; margin-bottom: 12px;">
-                <div>
-                  <h3 style="font-size: 14px; font-weight: 700; color: var(--accent-cyan); margin-bottom: 2px;">🛡️ Cryptographic SHA-256 Audit Trail & Ledger</h3>
-                  <span style="font-size: 11px; color: var(--text-muted);">Append-only hash chain proving 0% record tampering and exact OEM verbatim provenance.</span>
-                </div>
-                <span style="font-size: 11px; font-family: 'JetBrains Mono'; background: rgba(16, 185, 129, 0.15); color: var(--accent-emerald); border: 1px solid rgba(16, 185, 129, 0.3); padding: 4px 10px; border-radius: 4px; font-weight: 700;">● Ledger Chain Verified</span>
-              </div>
-
-              <!-- Live Audit Metrics Grid -->
-              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-bottom: 16px;">
-                <div style="background: rgba(0, 0, 0, 0.2); border: 1px solid var(--border-subtle); padding: 10px 14px; border-radius: 6px;">
-                  <span style="font-size: 10px; color: var(--text-dim); font-weight: 700; display: block; margin-bottom: 4px;">CURRENT HASH (SHA-256)</span>
-                  <span style="font-size: 11px; font-family: 'JetBrains Mono'; color: var(--accent-cyan); word-break: break-all;" id="auditCurrentHash">e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855</span>
-                </div>
-                <div style="background: rgba(0, 0, 0, 0.2); border: 1px solid var(--border-subtle); padding: 10px 14px; border-radius: 6px;">
-                  <span style="font-size: 10px; color: var(--text-dim); font-weight: 700; display: block; margin-bottom: 4px;">GENESIS PREVIOUS HASH</span>
-                  <span style="font-size: 11px; font-family: 'JetBrains Mono'; color: var(--accent-emerald); word-break: break-all;" id="auditPrevHash">0000000000000000000000000000000000000000000000000000000000000000</span>
-                </div>
-                <div style="background: rgba(0, 0, 0, 0.2); border: 1px solid var(--border-subtle); padding: 10px 14px; border-radius: 6px;">
-                  <span style="font-size: 10px; color: var(--text-dim); font-weight: 700; display: block; margin-bottom: 4px;">VERBATIM GROUNDING RATIO</span>
-                  <span style="font-size: 14px; font-weight: 700; color: var(--accent-emerald);" id="auditGroundingRatio">100% Grounded</span>
-                </div>
-              </div>
-
-              <!-- Mathematical Confidence Breakdown -->
-              <h4 style="font-size: 12px; font-weight: 700; color: var(--text-main); margin-bottom: 8px;">Zero-Hallucination Confidence Formula Weights</h4>
-              <div style="background: rgba(0, 0, 0, 0.3); border: 1px solid var(--border-subtle); border-radius: 6px; padding: 12px; font-family: 'JetBrains Mono', monospace; font-size: 11.5px; color: var(--text-main); line-height: 1.6;">
-                <div><span style="color: var(--accent-cyan); font-weight: 700;">Confidence = </span> (0.30 &middot; Coverage) + (0.30 &middot; VerbatimGrounding) + (0.20 &middot; UNSPSC_Taxonomy) + (0.20 &middot; RRF_Agreement) &minus; ConflictPenalty</div>
-                <div style="font-size: 10.5px; color: var(--text-muted); margin-top: 4px;">
-                  Current Score: <strong style="color: var(--accent-emerald);" id="auditConfidenceScore">0.985 (PASS &ge; 0.70)</strong> &bull; Conflict Penalty: <strong style="color: var(--accent-rose);">0.00</strong>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Tab 6: Historical Execution Runs -->
-          <div id="historyView" style="display: none; flex-direction: column; gap: 16px;">
-            <div style="background: var(--bg-card); border: 1px solid var(--border-bright); border-radius: 8px; padding: 16px;">
-              <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-subtle); padding-bottom: 10px; margin-bottom: 12px;">
-                <div>
-                  <h3 style="font-size: 14px; font-weight: 700; color: var(--accent-cyan); margin-bottom: 2px;">📜 Historical Batch & Execution Run Log</h3>
-                  <span style="font-size: 11px; color: var(--text-muted);">Real-time log of previous catalog enrichment batches and evaluation runs.</span>
-                </div>
-                <button onclick="clearRunHistory()" style="background: rgba(244, 63, 94, 0.15); border: 1px solid rgba(244, 63, 94, 0.3); color: var(--accent-rose); padding: 4px 10px; border-radius: 4px; font-size: 11px; font-weight: 600; cursor: pointer;">Clear History</button>
-              </div>
-
-              <div style="overflow-x: auto;">
-                <table style="width: 100%; border-collapse: collapse; font-size: 11.5px;">
-                  <thead>
-                    <tr style="border-bottom: 1px solid var(--border-bright); color: var(--accent-cyan); font-weight: 700; text-align: left;">
-                      <th style="padding: 8px;">RUN ID</th>
-                      <th style="padding: 8px;">TIMESTAMP</th>
-                      <th style="padding: 8px;">INPUT / FILE</th>
-                      <th style="padding: 8px;">SKUs</th>
-                      <th style="padding: 8px;">THROUGHPUT</th>
-                      <th style="padding: 8px;">PASS RATE</th>
-                      <th style="padding: 8px;">AUDIT LEDGER</th>
-                      <th style="padding: 8px;">EXPORT SNAPSHOT</th>
-                    </tr>
-                  </thead>
-                  <tbody id="historyTableBody">
-                    <tr>
-                      <td colspan="8" style="padding: 16px; text-align: center; color: var(--text-dim);">No historical runs recorded yet. Perform an enrichment query to populate history.</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+        </p>
+      </div>
     </div>
   </div>
 
