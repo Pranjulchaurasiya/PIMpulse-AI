@@ -1,7 +1,7 @@
 <a name="top"></a>
 <div align="center">
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0:0a101d,50:0284c7,100:090d16&height=200&section=header&text=PIMpulse%20AI&fontSize=68&fontColor=38bdf8&fontAlignY=38&desc=Autonomous%20Enterprise%20Product%20Enrichment%20%26%20MDM%20Studio&descAlignY=58&descSize=18&descColor=e2e8f0&animation=fadeIn" alt="PIMpulse AI Banner" width="100%"/>
+<img src="docs/hero-banner.svg" alt="PIMpulse AI Hero Banner" width="100%"/>
 
 <a href="#top">
   <img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=600&size=20&duration=2600&pause=900&color=38BDF8&center=true&vCenter=true&width=760&lines=Raw+distributor+catalogs+in.+Revenue-ready+Unilog+master+out.;190.2+SKUs%2Fsec+Polars+SIMD+throughput.;Verbatim+OEM+grounding.+0%25+hallucinations.;Built+for+UniHack+2026." alt="Typing SVG" />
