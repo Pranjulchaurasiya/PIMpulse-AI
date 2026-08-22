@@ -1769,7 +1769,7 @@
 
             <!-- Supplier Data Cleansing & Invariant Compliance Diff Toggle -->
             <div style="display: flex; justify-content: space-between; align-items: center;">
-              <button class="btn-copy" id="diffToggleBtn" onclick="toggleDiffCard()" style="font-size: 11px; padding: 4px 10px; color: var(--text-muted); background: var(--bg-surface); border: 1px solid var(--border-subtle);" title="Toggle visibility of supplier data cleansing and length invariant compliance diff">
+              <button id="diffToggleBtn" onclick="toggleDiffCard()" style="font-size: 11px; font-weight: 600; padding: 6px 12px; color: var(--accent-cyan); background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.3); border-radius: 6px; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; transition: all 0.15s; user-select: none; position: relative; z-index: 5;" title="Toggle visibility of supplier data cleansing and length invariant compliance diff">
                 <span>▶ View Supplier Data Cleansing & Invariant Compliance Diff</span>
               </button>
             </div>
@@ -3035,7 +3035,8 @@
       const diffCard = document.getElementById('diffCard');
       const btn = document.getElementById('diffToggleBtn');
       if (!diffCard) return;
-      if (diffCard.style.display === 'none' || !diffCard.style.display) {
+      const isHidden = window.getComputedStyle(diffCard).display === 'none';
+      if (isHidden) {
         diffCard.style.display = 'flex';
         if (btn) btn.innerHTML = '<span>▼ Hide Supplier Data Cleansing & Invariant Compliance Diff</span>';
       } else {
@@ -3043,6 +3044,7 @@
         if (btn) btn.innerHTML = '<span>▶ View Supplier Data Cleansing & Invariant Compliance Diff</span>';
       }
     }
+    window.toggleDiffCard = toggleDiffCard;
 
     function renderCleansingDiff(profile) {
       const diffCard = document.getElementById('diffCard');
