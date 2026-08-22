@@ -5,7 +5,7 @@
 
 > **Paste any messy industrial string or upload raw spreadsheets (`.csv` / `.xlsx`) → PIMpulse AI normalizes brands, extracts physical specifications, grounds attributes against OEM datasheets, enforces strict length invariants, and generates 252-column Unilog master catalogs at 190 SKUs/sec.**
 
-Built for **[UniHack 2026](https://unilogcorp.com)** — Master Data Management & Agentic AI Track.
+Built for **[UniHack 2026](https://hack2skill.com/event/unilog2026?utm_source=hack2skill&utm_medium=homepage)** — Master Data Management & Agentic AI Track.
 
 <br />
 
