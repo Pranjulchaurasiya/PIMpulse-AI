@@ -535,7 +535,7 @@ async def unilog_upload_endpoint(file: UploadFile = File(...), max_rows: int = F
         "mobile_compliance_pct": mobile_compliance,
         "throughput_skus_per_sec": throughput,
         "elapsed_seconds": elapsed,
-        "avg_cost_per_sku": "$0.00060",
+        "avg_cost_per_sku": "$0.0006",
         "download_xlsx": "/api/unilog/download?format=xlsx&source=upload",
         "download_csv": "/api/unilog/download?format=csv&source=upload",
         "preview_rows": enriched_rows[:15]
@@ -589,6 +589,12 @@ async def get_unilog_stats():
         "avg_latency_ms": _RUN_METRICS.get("avg_latency_ms", 7.14),
         "engine_tier": "Tier 1 Deterministic Rule Engine"
     }
+
+@app.get("/api/cost-summary")
+async def get_api_cost_summary():
+    """Returns real-time session cost and cost per SKU summary."""
+    from llm.cost_tracker import get_cost_summary
+    return get_cost_summary()
 
 @app.get("/api/unilog/dataset")
 async def get_unilog_dataset_paginated(

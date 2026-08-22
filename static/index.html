@@ -1796,7 +1796,7 @@
         </div>
         <span style="opacity: 0.3;">•</span>
         <div>
-          <span id="latencyTimer" style="color: var(--text-muted); font-family: 'JetBrains Mono', monospace;">-- ms</span>
+          <span id="latencyTimer" style="color: var(--text-muted); font-family: 'JetBrains Mono', monospace; display: none;">-- ms</span>
         </div>
         <span id="cacheBadge" style="display: none;">⚡ CACHE: WARM-READY</span>
       </div>
@@ -2173,11 +2173,11 @@
             <div class="metric-grid">
               <div class="score-card">
                 <div>
-                  <div class="score-value" id="confScore">--%</div>
+                  <div class="score-value" id="confScore" style="font-size: 16px; opacity: 0.7; font-weight: 600;">Awaiting Search</div>
                   <div class="score-label">Mathematical Confidence</div>
                 </div>
                 <div style="font-size: 11px; color: var(--text-dim); text-align: right;">
-                  <span id="decisionBadge" style="background: rgba(16,185,129,0.15); color: var(--accent-emerald); padding: 2px 6px; border-radius: 4px; font-weight: 600;">ACCEPT</span>
+                  <span id="decisionBadge" style="background: rgba(56,189,248,0.15); color: var(--accent-cyan); padding: 2px 6px; border-radius: 4px; font-weight: 600;">READY</span>
                   <div style="margin-top: 4px;">Zero LLM Guess</div>
                 </div>
               </div>
@@ -2185,19 +2185,19 @@
               <div class="weights-table">
                 <div class="weight-row">
                   <span style="color: var(--text-muted);">Attr Coverage:</span>
-                  <span id="statCoverage" style="font-family: 'JetBrains Mono';">--</span>
+                  <span id="statCoverage" style="font-family: 'JetBrains Mono'; opacity: 0.6;">Awaiting Search</span>
                 </div>
                 <div class="weight-row">
                   <span style="color: var(--text-muted);">Grounding Ratio:</span>
-                  <span id="statGrounding" style="font-family: 'JetBrains Mono';">--</span>
+                  <span id="statGrounding" style="font-family: 'JetBrains Mono'; opacity: 0.6;">Awaiting Search</span>
                 </div>
                 <div class="weight-row">
                   <span style="color: var(--text-muted);">Taxonomy Match:</span>
-                  <span id="statTaxonomy" style="font-family: 'JetBrains Mono';">--</span>
+                  <span id="statTaxonomy" style="font-family: 'JetBrains Mono'; opacity: 0.6;">Awaiting Search</span>
                 </div>
                 <div class="weight-row">
                   <span style="color: var(--text-muted);">RRF Agreement:</span>
-                  <span id="statRrf" style="font-family: 'JetBrains Mono';">--</span>
+                  <span id="statRrf" style="font-family: 'JetBrains Mono'; opacity: 0.6;">Awaiting Search</span>
                 </div>
               </div>
             </div>
@@ -2218,11 +2218,11 @@
               <div class="diff-grid">
                 <div class="diff-box">
                   <span class="diff-title">Raw Supplier Input (Dirty / Abbreviated)</span>
-                  <div class="diff-content" id="diffRawInput">--</div>
+                  <div class="diff-content" id="diffRawInput" style="opacity: 0.6;">Awaiting Search</div>
                 </div>
                 <div class="diff-box">
                   <span class="diff-title">PIMpulse AI Master Canonical Record</span>
-                  <div class="diff-content" id="diffMasterRecord" style="color: var(--accent-cyan);">--</div>
+                  <div class="diff-content" id="diffMasterRecord" style="color: var(--accent-cyan); opacity: 0.6;">Awaiting Search</div>
                 </div>
               </div>
               <div class="diff-tags" id="diffTags">
@@ -2239,7 +2239,7 @@
                   <div class="meter-bar-bg">
                     <div class="meter-bar-fill" id="diffInvoiceBar" style="width: 0%;"></div>
                   </div>
-                  <div style="font-size: 11px; font-family: 'JetBrains Mono'; color: var(--accent-cyan); margin-top: 2px;" id="diffInvoiceVal">--</div>
+                  <div style="font-size: 11px; font-family: 'JetBrains Mono'; color: var(--text-dim); margin-top: 2px;" id="diffInvoiceVal">Awaiting Search</div>
                 </div>
                 <div class="length-meter-box">
                   <div class="meter-label-row">
@@ -2249,7 +2249,7 @@
                   <div class="meter-bar-bg">
                     <div class="meter-bar-fill" id="diffMobileBar" style="width: 0%;"></div>
                   </div>
-                  <div style="font-size: 11px; font-family: 'JetBrains Mono'; color: var(--text-main); margin-top: 2px;" id="diffMobileVal">--</div>
+                  <div style="font-size: 11px; font-family: 'JetBrains Mono'; color: var(--text-dim); margin-top: 2px;" id="diffMobileVal">Awaiting Search</div>
                 </div>
               </div>
             </div>
@@ -2257,7 +2257,7 @@
             <!-- Product Classification & Marketing Profile -->
             <div class="profile-card">
               <div class="unspsc-badge-row">
-                <span class="unspsc-code" id="unspscCode">UNSPSC: --------</span>
+                <span class="unspsc-code" id="unspscCode">UNSPSC: Awaiting Search</span>
                 <span class="unspsc-path" id="unspscPath">Industrial &gt; General</span>
               </div>
               <h2 class="product-title" id="prodTitle">Product Profile Awaiting Input</h2>
@@ -3533,8 +3533,11 @@
       const diffCard = document.getElementById('diffCard');
       if (!diffCard) return;
 
-      document.getElementById('diffRawInput').textContent = profile.raw_input || '--';
-      document.getElementById('diffMasterRecord').textContent = `${profile.standardized_title || '--'}`;
+      const rawEl = document.getElementById('diffRawInput');
+      if (rawEl) { rawEl.textContent = profile.raw_input || 'Awaiting Search'; rawEl.style.opacity = '1'; }
+
+      const masterEl = document.getElementById('diffMasterRecord');
+      if (masterEl) { masterEl.textContent = profile.standardized_title || 'Awaiting Search'; masterEl.style.opacity = '1'; }
 
       // Invariants
       const invDesc = profile.invoice_description || (profile.standardized_title ? profile.standardized_title.toUpperCase().slice(0, 32) : 'PRODUCT SPEC');
@@ -3559,20 +3562,39 @@
 
       // Confidence & Math breakdown
       const conf = profile.confidence || {};
-      document.getElementById('confScore').textContent = `${conf.confidence_pct || 0}%`;
-      document.getElementById('statCoverage').textContent = `${((conf.coverage || 0) * 100).toFixed(0)}%`;
-      document.getElementById('statGrounding').textContent = `${((conf.grounding_ratio || 0) * 100).toFixed(0)}%`;
-      document.getElementById('statTaxonomy').textContent = `${((conf.taxonomy_confidence || 0) * 100).toFixed(0)}%`;
+      const confEl = document.getElementById('confScore');
+      if (confEl) {
+        confEl.textContent = `${conf.confidence_pct || 0}%`;
+        confEl.style.fontSize = '';
+        confEl.style.opacity = '1';
+      }
+
+      const decBadge = document.getElementById('decisionBadge');
+      if (decBadge) {
+        decBadge.textContent = 'ACCEPT';
+        decBadge.style.background = 'rgba(16,185,129,0.15)';
+        decBadge.style.color = 'var(--accent-emerald)';
+      }
+
+      const covEl = document.getElementById('statCoverage');
+      if (covEl) { covEl.textContent = `${((conf.coverage || 0) * 100).toFixed(0)}%`; covEl.style.opacity = '1'; }
+
+      const grdEl = document.getElementById('statGrounding');
+      if (grdEl) { grdEl.textContent = `${((conf.grounding_ratio || 0) * 100).toFixed(0)}%`; grdEl.style.opacity = '1'; }
+
+      const taxEl = document.getElementById('statTaxonomy');
+      if (taxEl) { taxEl.textContent = `${((conf.taxonomy_confidence || 0) * 100).toFixed(0)}%`; taxEl.style.opacity = '1'; }
       
       const rrfText = conf.retrieval_agreement_excluded ? 'Cold-Start Excluded' : `${((conf.retrieval_agreement || 0) * 100).toFixed(0)}%`;
-      document.getElementById('statRrf').textContent = rrfText;
+      const rrfEl = document.getElementById('statRrf');
+      if (rrfEl) { rrfEl.textContent = rrfText; rrfEl.style.opacity = '1'; }
 
       // Render Data Cleansing & Compliance Diff
       renderCleansingDiff(profile);
 
       // UNSPSC & Badges
       const tax = profile.taxonomy || {};
-      document.getElementById('unspscCode').textContent = `UNSPSC: ${tax.code || '--------'}`;
+      document.getElementById('unspscCode').textContent = `UNSPSC: ${tax.code || 'Awaiting Search'}`;
       document.getElementById('unspscPath').textContent = (tax.path || []).join(' > ') || 'Industrial';
       
       const unspscRow = document.querySelector('.unspsc-badge-row');

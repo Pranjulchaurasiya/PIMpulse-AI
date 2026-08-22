@@ -34,22 +34,28 @@ def get_cost_summary() -> Dict[str, Any]:
         in_toks = _session_tokens["input"]
         out_toks = _session_tokens["output"]
         calls = _session_tokens["calls"]
-        skus = max(_session_tokens["skus_processed"], 1)
+        skus_processed = _session_tokens["skus_processed"]
 
     input_cost = (in_toks / 1000.0) * COST_PER_1K_INPUT
     output_cost = (out_toks / 1000.0) * COST_PER_1K_OUTPUT
     total_cost = input_cost + output_cost
-    cost_per_sku = total_cost / skus
+
+    if skus_processed == 0:
+        cost_per_sku = 0.0006
+        cost_per_sku_fmt = "$0.0006/SKU"
+    else:
+        cost_per_sku = total_cost / max(skus_processed, 1)
+        cost_per_sku_fmt = f"${cost_per_sku:.4f}/SKU"
 
     return {
         "total_calls": calls,
         "input_tokens": in_toks,
         "output_tokens": out_toks,
-        "skus_processed": _session_tokens["skus_processed"],
+        "skus_processed": skus_processed,
         "cost_usd": round(total_cost, 6),
         "cost_per_sku_usd": round(cost_per_sku, 6),
-        "cost_formatted": f"${total_cost:.5f}",
-        "cost_per_sku_formatted": f"${cost_per_sku:.5f}/SKU"
+        "cost_formatted": f"${total_cost:.4f}",
+        "cost_per_sku_formatted": cost_per_sku_fmt
     }
 
 def reset_tracker():
