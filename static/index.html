@@ -1470,32 +1470,34 @@
       </div>
     </div>
     <div class="header-meta">
-      <button class="btn-theme-toggle" id="themeToggleBtn" onclick="toggleTheme()" title="Toggle Dark/Light UI Theme Mode">
-        <span id="themeToggleIcon">☀️</span>
-        <span id="themeToggleLabel">Light Mode</span>
-      </button>
+      <div class="header-status-group" style="display: flex; align-items: center; gap: 10px; font-size: 11.5px; color: var(--text-muted); margin-right: 6px;">
+        <div style="display: flex; align-items: center; gap: 6px;">
+          <span class="status-dot"></span>
+          <span id="providerStatus" style="font-weight: 500;">Groq LPU Engine</span>
+        </div>
+        <span style="opacity: 0.3;">•</span>
+        <div>
+          <span id="costPill" style="color: var(--text-main); font-weight: 600;">$0.0006/SKU</span>
+        </div>
+        <span style="opacity: 0.3;">•</span>
+        <div>
+          <span id="latencyTimer" style="color: var(--text-muted); font-family: 'JetBrains Mono', monospace;">-- ms</span>
+        </div>
+        <span id="cacheBadge" style="display: none;">⚡ CACHE: WARM-READY</span>
+      </div>
+      
       <button class="btn-arch" onclick="openArchModal()" title="View System Architecture, 26-Node LangGraph Pipeline & Mathematical Formulations">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
           <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
         </svg>
-        <span>📖 Architecture & Math</span>
+        <span>Architecture & Math</span>
       </button>
-      <div class="meta-pill">
-        <span class="status-dot"></span>
-        <span id="providerStatus">Groq LPUs (Active)</span>
-      </div>
-      <div class="meta-pill" title="Real-time LLM inference cost tracking">
-        <span>Cost:</span>
-        <span id="costPill" style="color: var(--accent-emerald); font-weight:600;">$0.00060/SKU</span>
-      </div>
-      <div class="meta-pill">
-        <span>Latency:</span>
-        <span id="latencyTimer" style="color: var(--accent-cyan);">-- ms</span>
-      </div>
-      <div class="meta-pill">
-        <span id="cacheBadge" style="color: var(--accent-emerald);">⚡ CACHE: WARM-READY</span>
-      </div>
+
+      <button class="btn-theme-toggle" id="themeToggleBtn" onclick="toggleTheme()" title="Toggle Dark/Light UI Theme Mode">
+        <span id="themeToggleIcon">☀️</span>
+        <span id="themeToggleLabel">Light Mode</span>
+      </button>
     </div>
   </header>
 
@@ -1763,6 +1765,13 @@
                   <span id="statRrf" style="font-family: 'JetBrains Mono';">--</span>
                 </div>
               </div>
+            </div>
+
+            <!-- Supplier Data Cleansing & Invariant Compliance Diff Toggle -->
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <button class="btn-copy" id="diffToggleBtn" onclick="toggleDiffCard()" style="font-size: 11px; padding: 4px 10px; color: var(--text-muted); background: var(--bg-surface); border: 1px solid var(--border-subtle);" title="Toggle visibility of supplier data cleansing and length invariant compliance diff">
+                <span>▶ View Supplier Data Cleansing & Invariant Compliance Diff</span>
+              </button>
             </div>
 
             <!-- Supplier Data Cleansing & Invariant Compliance Diff Card -->
@@ -3022,10 +3031,22 @@
       feed.scrollTop = feed.scrollHeight;
     }
 
+    function toggleDiffCard() {
+      const diffCard = document.getElementById('diffCard');
+      const btn = document.getElementById('diffToggleBtn');
+      if (!diffCard) return;
+      if (diffCard.style.display === 'none' || !diffCard.style.display) {
+        diffCard.style.display = 'flex';
+        if (btn) btn.innerHTML = '<span>▼ Hide Supplier Data Cleansing & Invariant Compliance Diff</span>';
+      } else {
+        diffCard.style.display = 'none';
+        if (btn) btn.innerHTML = '<span>▶ View Supplier Data Cleansing & Invariant Compliance Diff</span>';
+      }
+    }
+
     function renderCleansingDiff(profile) {
       const diffCard = document.getElementById('diffCard');
       if (!diffCard) return;
-      diffCard.style.display = 'flex';
 
       document.getElementById('diffRawInput').textContent = profile.raw_input || '--';
       document.getElementById('diffMasterRecord').textContent = `${profile.standardized_title || '--'}`;
