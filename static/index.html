@@ -231,6 +231,45 @@
       box-shadow: 0 0 10px var(--glow-cyan);
     }
 
+    /* Segmented View Mode Switcher Styling */
+    .btn-view-mode {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .btn-view-mode.active {
+      background: var(--accent-cyan);
+      color: #ffffff;
+      box-shadow: 0 1px 4px rgba(2, 132, 199, 0.3);
+    }
+
+    /* Executive View Mode Rules */
+    body[data-view="executive"] .telemetry-pane {
+      display: none !important;
+    }
+    body[data-view="executive"] .split-layout {
+      grid-template-columns: 1fr !important;
+      max-width: 1150px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    body[data-view="executive"] .how-to-use-card,
+    body[data-view="executive"] .kpi-banner,
+    body[data-view="executive"] .control-card {
+      max-width: 1150px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
     /* How to Use Section */
     .how-to-use-card {
       background: var(--bg-card);
@@ -1468,6 +1507,16 @@
         PIMpulse AI
         <span class="brand-tag">UniHack 2026</span>
       </div>
+
+      <!-- Segmented View Mode Switcher -->
+      <div class="view-mode-switcher" style="display: flex; background: var(--bg-surface); border: 1px solid var(--border-bright); padding: 2px; border-radius: 8px; font-size: 11.5px; font-weight: 600; margin-left: 10px;">
+        <button id="viewExecBtn" class="btn-view-mode active" onclick="switchViewMode('executive')" title="Clean Executive View focused on core product profile and download exports">
+          <span>👁️ Executive View</span>
+        </button>
+        <button id="viewDevBtn" class="btn-view-mode" onclick="switchViewMode('developer')" title="Full Developer Control Panel with live telemetry stream, SIMD metrics and SHA-256 ledgers">
+          <span>💻 Developer Panel</span>
+        </button>
+      </div>
     </div>
     <div class="header-meta">
       <div class="header-status-group" style="display: flex; align-items: center; gap: 10px; font-size: 11.5px; color: var(--text-muted); margin-right: 6px;">
@@ -2386,8 +2435,27 @@
       }
     }
 
+    function switchViewMode(mode) {
+      document.body.setAttribute('data-view', mode);
+      localStorage.setItem('pimpulse_view_mode', mode);
+      
+      const execBtn = document.getElementById('viewExecBtn');
+      const devBtn = document.getElementById('viewDevBtn');
+      if (execBtn && devBtn) {
+        if (mode === 'executive') {
+          execBtn.classList.add('active');
+          devBtn.classList.remove('active');
+        } else {
+          devBtn.classList.add('active');
+          execBtn.classList.remove('active');
+        }
+      }
+    }
+
     document.addEventListener('DOMContentLoaded', () => {
       initTheme();
+      const savedView = localStorage.getItem('pimpulse_view_mode') || 'executive';
+      switchViewMode(savedView);
       fetchSystemStatus();
       fetchUnilogStats();
       updateCostSummary();
