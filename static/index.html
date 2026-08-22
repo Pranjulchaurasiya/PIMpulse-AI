@@ -1688,6 +1688,34 @@
           
           <!-- Tab 1: Structured Profile -->
           <div id="profileView" style="display: flex; flex-direction: column; gap: 16px;">
+
+            <!-- Interactive Human Auditor Approval & Governance Control Card -->
+            <div id="humanApprovalCard" style="background: rgba(15, 23, 42, 0.6); border: 1.5px solid var(--accent-cyan); border-radius: 8px; padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; gap: 12px;">
+              <div>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                  <span style="font-size: 12px; font-weight: 700; color: var(--accent-cyan);">👤 Human Auditor Governance & Approval Bar</span>
+                  <span id="auditorCardStatus" style="font-size: 10px; font-family: 'JetBrains Mono'; background: rgba(16, 185, 129, 0.15); color: var(--accent-emerald); border: 1px solid rgba(16, 185, 129, 0.3); padding: 1px 6px; border-radius: 4px;">● Auto-Grounded</span>
+                </div>
+                <div style="font-size: 11px; color: var(--text-muted); margin-top: 2px;">
+                  Human-in-the-Loop Override Safety Valve & Version Control Rollback System.
+                </div>
+              </div>
+
+              <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+                <button onclick="executeAuditorAction('approve')" style="background: rgba(16, 185, 129, 0.2); border: 1px solid var(--accent-emerald); color: var(--accent-emerald); padding: 6px 12px; border-radius: 6px; font-size: 11.5px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 4px;" title="Approve and publish enriched record to master Unilog delivery catalog">
+                  <span>✓ Approve & Publish</span>
+                </button>
+                <button onclick="executeAuditorAction('override')" style="background: rgba(56, 189, 248, 0.2); border: 1px solid var(--accent-cyan); color: var(--accent-cyan); padding: 6px 12px; border-radius: 6px; font-size: 11.5px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 4px;" title="Manually edit value with auditor authority">
+                  <span>✏️ Manual Override</span>
+                </button>
+                <button onclick="executeAuditorAction('rollback')" style="background: rgba(168, 85, 247, 0.2); border: 1px solid var(--accent-violet); color: var(--accent-violet); padding: 6px 12px; border-radius: 6px; font-size: 11.5px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 4px;" title="Rollback record to prior SHA-256 state snapshot">
+                  <span>⏪ Rollback Snapshot</span>
+                </button>
+                <button onclick="executeAuditorAction('refuse')" style="background: rgba(244, 63, 94, 0.2); border: 1px solid var(--accent-rose); color: var(--accent-rose); padding: 6px 12px; border-radius: 6px; font-size: 11.5px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 4px;" title="Refuse record to prevent unverified data publishing">
+                  <span>❌ Refuse Row</span>
+                </button>
+              </div>
+            </div>
             
             <!-- Mathematical Confidence & Weights Grid -->
             <div class="metric-grid">
@@ -2498,6 +2526,69 @@
       if (escalateBar) escalateBar.style.width = `${escalatePct}%`;
       if (acceptText) acceptText.textContent = `● Accepted: ${acceptPct}%`;
       if (escalateText) escalateText.textContent = `● Auditor Review: ${escalatePct}%`;
+    }
+
+    async function executeAuditorAction(action) {
+      const statusEl = document.getElementById('auditorCardStatus');
+      const partNum = currentProfile ? (currentProfile.part_number || currentProfile.title || 'PDSH4816AF') : 'PDSH4816AF';
+
+      let fieldName = null;
+      let newValue = null;
+
+      if (action === 'override') {
+        const val = prompt(`Enter manual override value for ${partNum}:`, 'CUSTOM_CANONICAL_SPEC_2026');
+        if (!val) return;
+        newValue = val;
+        fieldName = 'MANUAL_OVERRIDE_VAL';
+      }
+
+      try {
+        const res = await fetch('/api/unilog/auditor-action', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            part_number: partNum,
+            action: action,
+            field_name: fieldName,
+            new_value: newValue
+          })
+        });
+
+        const data = await res.json();
+
+        if (statusEl) {
+          if (action === 'approve') {
+            statusEl.textContent = '● Manually Approved & Published';
+            statusEl.style.color = 'var(--accent-emerald)';
+            statusEl.style.background = 'rgba(16, 185, 129, 0.2)';
+          } else if (action === 'override') {
+            statusEl.textContent = `● Overridden: ${newValue}`;
+            statusEl.style.color = 'var(--accent-cyan)';
+            statusEl.style.background = 'rgba(56, 189, 248, 0.2)';
+          } else if (action === 'rollback') {
+            statusEl.textContent = '● Snapshot Rolled Back to Genesis';
+            statusEl.style.color = 'var(--accent-violet)';
+            statusEl.style.background = 'rgba(168, 85, 247, 0.2)';
+          } else if (action === 'refuse') {
+            statusEl.textContent = '● Row Refused (Insufficient Evidence)';
+            statusEl.style.color = 'var(--accent-rose)';
+            statusEl.style.background = 'rgba(244, 63, 94, 0.2)';
+          }
+        }
+
+        recordRunHistory({
+          id: `AUDIT-${Math.floor(1000 + Math.random() * 9000)}`,
+          timestamp: new Date().toLocaleTimeString(),
+          input: `${partNum} (${action.toUpperCase()})`,
+          skus: 1,
+          throughput: 'Auditor Manual Valve',
+          passRate: action === 'refuse' ? 'Refused' : 'Human Approved',
+          acceptPct: action === 'refuse' ? 0 : 100
+        });
+
+      } catch (err) {
+        console.error("Auditor action error:", err);
+      }
     }
 
     async function loadComparator(skus) {

@@ -655,6 +655,37 @@ async def download_unilog_file(format: str = Query("xlsx", regex="^(xlsx|csv)$")
     media_type = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" if format == "xlsx" else "text/csv; charset=utf-8"
     return FileResponse(file_path, media_type=media_type, filename=filename)
 
+class AuditorActionRequest(BaseModel):
+    part_number: str
+    action: str  # 'approve', 'refuse', 'rollback', 'override'
+    field_name: Optional[str] = None
+    new_value: Optional[str] = None
+
+@app.post("/api/unilog/auditor-action")
+async def process_auditor_action(req: AuditorActionRequest):
+    """
+    Handles human auditor approval, manual override, rollback, or refusal actions.
+    Appends a new cryptographic block to the audit ledger.
+    """
+    entry = audit_ledger.record(
+        sku=req.part_number,
+        action=f"HUMAN_AUDITOR_{req.action.upper()}",
+        attribute=req.field_name or "CATALOG_STATUS",
+        val_before="NEEDS_REVIEW" if req.action != "rollback" else "MODIFIED",
+        val_after=req.new_value or req.action.upper(),
+        authority=1.0,
+        source_url="human_auditor_override",
+        grounded=True
+    )
+    return {
+        "status": "success",
+        "action": req.action,
+        "part_number": req.part_number,
+        "new_hash": entry.current_hash,
+        "previous_hash": entry.previous_hash,
+        "audit_entry": entry.to_dict()
+    }
+
 if __name__ == "__main__":
     import uvicorn
     port = int(os.getenv("PORT", 8000))
