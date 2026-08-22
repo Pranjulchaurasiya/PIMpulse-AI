@@ -56,7 +56,7 @@
 
 ### Jump to
 
-[The problem](#the-problem) · [The solution](#the-solution) · [See it transform a real row](#see-it-transform-a-real-row) · [Why PIMpulse](#-competitive-positioning--dual-engine-throughput) · [Live Demo](#-live-demo--3-minute-judge-walkthrough) · [Architecture](#-system-architecture) · [Quickstart](#-quickstart) · [Benchmark](#-official-benchmark--evaluator-suite)
+[See it transform a real row](#see-it-transform-a-real-row) · [Why PIMpulse](#competitive-positioning) · [Live Demo](#live-demo) · [Architecture](#system-architecture) · [Quickstart](#quickstart) · [Benchmark](#benchmark)
 
 </div>
 
@@ -103,6 +103,7 @@ CONFIDENCE   98.5% (ACCEPT)        <em>[verbatim]</em>
 
 ---
 
+<a name="competitive-positioning"></a>
 ## 🎯 Competitive Positioning & Dual-Engine Throughput
 
 PIMpulse AI uses a **Dual-Tier Architecture** that cleanly separates high-speed deterministic catalog standardization from deep autonomous web enrichment:
@@ -135,6 +136,7 @@ PIMpulse AI uses a **Dual-Tier Architecture** that cleanly separates high-speed 
 
 ---
 
+<a name="live-demo"></a>
 ## 🧭 Live Demo & Evaluator Walkthrough
 
 | Surface | URL / Location | Description |
@@ -167,6 +169,7 @@ PIMpulse AI uses a **Dual-Tier Architecture** that cleanly separates high-speed 
 
 ---
 
+<a name="system-architecture"></a>
 ## 🏗️ System Architecture
 
 ```text
@@ -249,6 +252,7 @@ journey
 
 ---
 
+<a name="quickstart"></a>
 ## 🚀 Quickstart
 
 ### Prerequisites
@@ -281,6 +285,7 @@ Open **[http://localhost:8000](http://localhost:8000)** in your browser.
 
 ---
 
+<a name="benchmark"></a>
 ## 📊 Official Benchmark & Evaluator Suite
 
 Run the full automated test suite (including the 200-item hidden evaluator simulation):
