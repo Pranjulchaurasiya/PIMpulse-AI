@@ -270,47 +270,35 @@
       width: 100%;
     }
 
-    /* SaaS Landing Page Section Styling - Silicon Valley SaaS Aesthetic */
+    /* SaaS Landing Page Section Styling - Production Design System (Linear / Vercel / Stripe Principles) */
     .landing-container {
-      max-width: 1200px;
-      margin: 24px auto 60px auto;
+      max-width: 1120px;
+      margin: 32px auto 60px auto;
       padding: 0 24px;
       display: flex;
       flex-direction: column;
-      gap: 48px;
-      font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, sans-serif;
+      gap: 52px;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     }
 
     .landing-hero {
-      text-align: center;
+      text-align: left;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      padding: 56px 32px;
-      background: radial-gradient(ellipse 90% 60% at 50% -10%, rgba(56, 189, 248, 0.22), transparent 70%), var(--bg-card);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 24px;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(16px);
-      position: relative;
-      overflow: hidden;
+      align-items: flex-start;
+      padding: 36px 0 48px 0;
+      border-bottom: 1px solid var(--border-subtle);
     }
 
     .hero-tag-pill {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      background: rgba(56, 189, 248, 0.08);
-      color: var(--accent-cyan);
-      border: 1px solid rgba(56, 189, 248, 0.3);
-      padding: 6px 16px;
-      border-radius: 30px;
-      font-size: 11.5px;
-      font-weight: 700;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      margin-bottom: 24px;
-      box-shadow: 0 0 20px rgba(56, 189, 248, 0.15);
+      color: var(--text-muted);
+      font-size: 12px;
+      font-weight: 500;
+      margin-bottom: 20px;
+      letter-spacing: 0.02em;
     }
 
     .live-pulse-dot {
@@ -318,221 +306,226 @@
       height: 7px;
       background-color: var(--accent-emerald);
       border-radius: 50%;
-      box-shadow: 0 0 8px var(--accent-emerald);
-      animation: pulseGlow 1.8s infinite alternate;
-    }
-
-    @keyframes pulseGlow {
-      from { opacity: 0.4; transform: scale(0.9); }
-      to { opacity: 1; transform: scale(1.15); }
     }
 
     .hero-headline {
-      font-size: 44px;
-      font-weight: 800;
+      font-size: 42px;
+      font-weight: 700;
       line-height: 1.15;
-      letter-spacing: -0.03em;
+      letter-spacing: -0.025em;
       color: var(--text-main);
-      max-width: 920px;
-      margin-bottom: 20px;
+      max-width: 860px;
+      margin-bottom: 16px;
     }
 
-    .gradient-text {
-      background: linear-gradient(135deg, #38bdf8 0%, #818cf8 50%, #c084fc 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+    .hero-headline .highlight-phrase {
+      color: var(--accent-cyan);
     }
 
     .hero-subtext {
-      font-size: 16.5px;
-      color: #94a3b8;
-      max-width: 820px;
-      line-height: 1.65;
+      font-size: 16px;
+      color: var(--text-muted);
+      max-width: 780px;
+      line-height: 1.6;
       margin-bottom: 32px;
       font-weight: 400;
     }
 
     .hero-cta-group {
       display: flex;
-      gap: 16px;
+      gap: 12px;
       align-items: center;
       margin-bottom: 44px;
     }
 
     .btn-hero-primary {
-      background: linear-gradient(135deg, #0284c7 0%, #2563eb 100%);
-      color: #ffffff;
+      background: var(--text-main);
+      color: var(--bg-base);
       border: none;
-      padding: 15px 32px;
-      border-radius: 12px;
-      font-size: 14.5px;
-      font-weight: 700;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 13.5px;
+      font-weight: 600;
       cursor: pointer;
       display: flex;
       align-items: center;
-      gap: 10px;
-      box-shadow: 0 4px 20px rgba(2, 132, 199, 0.45);
-      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      gap: 8px;
+      transition: opacity 0.15s;
     }
     .btn-hero-primary:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 30px rgba(2, 132, 199, 0.7);
+      opacity: 0.9;
     }
 
     .btn-hero-secondary {
-      background: rgba(15, 23, 42, 0.6);
+      background: var(--bg-surface);
       color: var(--text-main);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      padding: 15px 28px;
-      border-radius: 12px;
-      font-size: 14px;
-      font-weight: 600;
+      border: 1px solid var(--border-bright);
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 500;
       cursor: pointer;
-      backdrop-filter: blur(10px);
-      transition: all 0.2s;
+      transition: background 0.15s;
     }
     .btn-hero-secondary:hover {
-      border-color: var(--accent-cyan);
-      color: var(--accent-cyan);
-      background: rgba(56, 189, 248, 0.05);
+      background: var(--bg-card);
     }
 
-    .landing-metrics-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
+    /* Hero Focal Metric + Secondary Metric Bar */
+    .hero-focal-wrapper {
       width: 100%;
-      max-width: 980px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 24px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 32px;
+      flex-wrap: wrap;
     }
 
-    .landing-metric-card {
-      background: rgba(15, 23, 42, 0.75);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-top: 2px solid var(--accent-cyan);
-      border-radius: 14px;
-      padding: 18px 14px;
-      text-align: center;
-      backdrop-filter: blur(12px);
-      transition: all 0.2s ease;
-    }
-    .landing-metric-card:hover {
-      transform: translateY(-3px);
-      border-color: rgba(56, 189, 248, 0.4);
-      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.3);
+    .hero-focal-metric {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
     }
 
-    .metric-num {
-      font-size: 28px;
-      font-weight: 800;
-      color: var(--text-main);
+    .focal-num {
+      font-size: 40px;
+      font-weight: 700;
       font-family: 'JetBrains Mono', monospace;
+      color: var(--accent-emerald);
+      line-height: 1;
       letter-spacing: -0.02em;
     }
 
-    .metric-unit {
-      font-size: 10.5px;
-      font-weight: 800;
-      color: var(--accent-cyan);
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      margin-bottom: 4px;
+    .focal-label {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-muted);
     }
 
-    .metric-desc {
+    .hero-secondary-metrics {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .sec-metric {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .sec-num {
+      font-size: 18px;
+      font-weight: 600;
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--text-main);
+    }
+
+    .sec-label {
       font-size: 11px;
-      color: #94a3b8;
-      font-weight: 500;
+      color: var(--text-muted);
+    }
+
+    .sec-divider {
+      width: 1px;
+      height: 28px;
+      background: var(--border-subtle);
     }
 
     .section-title {
-      font-size: 24px;
-      font-weight: 800;
-      letter-spacing: -0.02em;
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -0.015em;
       color: var(--text-main);
-      text-align: center;
-      margin-bottom: 24px;
+      text-align: left;
+      margin-bottom: 20px;
     }
 
     .features-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 20px;
+      gap: 16px;
     }
 
     .feature-card {
-      background: rgba(18, 24, 36, 0.65);
-      border: 1px solid rgba(255, 255, 255, 0.07);
-      border-radius: 16px;
-      padding: 26px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 24px;
       display: flex;
       flex-direction: column;
-      gap: 12px;
-      backdrop-filter: blur(10px);
-      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      gap: 10px;
+      transition: border-color 0.15s;
     }
 
     .feature-card:hover {
-      transform: translateY(-4px);
-      border-color: rgba(56, 189, 248, 0.35);
-      box-shadow: 0 14px 32px rgba(0, 0, 0, 0.35), 0 0 20px rgba(56, 189, 248, 0.08);
+      border-color: var(--border-bright);
+    }
+
+    .feature-header-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
 
     .feature-icon-badge {
-      width: 44px;
-      height: 44px;
-      border-radius: 12px;
-      background: rgba(56, 189, 248, 0.1);
-      border: 1px solid rgba(56, 189, 248, 0.2);
+      width: 32px;
+      height: 32px;
+      border-radius: 6px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 20px;
-      margin-bottom: 4px;
+      color: var(--text-muted);
     }
 
     .feature-card h3 {
-      font-size: 17.5px;
-      font-weight: 700;
+      font-size: 15px;
+      font-weight: 600;
       color: var(--text-main);
       letter-spacing: -0.01em;
     }
 
     .feature-card p {
-      font-size: 14px;
-      color: #94a3b8;
-      line-height: 1.6;
+      font-size: 13.5px;
+      color: var(--text-muted);
+      line-height: 1.55;
     }
 
     .landing-table {
       width: 100%;
       border-collapse: separate;
       border-spacing: 0;
-      background: rgba(18, 24, 36, 0.6);
-      border-radius: 16px;
+      background: var(--bg-card);
+      border-radius: 12px;
       overflow: hidden;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      backdrop-filter: blur(10px);
+      border: 1px solid var(--border-subtle);
     }
 
     .landing-table th, .landing-table td {
-      padding: 16px 20px;
+      padding: 14px 20px;
       text-align: left;
-      font-size: 13.5px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      font-size: 13px;
+      border-bottom: 1px solid var(--border-subtle);
     }
 
     .landing-table th {
-      background: rgba(15, 23, 42, 0.85);
-      color: #94a3b8;
-      font-weight: 700;
-      text-transform: uppercase;
+      background: var(--bg-surface);
+      color: var(--text-muted);
+      font-weight: 600;
       font-size: 11px;
-      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
     }
 
     .landing-table .highlight-col {
-      background: rgba(56, 189, 248, 0.08);
       color: var(--accent-cyan);
+      font-weight: 600;
     }
     .how-to-use-card {
       background: var(--bg-card);
@@ -721,39 +714,75 @@
       gap: 12px;
     }
 
-    .kpi-card {
+    /* Executive Scorecard Bar (Production Design System) */
+    .kpi-banner {
       background: var(--bg-card);
       border: 1px solid var(--border-subtle);
-      border-radius: 10px;
-      padding: 14px 18px;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      transition: all 0.2s;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .kpi-card:hover {
-      border-color: var(--border-bright);
-      transform: translateY(-1px);
-    }
-
-    .kpi-val {
-      font-size: 22px;
-      font-weight: 800;
-      font-family: 'JetBrains Mono', monospace;
-      color: var(--text-main);
+      border-radius: 12px;
+      padding: 18px 24px;
       display: flex;
       align-items: center;
-      gap: 6px;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
     }
 
-    .kpi-label {
+    .kpi-focal-group {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .kpi-focal-val {
+      font-size: 32px;
+      font-weight: 700;
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--accent-emerald);
+      letter-spacing: -0.02em;
+      line-height: 1;
+    }
+
+    .kpi-focal-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .kpi-focal-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    .kpi-focal-sub {
       font-size: 11px;
       color: var(--text-muted);
+    }
+
+    .kpi-secondary-group {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .kpi-sec-item {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .kpi-sec-val {
+      font-size: 16px;
+      font-weight: 700;
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--text-main);
+    }
+
+    .kpi-sec-lbl {
+      font-size: 10px;
+      color: var(--text-muted);
       text-transform: uppercase;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.04em;
     }
 
     /* Search & Ingestion Control Card */
@@ -1816,119 +1845,143 @@
     </div>
   </header>
 
-  <!-- B2B SaaS Marketing Landing Hero Section -->
+  <!-- Production SaaS Landing Hero Section -->
   <div id="landingContainer" class="landing-container" style="display: none;">
     <section class="landing-hero">
       <div class="hero-tag-pill">
         <span class="live-pulse-dot"></span>
-        <span>UniHack 2026 Grand Prize Submission</span>
+        <span>UniHack 2026 Submission</span>
       </div>
       <h1 class="hero-headline">
-        Transform Raw Industrial Catalogs into <span class="gradient-text">252-Column Unilog Master Data</span> in Seconds
+        Transform raw distributor feeds into verified, <span class="highlight-phrase">252-column Unilog master records</span>.
       </h1>
       <p class="hero-subtext">
-        PIMpulse AI combines a Rust-backed Polars SIMD Vectorizer (190.2 SKUs/s) with a 26-node LangGraph Autonomous Agent to normalize brands, extract physical specs, enforce 100% length invariants, and eliminate Excel date corruption.
+        An enterprise product data engine combining a Polars SIMD Vectorizer (190.2 SKUs/s) with a 26-node LangGraph agent to extract verified physical specs, enforce strict length invariants, and eliminate catalog date corruption.
       </p>
 
       <div class="hero-cta-group">
         <button class="btn-hero-primary" onclick="switchViewMode('executive')">
-          <span>⚡ Launch Live Product Studio</span>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+          <span>Open Product Studio</span>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
         </button>
         <button class="btn-hero-secondary" onclick="openArchModal()">
-          <span>📐 View Architecture & Math</span>
+          <span>View Architecture & Specifications</span>
         </button>
       </div>
 
-      <!-- Live Metric Grid -->
-      <div class="landing-metrics-grid">
-        <div class="landing-metric-card">
-          <div class="metric-num">190.2</div>
-          <div class="metric-unit">SKUs / sec</div>
-          <div class="metric-desc">Polars SIMD Ingestion Engine</div>
+      <!-- Hero Focal Metric + Secondary Metric Bar -->
+      <div class="hero-focal-wrapper">
+        <div class="hero-focal-metric">
+          <div class="focal-num">100.0%</div>
+          <div class="focal-label">Data Contract & Length Invariant Pass Rate</div>
         </div>
-        <div class="landing-metric-card">
-          <div class="metric-num">252</div>
-          <div class="metric-unit">Columns</div>
-          <div class="metric-desc">Unilog CX1 Standard Delivery</div>
-        </div>
-        <div class="landing-metric-card">
-          <div class="metric-num">100.0%</div>
-          <div class="metric-unit">Pass Rate</div>
-          <div class="metric-desc">POS (≤40) & Mobile Length Invariants</div>
-        </div>
-        <div class="landing-metric-card">
-          <div class="metric-num">$0.0006</div>
-          <div class="metric-unit">per SKU</div>
-          <div class="metric-desc">Groq LPU Unit Economics</div>
+        <div class="hero-secondary-metrics">
+          <div class="sec-metric">
+            <span class="sec-num" id="heroSkusNum">1,000</span>
+            <span class="sec-label">Active SKUs</span>
+          </div>
+          <div class="sec-divider"></div>
+          <div class="sec-metric">
+            <span class="sec-num">252</span>
+            <span class="sec-label">Delivery Columns</span>
+          </div>
+          <div class="sec-divider"></div>
+          <div class="sec-metric">
+            <span class="sec-num">190.2</span>
+            <span class="sec-label">SKUs / sec</span>
+          </div>
+          <div class="sec-divider"></div>
+          <div class="sec-metric">
+            <span class="sec-num">$0.0006</span>
+            <span class="sec-label">Cost / SKU</span>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- 4 Core Pillars Section -->
+    <!-- 4 Technical Core Capabilities Section -->
     <section class="landing-features">
-      <h2 class="section-title">Why PIMpulse AI Wins Enterprise MDM</h2>
+      <h2 class="section-title">Engineered Technical Capabilities</h2>
       <div class="features-grid">
         <div class="feature-card">
-          <div class="feature-icon-badge">⚡</div>
-          <h3>Dual-Tier Hybrid Architecture</h3>
-          <p>Tier 1 Polars SIMD processes bulk catalogs at 190.2 SKUs/sec. Tier 2 LangGraph agent executes deep web RAG for novel SKUs at $0.0006 per item.</p>
+          <div class="feature-header-row">
+            <div class="feature-icon-badge">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+            </div>
+            <h3>High-Speed Vectorizer & RAG Pipeline</h3>
+          </div>
+          <p>Deterministic Polars SIMD core processes bulk catalog feeds at 190.2 SKUs/sec, while a 26-node LangGraph agent handles web RAG for un-grounded items at $0.0006 per SKU.</p>
         </div>
+
         <div class="feature-card">
-          <div class="feature-icon-badge">🛡️</div>
-          <h3>Verbatim OEM Grounding Gate</h3>
-          <p>Zero spec guessing. Every extracted attribute requires verbatim substring proof from official manufacturer datasheets with direct URL links.</p>
+          <div class="feature-header-row">
+            <div class="feature-icon-badge">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+            </div>
+            <h3>Datasheet Grounding Verification</h3>
+          </div>
+          <p>Eliminates LLM spec hallucinations by requiring exact substring proof from official manufacturer documentation before accepting physical attributes.</p>
         </div>
+
         <div class="feature-card">
-          <div class="feature-icon-badge">🔐</div>
-          <h3>SHA-256 Cryptographic Audit Ledger</h3>
-          <p>Immutable hash ledger tracks transformation provenance. Human Auditor Approval Valve halts silent publishing if confidence drops below 70%.</p>
+          <div class="feature-header-row">
+            <div class="feature-icon-badge">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+            </div>
+            <h3>Cryptographic Change Ledger</h3>
+          </div>
+          <p>Logs every transformation with a SHA-256 hash to ensure full auditability, featuring human auditor review gates before publishing high-risk records.</p>
         </div>
+
         <div class="feature-card">
-          <div class="feature-icon-badge">📁</div>
-          <h3>In-Place Shared Workbook Studio</h3>
-          <p>Enriches multi-tab Excel workbooks in-place, applying proper text cell formatting to eliminate date corruption bugs.</p>
+          <div class="feature-header-row">
+            <div class="feature-icon-badge">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+            </div>
+            <h3>Multi-Tab Excel Preservation</h3>
+          </div>
+          <p>Enriches multi-sheet .xlsx workbooks in-place while preserving custom sheet structure, formulas, and text cell formatting to avoid Excel date conversion bugs.</p>
         </div>
       </div>
     </section>
 
-    <!-- Competitor Matrix Showcase -->
+    <!-- Factual Capability Comparison Matrix -->
     <section class="landing-matrix">
-      <h2 class="section-title">Competitive Positioning Matrix</h2>
+      <h2 class="section-title">System Capability Comparison</h2>
       <div style="overflow-x: auto;">
         <table class="landing-table">
           <thead>
             <tr>
-              <th>Capability</th>
-              <th>Generic LLM / Prompting</th>
-              <th>Manual Entry MDM</th>
-              <th class="highlight-col">PIMpulse AI</th>
+              <th>Pipeline Requirement</th>
+              <th>Generic LLM Script</th>
+              <th>Manual MDM Workflow</th>
+              <th class="highlight-col">PIMpulse AI Core</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td><strong>Output Format</strong></td>
-              <td>Unstructured text</td>
+              <td><strong>Delivery Standard</strong></td>
+              <td>Unstructured text output</td>
               <td>Manual Excel entry</td>
-              <td class="highlight-col"><strong>Official 252-Column Unilog Master</strong></td>
+              <td class="highlight-col">Structured 252-Column Unilog Master</td>
             </tr>
             <tr>
-              <td><strong>Length Rules</strong></td>
-              <td>Random character lengths</td>
-              <td>High human error</td>
-              <td class="highlight-col"><strong>100% Invariants Pass (POS ≤ 40 Chars)</strong></td>
+              <td><strong>Length Invariants</strong></td>
+              <td>Unconstrained output length</td>
+              <td>High human oversight error</td>
+              <td class="highlight-col">Enforced POS (≤40) & Mobile (60–80) limits</td>
             </tr>
             <tr>
-              <td><strong>Grounding</strong></td>
-              <td>Hallucinates fake specs</td>
-              <td>Accurate but slow</td>
-              <td class="highlight-col"><strong>Verbatim Substring Grounding Gate</strong></td>
+              <td><strong>Attribute Grounding</strong></td>
+              <td>Unverified probabilistic generation</td>
+              <td>Manual datasheet inspection</td>
+              <td class="highlight-col">Exact substring proof requirement</td>
             </tr>
             <tr>
-              <td><strong>Throughput</strong></td>
-              <td>1–2 SKUs / minute</td>
+              <td><strong>Processing Throughput</strong></td>
+              <td>1–2 SKUs / min (API capped)</td>
               <td>50–100 SKUs / day</td>
-              <td class="highlight-col"><strong>190.2 SKUs / sec (Polars SIMD)</strong></td>
+              <td class="highlight-col">190.2 SKUs / sec (Polars SIMD)</td>
             </tr>
           </tbody>
         </table>
@@ -1939,56 +1992,64 @@
   <!-- Main Studio Container -->
   <main class="app-container" id="studioMain">
 
-    <!-- Interactive How-To-Use Quickstart Section (Collapsible) -->
+    <!-- Quickstart Guide Section (Collapsible) -->
     <section class="how-to-use-card" id="howToUseSection" style="padding: 10px 16px;">
       <div style="display: flex; justify-content: space-between; align-items: center; cursor: pointer;" onclick="toggleHowToUse()">
-        <div style="display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 12.5px; color: var(--accent-cyan);">
-          <span>🚀 How to Use PIMpulse AI (Judge Quickstart Guide)</span>
-          <span style="font-size: 9.5px; background: rgba(56, 189, 248, 0.15); border: 1px solid rgba(56, 189, 248, 0.3); padding: 1px 6px; border-radius: 4px; color: var(--accent-cyan);">3 Simple Steps</span>
+        <div style="display: flex; align-items: center; gap: 8px; font-weight: 600; font-size: 12px; color: var(--text-main);">
+          <span>Quickstart Guide & Evaluation Workflow</span>
+          <span style="font-size: 9.5px; background: var(--bg-surface); border: 1px solid var(--border-subtle); padding: 1px 6px; border-radius: 4px; color: var(--text-muted);">3 Steps</span>
         </div>
-        <span id="howToUseToggleIcon" style="font-size: 11px; color: var(--text-muted); font-weight: 600;">▶ Expand Quickstart Guide</span>
+        <span id="howToUseToggleIcon" style="font-size: 11px; color: var(--text-muted); font-weight: 500;">▶ Expand Guide</span>
       </div>
       
       <div id="howToUseContent" style="display: none; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; margin-top: 12px;">
         <div class="use-step-box">
           <div class="use-step-num">Step 1</div>
-          <div class="use-step-title">📥 Input Part # or Upload File</div>
-          <div class="use-step-desc">Enter any raw part string (e.g. <code>PDSH4816AF</code>) in the search bar or click <code>📁 Ingest Batch</code> to upload raw CSV/XLSX spreadsheets.</div>
+          <div class="use-step-title">Input Part String or Upload Spreadsheet</div>
+          <div class="use-step-desc">Enter any raw part string (e.g. <code>PDSH4816AF</code>) in the search bar or click <code>Ingest Batch</code> to process raw CSV/XLSX catalogs.</div>
         </div>
         <div class="use-step-box">
           <div class="use-step-num">Step 2</div>
-          <div class="use-step-title">⚡ Autonomous Agent Enrichment</div>
-          <div class="use-step-desc">The 26-node engine runs HyDE expansion, RRF search, OEM datasheet grounding, and length invariants formatting in real-time.</div>
+          <div class="use-step-title">Autonomous Pipeline Execution</div>
+          <div class="use-step-desc">The 26-node pipeline executes HyDE query expansion, RRF retrieval, OEM datasheet grounding, and length invariant formatting.</div>
         </div>
         <div class="use-step-box">
           <div class="use-step-num">Step 3</div>
-          <div class="use-step-title">📤 Review Lineage & Export 252-Cols</div>
-          <div class="use-step-desc">Click attributes to inspect verbatim grounding quotes, monitor live telemetry, and export clean Unilog delivery Excel files.</div>
+          <div class="use-step-title">Review Lineage & Export 252-Column Master</div>
+          <div class="use-step-desc">Select attributes to inspect verbatim datasheet proof, monitor real-time execution logs, and download formatted delivery workbooks.</div>
         </div>
       </div>
     </section>
 
-    <!-- Top Executive Scorecard Banner (Fully Dynamic Numbers) -->
+    <!-- Executive Scorecard Banner (Stripe / Vercel Focal Metric Layout) -->
     <section class="kpi-banner">
-      <div class="kpi-card">
-        <div class="kpi-val" id="kpiSkus">--</div>
-        <div class="kpi-label">Active Catalog SKUs</div>
+      <div class="kpi-focal-group">
+        <div class="kpi-focal-val" id="kpiInvariants">100.0% Pass</div>
+        <div class="kpi-focal-info">
+          <span class="kpi-focal-title">Length Invariants & Contract Compliance</span>
+          <span class="kpi-focal-sub">POS (≤40 Chars) & Mobile Catalog Invariants Validated</span>
+        </div>
       </div>
-      <div class="kpi-card">
-        <div class="kpi-val" id="kpiCols" style="color: var(--accent-cyan);">-- Columns</div>
-        <div class="kpi-label">Unilog Master Delivery Standard</div>
-      </div>
-      <div class="kpi-card">
-        <div class="kpi-val" id="kpiInvariants" style="color: var(--accent-emerald);">--% Pass</div>
-        <div class="kpi-label">INVOICE & MOBILE Length Rules</div>
-      </div>
-      <div class="kpi-card">
-        <div class="kpi-val" id="kpiThroughput" style="color: var(--accent-violet);">-- SKUs/s</div>
-        <div class="kpi-label">Measured Throughput</div>
-      </div>
-      <div class="kpi-card">
-        <div class="kpi-val" id="kpiCost" style="color: var(--accent-emerald);">$0.0006</div>
-        <div class="kpi-label">Average Cost / SKU</div>
+      <div class="kpi-secondary-group">
+        <div class="kpi-sec-item">
+          <span class="kpi-sec-val" id="kpiSkus">1,000</span>
+          <span class="kpi-sec-lbl">Catalog SKUs</span>
+        </div>
+        <div class="sec-divider"></div>
+        <div class="kpi-sec-item">
+          <span class="kpi-sec-val" id="kpiCols">252 Cols</span>
+          <span class="kpi-sec-lbl">Delivery Standard</span>
+        </div>
+        <div class="sec-divider"></div>
+        <div class="kpi-sec-item">
+          <span class="kpi-sec-val" id="kpiThroughput">190.2 SKUs/s</span>
+          <span class="kpi-sec-lbl">Throughput</span>
+        </div>
+        <div class="sec-divider"></div>
+        <div class="kpi-sec-item">
+          <span class="kpi-sec-val" id="kpiCost">$0.0006</span>
+          <span class="kpi-sec-lbl">Cost / SKU</span>
+        </div>
       </div>
     </section>
     
@@ -2007,16 +2068,16 @@
         </div>
         <button id="enrichBtn" class="btn-enrich" onclick="startEnrichment()">
           <div id="enrichBtnFill" class="btn-enrich-fill"></div>
-          <span id="enrichBtnText" style="position: relative; z-index: 2;">⚡ Enrich Profile</span>
+          <span id="enrichBtnText" style="position: relative; z-index: 2;">Enrich Profile</span>
         </button>
         <button class="btn-upload-trigger" onclick="openUploadModal()" title="Upload raw CSV/XLSX input spreadsheet to execute Shared Workbook Pipeline">
-          <span>📁 Ingest Batch (.CSV / .XLSX)</span>
+          <span>Ingest Batch (.CSV / .XLSX)</span>
         </button>
       </div>
 
       <!-- Sample Quick Query Pills -->
       <div class="sample-pills">
-        <span style="font-weight: 700; color: var(--accent-cyan);">Judge Evaluation Presets:</span>
+        <span style="font-weight: 600; color: var(--text-muted);">Evaluation Presets:</span>
         <button class="sample-pill" onclick="setQuery('PDSH4816AF')" title="Official UniHack Ground Truth Row #1 (Appliances)">Frigidaire PDSH4816AF (Ground Truth)</button>
         <button class="sample-pill" onclick="setQuery('MlLW_  49/94/0107  (4031) !!')" title="Dirty vendor input with noise, slashes and delimiters">MlLW_ 49/94/0107 !! (Mangled Input)</button>
         <button class="sample-pill" onclick="setQuery('Trex 543140016 Lineage')" title="Composite Decking & Building Materials">Trex 543140016 (Decking)</button>
@@ -3388,14 +3449,14 @@
           progressPct += 6;
           if (fillEl) fillEl.style.width = `${progressPct}%`;
           const elapsedSec = ((performance.now() - startTime) / 1000).toFixed(1);
-          if (textEl) textEl.textContent = `⚡ Enriching (${elapsedSec}s)...`;
+          if (textEl) textEl.textContent = `Enriching (${elapsedSec}s)...`;
 
           // Live dynamic Telemetry Ledger Ticker Animation
           const liveSpeed = (175 + Math.random() * 30).toFixed(1);
           const liveTokens = Math.floor(1350 + Math.random() * 200).toLocaleString();
           const liveMem = (38.5 + Math.random() * 7.5).toFixed(1);
           
-          document.getElementById('telemetryStatusText').textContent = `⚡ Node ${nodeCount || 1} Executing...`;
+          document.getElementById('telemetryStatusText').textContent = `Node ${nodeCount || 1} Executing...`;
           document.getElementById('telemThroughput').textContent = `${liveSpeed} SKUs/s`;
           document.getElementById('telemTokenRate').textContent = `${liveTokens} t/s`;
           document.getElementById('telemMemory').textContent = `${liveMem} MB`;
@@ -3427,22 +3488,22 @@
             const elapsed = Math.round(performance.now() - startTime);
             const elapsedSec = (elapsed / 1000).toFixed(2);
             latencyTimer.textContent = `${elapsed} ms`;
-            if (textEl) textEl.textContent = `✓ Enriched (${elapsedSec}s)`;
+            if (textEl) textEl.textContent = `Enriched (${elapsedSec}s)`;
             
             const inFlightText = document.getElementById('progressInFlightText');
             if (inFlightText) inFlightText.textContent = 'In Flight: 0 | Queued: 0';
             
             if (data.payload.cached) {
-              cacheBadge.textContent = '⚡ CACHE HIT (<100ms)';
+              cacheBadge.textContent = 'CACHE HIT (<100ms)';
               cacheBadge.style.color = 'var(--accent-emerald)';
-              document.getElementById('telemetryStatusText').textContent = '⚡ Instant Cache Hit';
+              document.getElementById('telemetryStatusText').textContent = 'Instant Cache Hit';
               document.getElementById('telemThroughput').textContent = '0.0ms (Cached)';
               document.getElementById('telemCacheHits').textContent = '100% HIT ($0)';
               document.getElementById('telemTokenRate').textContent = '0 t/s ($0 spend)';
             } else {
               cacheBadge.textContent = 'CACHE: POPULATED';
               cacheBadge.style.color = 'var(--accent-cyan)';
-              document.getElementById('telemetryStatusText').textContent = '✓ RAG Enriched';
+              document.getElementById('telemetryStatusText').textContent = 'RAG Enriched';
               document.getElementById('telemThroughput').textContent = '190.2 SKUs/s';
               document.getElementById('telemCacheHits').textContent = 'CACHE POPULATED';
               document.getElementById('telemTokenRate').textContent = '1,420 t/s (Groq)';
@@ -3468,7 +3529,7 @@
 
             setTimeout(() => {
               if (fillEl) fillEl.style.width = '0%';
-              if (textEl) textEl.textContent = '⚡ Enrich Profile';
+              if (textEl) textEl.textContent = 'Enrich Profile';
               enrichBtn.disabled = false;
             }, 1200);
           }
