@@ -2797,8 +2797,8 @@
 
     document.addEventListener('DOMContentLoaded', () => {
       initTheme();
-      const savedView = localStorage.getItem('pimpulse_view_mode') || 'executive';
-      switchViewMode(savedView);
+      // Always start on Landing Page mode on initial load
+      switchViewMode('landing');
       fetchSystemStatus();
       fetchUnilogStats();
       updateCostSummary();
