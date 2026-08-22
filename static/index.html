@@ -508,6 +508,20 @@
       gap: 8px;
       transition: all 0.2s;
       white-space: nowrap;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-enrich-fill {
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 0%;
+      background: rgba(255, 255, 255, 0.35);
+      transition: width 0.15s ease-out;
+      pointer-events: none;
+      z-index: 1;
     }
 
     .btn-enrich:hover {
@@ -1555,7 +1569,8 @@
           />
         </div>
         <button id="enrichBtn" class="btn-enrich" onclick="startEnrichment()">
-          <span>⚡ Enrich Profile</span>
+          <div id="enrichBtnFill" class="btn-enrich-fill"></div>
+          <span id="enrichBtnText" style="position: relative; z-index: 2;">⚡ Enrich Profile</span>
         </button>
         <button class="btn-upload-trigger" onclick="openUploadModal()" title="Upload raw CSV/XLSX input spreadsheet to execute Shared Workbook Pipeline">
           <span>📁 Ingest Batch (.CSV / .XLSX)</span>
@@ -2884,10 +2899,23 @@
       if (empty) empty.style.display = 'none';
       feed.innerHTML = '';
       enrichBtn.disabled = true;
-      enrichBtn.innerHTML = '<span>⚡ Processing...</span>';
+
+      const fillEl = document.getElementById('enrichBtnFill');
+      const textEl = document.getElementById('enrichBtnText');
+      if (fillEl) fillEl.style.width = '0%';
 
       const startTime = performance.now();
       let nodeCount = 0;
+      let progressPct = 0;
+
+      const progressTimer = setInterval(() => {
+        if (progressPct < 90) {
+          progressPct += 6;
+          if (fillEl) fillEl.style.width = `${progressPct}%`;
+          const elapsedSec = ((performance.now() - startTime) / 1000).toFixed(1);
+          if (textEl) textEl.textContent = `⚡ Enriching (${elapsedSec}s)...`;
+        }
+      }, 120);
 
       if (eventSource) {
         eventSource.close();
@@ -2904,8 +2932,13 @@
             stepCounter.textContent = `${nodeCount} Nodes`;
             appendLogNode(data.payload);
           } else if (data.type === 'result') {
+            clearInterval(progressTimer);
+            if (fillEl) fillEl.style.width = '100%';
+            
             const elapsed = Math.round(performance.now() - startTime);
+            const elapsedSec = (elapsed / 1000).toFixed(2);
             latencyTimer.textContent = `${elapsed} ms`;
+            if (textEl) textEl.textContent = `✓ Enriched (${elapsedSec}s)`;
             
             if (data.payload.cached) {
               cacheBadge.textContent = '⚡ CACHE HIT (<100ms)';
@@ -2940,18 +2973,28 @@
               loadDatasetPage(currentDatasetPage);
             }
             eventSource.close();
-            enrichBtn.disabled = false;
-            enrichBtn.innerHTML = '<span>⚡ Enrich Profile</span>';
+
+            setTimeout(() => {
+              if (fillEl) fillEl.style.width = '0%';
+              if (textEl) textEl.textContent = '⚡ Enrich Profile';
+              enrichBtn.disabled = false;
+            }, 1200);
           }
         } catch (err) {
           console.error("Error parsing SSE event:", err);
+          clearInterval(progressTimer);
+          if (fillEl) fillEl.style.width = '0%';
+          if (textEl) textEl.textContent = '⚡ Enrich Profile';
+          enrichBtn.disabled = false;
         }
       };
 
       eventSource.onerror = function() {
+        clearInterval(progressTimer);
+        if (fillEl) fillEl.style.width = '0%';
+        if (textEl) textEl.textContent = '⚡ Enrich Profile';
         eventSource.close();
         enrichBtn.disabled = false;
-        enrichBtn.innerHTML = '<span>⚡ Enrich Profile</span>';
       };
     }
 
