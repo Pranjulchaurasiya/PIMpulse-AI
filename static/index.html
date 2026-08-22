@@ -295,24 +295,6 @@
       box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
     }
 
-    /* Executive View Mode Rules */
-    body[data-view="executive"] .telemetry-pane {
-      display: none !important;
-    }
-    body[data-view="executive"] .split-layout {
-      grid-template-columns: 1fr !important;
-      max-width: 1150px;
-      margin: 0 auto;
-      width: 100%;
-    }
-    body[data-view="executive"] .how-to-use-card,
-    body[data-view="executive"] .kpi-banner,
-    body[data-view="executive"] .control-card {
-      max-width: 1150px;
-      margin: 0 auto;
-      width: 100%;
-    }
-
     /* SaaS Landing Page Section Styling - Production Design System (Linear / Vercel / Stripe Principles) */
     .landing-container {
       max-width: 1120px;
@@ -1843,16 +1825,13 @@
         <span class="brand-tag">UniHack 2026</span>
       </div>
 
-      <!-- Segmented View Mode Switcher (Linear / Vercel Top Tabs) -->
+      <!-- 2-Tab Navigation (Overview & Product Studio) -->
       <div class="view-mode-switcher">
         <button id="viewLandingBtn" class="btn-view-mode" onclick="switchViewMode('landing')" title="Overview & Capability Showcase">
           <span>Overview</span>
         </button>
-        <button id="viewExecBtn" class="btn-view-mode active" onclick="switchViewMode('executive')" title="Executive Product Studio">
+        <button id="viewStudioBtn" class="btn-view-mode active" onclick="switchViewMode('studio')" title="Interactive Product Studio & Catalog Engine">
           <span>Product Studio</span>
-        </button>
-        <button id="viewDevBtn" class="btn-view-mode" onclick="switchViewMode('developer')" title="Developer Telemetry & Execution Stream">
-          <span>Telemetry</span>
         </button>
       </div>
     </div>
@@ -2926,30 +2905,25 @@
     }
 
     function switchViewMode(mode) {
-      document.body.setAttribute('data-view', mode);
-      localStorage.setItem('pimpulse_view_mode', mode);
+      const activeMode = (mode === 'landing' || mode === 'overview') ? 'landing' : 'studio';
+      document.body.setAttribute('data-view', activeMode);
+      localStorage.setItem('pimpulse_view_mode', activeMode);
       
       const landingBtn = document.getElementById('viewLandingBtn');
-      const execBtn = document.getElementById('viewExecBtn');
-      const devBtn = document.getElementById('viewDevBtn');
+      const studioBtn = document.getElementById('viewStudioBtn');
 
       const landingContainer = document.getElementById('landingContainer');
       const studioMain = document.getElementById('studioMain');
 
       if (landingBtn) landingBtn.classList.remove('active');
-      if (execBtn) execBtn.classList.remove('active');
-      if (devBtn) devBtn.classList.remove('active');
+      if (studioBtn) studioBtn.classList.remove('active');
 
-      if (mode === 'landing') {
+      if (activeMode === 'landing') {
         if (landingBtn) landingBtn.classList.add('active');
         if (landingContainer) landingContainer.style.display = 'flex';
         if (studioMain) studioMain.style.display = 'none';
-      } else if (mode === 'executive') {
-        if (execBtn) execBtn.classList.add('active');
-        if (landingContainer) landingContainer.style.display = 'none';
-        if (studioMain) studioMain.style.display = 'flex';
       } else {
-        if (devBtn) devBtn.classList.add('active');
+        if (studioBtn) studioBtn.classList.add('active');
         if (landingContainer) landingContainer.style.display = 'none';
         if (studioMain) studioMain.style.display = 'flex';
       }
