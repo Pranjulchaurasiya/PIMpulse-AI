@@ -40,9 +40,9 @@
     <!-- Main Title -->
     <text x="65" y="34" font-size="34" font-weight="800" fill="#f8fafc" font-family="system-ui, -apple-system, sans-serif" letter-spacing="-0.5">PIMpulse AI</text>
     
-    <!-- Track Tag -->
-    <rect x="255" y="12" width="115" height="24" rx="12" fill="rgba(56, 189, 248, 0.15)" stroke="#38bdf8" stroke-width="1"/>
-    <text x="312" y="28" font-size="10" font-weight="700" fill="#38bdf8" text-anchor="middle" font-family="monospace" letter-spacing="0.5">UniHack 2026</text>
+    <!-- Track Tag (Cleanly Spaced at x=285) -->
+    <rect x="285" y="12" width="120" height="24" rx="12" fill="rgba(56, 189, 248, 0.15)" stroke="#38bdf8" stroke-width="1"/>
+    <text x="345" y="28" font-size="10" font-weight="700" fill="#38bdf8" text-anchor="middle" font-family="monospace" letter-spacing="0.5">UniHack 2026</text>
   </g>
 
   <!-- Subtitle -->
