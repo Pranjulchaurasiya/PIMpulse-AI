@@ -1,0 +1,66 @@
+<svg viewBox="0 0 800 170" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 100%; max-width: 800px; height: auto; display: block; margin: 0 auto; background: #0b1018; border-radius: 12px; border: 1px solid #1e293b;">
+  <style>
+    @keyframes tracePath {
+      0% { stroke-dashoffset: 1000; }
+      100% { stroke-dashoffset: 0; }
+    }
+  </style>
+  <!-- Connection Flow Routes -->
+  <path id="readmePipelinePath" d="M 60 90 C 120 90, 150 48, 200 48 S 280 135, 340 135 S 420 48, 480 48 S 560 135, 620 135 S 680 90, 740 90" stroke="#334155" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <path d="M 60 90 C 120 90, 150 48, 200 48 S 280 135, 340 135 S 420 48, 480 48 S 560 135, 620 135 S 680 90, 740 90" stroke="#38bdf8" stroke-width="2" stroke-dasharray="1000" stroke-dashoffset="1000" style="animation: tracePath 8s linear infinite;"/>
+
+  <!-- Animated Traveling Glowing Data Packet -->
+  <circle r="5" fill="#10b981" style="filter: drop-shadow(0 0 6px #10b981);">
+    <animateMotion dur="4.5s" repeatCount="indefinite">
+      <mpath href="#readmePipelinePath" />
+    </animateMotion>
+  </circle>
+
+  <!-- Node 1: Raw Catalog Ingestion -->
+  <g transform="translate(60, 90)">
+    <circle r="18" fill="#121824" stroke="#38bdf8" stroke-width="2"/>
+    <circle r="5" fill="#38bdf8"/>
+    <text y="-25" text-anchor="middle" fill="#38bdf8" font-size="9" font-weight="700" font-family="monospace">01 · INGEST</text>
+    <text y="30" text-anchor="middle" fill="#f8fafc" font-size="9.5" font-weight="600" font-family="sans-serif">Raw Input</text>
+  </g>
+
+  <!-- Node 2: UNSPSC Pre-Filter -->
+  <g transform="translate(200, 48)">
+    <circle r="18" fill="#121824" stroke="#8b5cf6" stroke-width="2"/>
+    <circle r="5" fill="#8b5cf6"/>
+    <text y="-24" text-anchor="middle" fill="#8b5cf6" font-size="9" font-weight="700" font-family="monospace">02 · PRE-FILTER</text>
+    <text y="30" text-anchor="middle" fill="#f8fafc" font-size="9.5" font-weight="600" font-family="sans-serif">UNSPSC Regex</text>
+  </g>
+
+  <!-- Node 3: HyDE & RRF Search -->
+  <g transform="translate(340, 135)">
+    <circle r="18" fill="#121824" stroke="#38bdf8" stroke-width="2"/>
+    <circle r="5" fill="#38bdf8"/>
+    <text y="-24" text-anchor="middle" fill="#38bdf8" font-size="9" font-weight="700" font-family="monospace">03 · HYDE &amp; RRF</text>
+    <text y="30" text-anchor="middle" fill="#f8fafc" font-size="9.5" font-weight="600" font-family="sans-serif">Tavily RAG</text>
+  </g>
+
+  <!-- Node 4: Grounding Gate -->
+  <g transform="translate(480, 48)">
+    <circle r="18" fill="#121824" stroke="#10b981" stroke-width="2"/>
+    <circle r="5" fill="#10b981"/>
+    <text y="-24" text-anchor="middle" fill="#10b981" font-size="9" font-weight="700" font-family="monospace">04 · GROUNDING</text>
+    <text y="30" text-anchor="middle" fill="#f8fafc" font-size="9.5" font-weight="600" font-family="sans-serif">Verbatim OEM</text>
+  </g>
+
+  <!-- Node 5: Length Invariants -->
+  <g transform="translate(620, 135)">
+    <circle r="18" fill="#121824" stroke="#f59e0b" stroke-width="2"/>
+    <circle r="5" fill="#f59e0b"/>
+    <text y="-24" text-anchor="middle" fill="#f59e0b" font-size="9" font-weight="700" font-family="monospace">05 · INVARIANTS</text>
+    <text y="30" text-anchor="middle" fill="#f8fafc" font-size="9.5" font-weight="600" font-family="sans-serif">POS &amp; Mobile</text>
+  </g>
+
+  <!-- Node 6: 252-Cols Unilog Output -->
+  <g transform="translate(740, 90)">
+    <circle r="20" fill="#121824" stroke="#f43f5e" stroke-width="2.5"/>
+    <circle r="6" fill="#f43f5e"/>
+    <text y="-26" text-anchor="middle" fill="#f43f5e" font-size="9" font-weight="700" font-family="monospace">06 · UNILOG OUT</text>
+    <text y="32" text-anchor="middle" fill="#f8fafc" font-size="9.5" font-weight="600" font-family="sans-serif">252 Columns</text>
+  </g>
+</svg>
