@@ -33,6 +33,13 @@ Built for **[UniHack 2026](https://hack2skill.com/event/unilog2026?utm_source=ha
 
 <br />
 
+<!-- Live Interactive Studio Demo GIF -->
+<p align="center">
+  <img src="docs/demo.gif" alt="PIMpulse AI Live Catalog Ingestion & Transformation Demo Studio" width="100%" style="max-width: 840px;" />
+</p>
+
+<br />
+
 <p align="center">
   <a href="#-live-demo--3-minute-judge-walkthrough"><b>Live Demo</b></a>
   ·
@@ -48,6 +55,19 @@ Built for **[UniHack 2026](https://hack2skill.com/event/unilog2026?utm_source=ha
 </p>
 
 </div>
+
+---
+
+### 🔄 See It Transform a Real Distributor SKU
+
+| ❌ **BEFORE (Messy Distributor Input)** | ✓ **AFTER (Enriched 252-Column Unilog Master Record)** |
+| :--- | :--- |
+| **Mfg_Part_Num**: `PDSH4816AF` | **BRAND_NAME**: `FRIGIDAIRE®` *(Canonical Normalization)* |
+| **Part_Desc**: `PDSH4816AF Dishwasher SS - Display Only` | **CLASSPATH**: `Appliances > Built-In Dishwashers` *(UNSPSC v25)* |
+| **E1_Brand**: `-- Unbranded --` | **INVOICE_DESC**: `DISHWASHER 24IN SST 120V 15A` *($\le 40$ Chars `PASS`)* |
+| **Part_Manuf**: `Appliance Dealers Cooperative (APPDE)` | **MOBILE_DESC**: `FRIGIDAIRE Professional 24 in. Built-In SST` *($60\text{--}80$ `PASS`)* |
+| **Attributes**: `0 / 50 Columns Populated` | **ATTRIBUTES**: `12 Verified Physical Specs` *(Verbatim OEM Proof)* |
+| **Status**: `Unclassified & Unsearchable` | **CONFIDENCE**: **98.5% (ACCEPT)** *(252 Columns Delivered)* |
 
 ---
 
