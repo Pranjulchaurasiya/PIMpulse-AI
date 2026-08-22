@@ -2221,11 +2221,12 @@
                       <th style="padding: 8px;">THROUGHPUT</th>
                       <th style="padding: 8px;">PASS RATE</th>
                       <th style="padding: 8px;">AUDIT LEDGER</th>
+                      <th style="padding: 8px;">EXPORT SNAPSHOT</th>
                     </tr>
                   </thead>
                   <tbody id="historyTableBody">
                     <tr>
-                      <td colspan="7" style="padding: 16px; text-align: center; color: var(--text-dim);">No historical runs recorded yet. Perform an enrichment query to populate history.</td>
+                      <td colspan="8" style="padding: 16px; text-align: center; color: var(--text-dim);">No historical runs recorded yet. Perform an enrichment query to populate history.</td>
                     </tr>
                   </tbody>
                 </table>
@@ -2489,7 +2490,7 @@
       } catch (e) { history = []; }
 
       if (history.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="7" style="padding: 16px; text-align: center; color: var(--text-dim);">No historical runs recorded yet. Perform an enrichment query to populate history.</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="8" style="padding: 16px; text-align: center; color: var(--text-dim);">No historical runs recorded yet. Perform an enrichment query to populate history.</td></tr>';
         return;
       }
 
@@ -2503,6 +2504,9 @@
           <td style="padding: 8px; color: var(--accent-cyan);">${item.throughput || '190.2 SKUs/s'}</td>
           <td style="padding: 8px; color: var(--accent-emerald); font-weight: 700;">${item.passRate || '100% Pass'}</td>
           <td style="padding: 8px;"><span style="background: rgba(16, 185, 129, 0.15); color: var(--accent-emerald); border: 1px solid rgba(16, 185, 129, 0.3); padding: 2px 6px; border-radius: 4px; font-size: 10px;">SHA-256 Verified</span></td>
+          <td style="padding: 8px;">
+            <a href="/api/unilog/download?format=xlsx" style="background: rgba(56, 189, 248, 0.15); border: 1px solid rgba(56, 189, 248, 0.3); color: var(--accent-cyan); padding: 3px 8px; border-radius: 4px; font-size: 10px; font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 4px;" title="Download 252-column Master Excel Snapshot for this historical run">📥 Download (.XLSX)</a>
+          </td>
         </tr>`;
       });
       tbody.innerHTML = html;
