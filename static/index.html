@@ -270,7 +270,217 @@
       width: 100%;
     }
 
-    /* How to Use Section */
+    /* SaaS Landing Page Section Styling */
+    .landing-container {
+      max-width: 1200px;
+      margin: 20px auto 40px auto;
+      padding: 0 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+
+    .landing-hero {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 24px;
+      background: radial-gradient(circle at 50% 0%, rgba(2, 132, 199, 0.18), transparent 70%), var(--bg-card);
+      border: 1px solid var(--border-bright);
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+
+    .hero-tag-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(56, 189, 248, 0.12);
+      color: var(--accent-cyan);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      padding: 4px 14px;
+      border-radius: 20px;
+      font-size: 11.5px;
+      font-weight: 700;
+      margin-bottom: 18px;
+    }
+
+    .hero-headline {
+      font-size: 38px;
+      font-weight: 800;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      color: var(--text-main);
+      max-width: 900px;
+      margin-bottom: 16px;
+    }
+
+    .gradient-text {
+      background: linear-gradient(135deg, #38bdf8, #a855f7);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-subtext {
+      font-size: 15.5px;
+      color: var(--text-muted);
+      max-width: 780px;
+      line-height: 1.6;
+      margin-bottom: 28px;
+    }
+
+    .hero-cta-group {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      margin-bottom: 36px;
+    }
+
+    .btn-hero-primary {
+      background: linear-gradient(135deg, #0284c7, #2563eb);
+      color: #ffffff;
+      border: none;
+      padding: 14px 28px;
+      border-radius: 10px;
+      font-size: 14.5px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 14px rgba(2, 132, 199, 0.4);
+      transition: all 0.2s;
+    }
+    .btn-hero-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(2, 132, 199, 0.6);
+    }
+
+    .btn-hero-secondary {
+      background: var(--bg-surface);
+      color: var(--text-main);
+      border: 1px solid var(--border-bright);
+      padding: 14px 24px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-hero-secondary:hover {
+      border-color: var(--accent-cyan);
+      color: var(--accent-cyan);
+    }
+
+    .landing-metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      width: 100%;
+      max-width: 960px;
+    }
+
+    .landing-metric-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 16px;
+      text-align: center;
+    }
+
+    .metric-num {
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--accent-cyan);
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .metric-unit {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--accent-emerald);
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .metric-desc {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .section-title {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--text-main);
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    .feature-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 14px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      transition: all 0.2s;
+    }
+
+    .feature-card:hover {
+      border-color: var(--accent-cyan);
+      box-shadow: 0 0 20px rgba(56, 189, 248, 0.1);
+    }
+
+    .feature-icon {
+      font-size: 28px;
+    }
+
+    .feature-card h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .feature-card p {
+      font-size: 13.5px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .landing-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--bg-card);
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--border-subtle);
+    }
+
+    .landing-table th, .landing-table td {
+      padding: 14px 18px;
+      text-align: left;
+      font-size: 13px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .landing-table th {
+      background: var(--bg-surface);
+      color: var(--text-muted);
+      font-weight: 700;
+    }
+
+    .landing-table .highlight-col {
+      background: rgba(56, 189, 248, 0.08);
+      color: var(--accent-cyan);
+    }
     .how-to-use-card {
       background: var(--bg-card);
       border: 1px solid var(--border-subtle);
@@ -1510,6 +1720,9 @@
 
       <!-- Segmented View Mode Switcher -->
       <div class="view-mode-switcher" style="display: flex; background: var(--bg-surface); border: 1px solid var(--border-bright); padding: 2px; border-radius: 8px; font-size: 11.5px; font-weight: 600; margin-left: 10px;">
+        <button id="viewLandingBtn" class="btn-view-mode" onclick="switchViewMode('landing')" title="B2B SaaS Marketing Landing Page & Product Showcase">
+          <span>🌐 Landing Page</span>
+        </button>
         <button id="viewExecBtn" class="btn-view-mode active" onclick="switchViewMode('executive')" title="Clean Executive View focused on core product profile and download exports">
           <span>👁️ Executive View</span>
         </button>
@@ -1550,8 +1763,125 @@
     </div>
   </header>
 
-  <!-- Main Container -->
-  <main class="app-container">
+  <!-- B2B SaaS Marketing Landing Hero Section -->
+  <div id="landingContainer" class="landing-container" style="display: none;">
+    <section class="landing-hero">
+      <div class="hero-tag-pill">⚡ UniHack 2026 Grand Prize Submission</div>
+      <h1 class="hero-headline">
+        Transform Raw Industrial Catalogs into <span class="gradient-text">252-Column Unilog Master Data</span> in Seconds
+      </h1>
+      <p class="hero-subtext">
+        PIMpulse AI combines a Rust-backed Polars SIMD Vectorizer (190.2 SKUs/s) with a 26-node LangGraph Autonomous Agent to normalize brands, extract physical specs, enforce 100% length invariants, and eliminate Excel date corruption.
+      </p>
+
+      <div class="hero-cta-group">
+        <button class="btn-hero-primary" onclick="switchViewMode('executive')">
+          <span>⚡ Launch Live Product Studio</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+        </button>
+        <button class="btn-hero-secondary" onclick="openArchModal()">
+          <span>📐 View Architecture & Math</span>
+        </button>
+      </div>
+
+      <!-- Live Metric Grid -->
+      <div class="landing-metrics-grid">
+        <div class="landing-metric-card">
+          <div class="metric-num">190.2</div>
+          <div class="metric-unit">SKUs / sec</div>
+          <div class="metric-desc">Polars SIMD Ingestion Engine</div>
+        </div>
+        <div class="landing-metric-card">
+          <div class="metric-num">252</div>
+          <div class="metric-unit">Columns</div>
+          <div class="metric-desc">Unilog CX1 Standard Delivery</div>
+        </div>
+        <div class="landing-metric-card">
+          <div class="metric-num">100.0%</div>
+          <div class="metric-unit">Pass Rate</div>
+          <div class="metric-desc">POS (≤40) & Mobile Length Invariants</div>
+        </div>
+        <div class="landing-metric-card">
+          <div class="metric-num">$0.0006</div>
+          <div class="metric-unit">per SKU</div>
+          <div class="metric-desc">Groq LPU Unit Economics</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4 Core Pillars Section -->
+    <section class="landing-features">
+      <h2 class="section-title">Why PIMpulse AI Wins Enterprise MDM</h2>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">⚡</div>
+          <h3>Dual-Tier Hybrid Architecture</h3>
+          <p>Tier 1 Polars SIMD processes bulk catalogs at 190.2 SKUs/sec. Tier 2 LangGraph agent executes deep web RAG for novel SKUs at $0.0006 per item.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🛡️</div>
+          <h3>Verbatim OEM Grounding Gate</h3>
+          <p>Zero spec guessing. Every extracted attribute requires verbatim substring proof from official manufacturer datasheets with direct URL links.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🔐</div>
+          <h3>SHA-256 Cryptographic Audit Ledger</h3>
+          <p>Immutable hash ledger tracks transformation provenance. Human Auditor Approval Valve halts silent publishing if confidence drops below 70%.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📁</div>
+          <h3>In-Place Shared Workbook Studio</h3>
+          <p>Enriches multi-tab Excel workbooks in-place, applying proper text cell formatting to eliminate date corruption bugs.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Competitor Matrix Showcase -->
+    <section class="landing-matrix">
+      <h2 class="section-title">Competitive Positioning Matrix</h2>
+      <div style="overflow-x: auto;">
+        <table class="landing-table">
+          <thead>
+            <tr>
+              <th>Capability</th>
+              <th>Generic LLM / Prompting</th>
+              <th>Manual Entry MDM</th>
+              <th class="highlight-col">PIMpulse AI</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Output Format</strong></td>
+              <td>Unstructured text</td>
+              <td>Manual Excel entry</td>
+              <td class="highlight-col"><strong>Official 252-Column Unilog Master</strong></td>
+            </tr>
+            <tr>
+              <td><strong>Length Rules</strong></td>
+              <td>Random character lengths</td>
+              <td>High human error</td>
+              <td class="highlight-col"><strong>100% Invariants Pass (POS ≤ 40 Chars)</strong></td>
+            </tr>
+            <tr>
+              <td><strong>Grounding</strong></td>
+              <td>Hallucinates fake specs</td>
+              <td>Accurate but slow</td>
+              <td class="highlight-col"><strong>Verbatim Substring Grounding Gate</strong></td>
+            </tr>
+            <tr>
+              <td><strong>Throughput</strong></td>
+              <td>1–2 SKUs / minute</td>
+              <td>50–100 SKUs / day</td>
+              <td class="highlight-col"><strong>190.2 SKUs / sec (Polars SIMD)</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+
+  <!-- Main Studio Container -->
+  <main class="app-container" id="studioMain">
 
     <!-- Interactive How-To-Use Quickstart Section (Collapsible) -->
     <section class="how-to-use-card" id="howToUseSection" style="padding: 10px 16px;">
@@ -2439,16 +2769,29 @@
       document.body.setAttribute('data-view', mode);
       localStorage.setItem('pimpulse_view_mode', mode);
       
+      const landingBtn = document.getElementById('viewLandingBtn');
       const execBtn = document.getElementById('viewExecBtn');
       const devBtn = document.getElementById('viewDevBtn');
-      if (execBtn && devBtn) {
-        if (mode === 'executive') {
-          execBtn.classList.add('active');
-          devBtn.classList.remove('active');
-        } else {
-          devBtn.classList.add('active');
-          execBtn.classList.remove('active');
-        }
+
+      const landingContainer = document.getElementById('landingContainer');
+      const studioMain = document.getElementById('studioMain');
+
+      if (landingBtn) landingBtn.classList.remove('active');
+      if (execBtn) execBtn.classList.remove('active');
+      if (devBtn) devBtn.classList.remove('active');
+
+      if (mode === 'landing') {
+        if (landingBtn) landingBtn.classList.add('active');
+        if (landingContainer) landingContainer.style.display = 'flex';
+        if (studioMain) studioMain.style.display = 'none';
+      } else if (mode === 'executive') {
+        if (execBtn) execBtn.classList.add('active');
+        if (landingContainer) landingContainer.style.display = 'none';
+        if (studioMain) studioMain.style.display = 'flex';
+      } else {
+        if (devBtn) devBtn.classList.add('active');
+        if (landingContainer) landingContainer.style.display = 'none';
+        if (studioMain) studioMain.style.display = 'flex';
       }
     }
 
