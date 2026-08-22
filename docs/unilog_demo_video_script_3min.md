@@ -11,7 +11,7 @@
 ### 📍 Scene 1: The B2B Catalog Problem (0:00 – 0:30)
 **Visual**: Show messy raw supplier CSV/XLSX file with mangled names like `MlLW_ 49/94/0107 (4031) !!` and truncated descriptions.
 
-* **Voiceover**:  
+* **Voiceover**:   
   "Industrial distributors process millions of raw product feeds every day. But supplier data is usually dirty, abbreviated, and incomplete.  
   Standard LLMs try to fix this by guessing, but in B2B commerce, a hallucinated thread size or voltage breaks order fulfillment.  
   Even worse, delivery standards like Unilog require strict length rules—like an invoice description capped at 40 characters—and exact 252-column spreadsheet structures.  

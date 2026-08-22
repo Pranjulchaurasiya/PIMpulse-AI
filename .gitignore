@@ -61,3 +61,15 @@ PIMpulse_Uploaded_Enriched.csv
 scratch/
 temp/
 tmp/
+
+# Video, Audio, Presentations, & Local Media (Keep local only)
+*.mp4
+*.webm
+*.mp3
+*.wav
+*.srt
+*.pptx
+*.png
+docs/demo_video_script.md
+docs/phone_voiceover_script.md
+

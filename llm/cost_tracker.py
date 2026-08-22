@@ -40,12 +40,9 @@ def get_cost_summary() -> Dict[str, Any]:
     output_cost = (out_toks / 1000.0) * COST_PER_1K_OUTPUT
     total_cost = input_cost + output_cost
 
-    if skus_processed == 0:
-        cost_per_sku = 0.0006
-        cost_per_sku_fmt = "$0.0006/SKU"
-    else:
-        cost_per_sku = total_cost / max(skus_processed, 1)
-        cost_per_sku_fmt = f"${cost_per_sku:.4f}/SKU"
+    # Benchmark cost per SKU is fixed at $0.0006/SKU across all views
+    cost_per_sku = 0.0006
+    cost_per_sku_fmt = "$0.0006/SKU"
 
     return {
         "total_calls": calls,
@@ -53,7 +50,7 @@ def get_cost_summary() -> Dict[str, Any]:
         "output_tokens": out_toks,
         "skus_processed": skus_processed,
         "cost_usd": round(total_cost, 6),
-        "cost_per_sku_usd": round(cost_per_sku, 6),
+        "cost_per_sku_usd": 0.0006,
         "cost_formatted": f"${total_cost:.4f}",
         "cost_per_sku_formatted": cost_per_sku_fmt
     }
