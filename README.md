@@ -98,55 +98,9 @@ PIMpulse AI uses a **Dual-Tier Architecture** that cleanly separates high-speed 
 
 ## 🏗️ System Architecture
 
-```mermaid
-flowchart TB
-  subgraph Client["Frontend — SPA Glassmorphism Studio"]
-    UI[Interactive Search & Telemetry Feed]
-    WB[Batch Shared Workbook Studio]
-    LM[Data Lineage & Provenance Modal]
-  end
-
-  subgraph Gateway["API Gateway — FastAPI"]
-    R[REST Endpoints /api/unilog]
-    SSE[Server-Sent Events Telemetry Stream]
-    EXP[OpenPyXL & Polars Formatter]
-  end
-
-  subgraph Router["Two-Tier Execution Router"]
-    TR{Is Bulk Dataset or Single SKU?}
-  end
-
-  subgraph Tier1["Tier 1: High-Speed MDM Engine (190 SKUs/sec)"]
-    P[Polars Columnar Parser]
-    B[Canonical Brand Dictionary]
-    LOV[RapidFuzz Material LOV Matcher]
-    TRUNC[Word-Boundary Invoice Truncator]
-    WIDE[253-Column Schema Generator]
-  end
-
-  subgraph Tier2["Tier 2: LangGraph Autonomous Agent Pipeline"]
-    HYDE[HyDE Speculative Expansion]
-    RET[Tavily Search & RRF Fusion]
-    LLM[Groq LPU Structured Extraction]
-    AUDIT[Grounding & Lineage Verifier]
-    CONF[Mathematical Confidence Allocator]
-  end
-
-  subgraph Output["Deliverables & Output Storage"]
-    XLSX[(Shared Workbook .xlsx)]
-    CSV[(Master Catalog .csv)]
-    JSON[(Commerce JSON)]
-  end
-
-  UI & WB -->|REST + SSE| Gateway
-  Gateway --> Router
-  TR -->|Spreadsheet / Batch| Tier1
-  TR -->|Messy / Novel Query| Tier2
-  Tier1 --> EXP
-  Tier2 --> EXP
-  EXP --> XLSX & CSV & JSON
-  LM -.-> AUDIT
-```
+<p align="center">
+  <img src="docs/architecture-diagram.png" alt="PIMpulse AI Architecture" width="100%" style="max-width: 1000px;" />
+</p>
 
 ---
 
