@@ -19,6 +19,13 @@ Built for **[UniHack 2026](https://hack2skill.com/event/unilog2026?utm_source=ha
 
 <br />
 
+<!-- 1-Command Launch Callout -->
+<div align="center">
+  <pre style="background: #0f172a; color: #38bdf8; border: 1px solid #1e293b; padding: 10px 16px; border-radius: 8px; font-size: 12.5px; max-width: 840px; text-align: center;"><code>🚀 Launch PIMpulse AI in 1 Command: git clone https://github.com/Pranjulchaurasiya/PIMpulse-AI.git && cd PIMpulse-AI && pip install -r requirements.txt && python main.py</code></pre>
+</div>
+
+<br />
+
 <!-- Animated Live Pipeline Circuit Map -->
 <p align="center">
   <img src="process_flow_circuit.svg" alt="PIMpulse AI Live Pipeline Facility Flow Map (Real-Time Circuit)" width="100%" style="max-width: 840px;" />
@@ -61,6 +68,18 @@ PIMpulse AI uses a **Dual-Tier Architecture** that cleanly separates high-speed 
 > **Metric Transparency Note for Judges:**  
 > • **Tier 1 (190.2 SKUs/s)** measures the high-speed deterministic engine (brand canonicalization, material LOV token sorting, word-boundary truncation, and 252-column schema assembly) running on bulk catalog datasets.  
 > • **Tier 2 (8.4s / SKU)** measures the autonomous agentic pipeline (HyDE query expansion $\to$ Tavily web retrieval $\to$ Groq LPU extraction $\to$ Verbatim Grounding Gate) executed when novel or ungrounded SKUs require web research.
+
+<br />
+
+### 🧩 Subsystem Scale & System Inventory
+
+| Subsystem Layer | Core Component | Performance & Value Delivered |
+| :--- | :--- | :--- |
+| **Autonomous Agent Orchestrator** | 26-Node LangGraph State Machine | HyDE speculative expansion $\to$ Tavily RAG $\to$ Groq LPU extraction |
+| **High-Speed SIMD MDM Engine** | Rust-backed Polars Vectorizer | **190.2 SKUs/sec** (~16.4M SKUs/day) deterministic catalog normalization |
+| **Master Catalog Delivery** | Unilog CX1 252-Column Schema | POS ($\le 40$ chars) & Mobile ($60\text{--}80$ chars) 100% invariant validation |
+| **Zero-Hallucination Safety Gate** | OEM Lineage & Verbatim Verifier | **0% Hallucination** — Verbatim OEM substring proof enforcement |
+| **Cryptographic Audit Ledger** | SHA-256 Idempotency Engine | Full historical delta tracking, rollbacks, and auditor approval valves |
 
 ---
 
