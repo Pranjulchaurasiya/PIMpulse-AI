@@ -260,25 +260,39 @@
       box-shadow: 0 0 10px var(--glow-cyan);
     }
 
-    /* Segmented View Mode Switcher Styling */
+    /* Segmented View Mode Switcher Styling (Linear / Vercel Top Tabs) */
+    .view-mode-switcher {
+      display: flex;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-subtle);
+      padding: 2px;
+      border-radius: 6px;
+      font-size: 11.5px;
+      font-weight: 500;
+      margin-left: 12px;
+    }
     .btn-view-mode {
       background: transparent;
       border: none;
       color: var(--text-muted);
-      padding: 4px 10px;
-      border-radius: 6px;
-      font-size: 11px;
-      font-weight: 600;
+      padding: 5px 12px;
+      border-radius: 5px;
+      font-size: 11.5px;
+      font-weight: 500;
       cursor: pointer;
-      transition: all 0.15s;
+      transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
       display: flex;
       align-items: center;
-      gap: 4px;
+    }
+    .btn-view-mode:hover {
+      color: var(--text-main);
     }
     .btn-view-mode.active {
-      background: var(--accent-cyan);
-      color: #ffffff;
-      box-shadow: 0 1px 4px rgba(2, 132, 199, 0.3);
+      background: var(--bg-card);
+      color: var(--text-main);
+      border: 1px solid var(--border-bright);
+      font-weight: 600;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
     }
 
     /* Executive View Mode Rules */
@@ -1829,16 +1843,16 @@
         <span class="brand-tag">UniHack 2026</span>
       </div>
 
-      <!-- Segmented View Mode Switcher -->
-      <div class="view-mode-switcher" style="display: flex; background: var(--bg-surface); border: 1px solid var(--border-bright); padding: 2px; border-radius: 8px; font-size: 11.5px; font-weight: 600; margin-left: 10px;">
-        <button id="viewLandingBtn" class="btn-view-mode" onclick="switchViewMode('landing')" title="B2B SaaS Marketing Landing Page & Product Showcase">
-          <span>🌐 Landing Page</span>
+      <!-- Segmented View Mode Switcher (Linear / Vercel Top Tabs) -->
+      <div class="view-mode-switcher">
+        <button id="viewLandingBtn" class="btn-view-mode" onclick="switchViewMode('landing')" title="Overview & Capability Showcase">
+          <span>Overview</span>
         </button>
-        <button id="viewExecBtn" class="btn-view-mode active" onclick="switchViewMode('executive')" title="Clean Executive View focused on core product profile and download exports">
-          <span>👁️ Executive View</span>
+        <button id="viewExecBtn" class="btn-view-mode active" onclick="switchViewMode('executive')" title="Executive Product Studio">
+          <span>Product Studio</span>
         </button>
-        <button id="viewDevBtn" class="btn-view-mode" onclick="switchViewMode('developer')" title="Full Developer Control Panel with live telemetry stream, SIMD metrics and SHA-256 ledgers">
-          <span>💻 Developer Panel</span>
+        <button id="viewDevBtn" class="btn-view-mode" onclick="switchViewMode('developer')" title="Developer Telemetry & Execution Stream">
+          <span>Telemetry</span>
         </button>
       </div>
     </div>
