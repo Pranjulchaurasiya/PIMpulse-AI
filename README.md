@@ -10,7 +10,8 @@
 <br/>
 
 [![UniHack 2026](https://img.shields.io/badge/UniHack-2026%20Submission-0284c7?style=for-the-badge&logo=rocket)](https://unilogcorp.com)
-[![Python Version](https://img.shields.io/badge/Python-3.11%20%7C%203.12%20%7C%203.13-38bdf8?style=for-the-badge&logo=python)](https://python.org)
+[![Live Demo](https://img.shields.io/badge/Live%20Prototype-Zerops%20Cloud-38bdf8?style=for-the-badge&logo=google-cloud)](https://pimpulseai-2998-8000.prg1.zerops.app/)
+[![Demo Video](https://img.shields.io/badge/Demo%20Video-Google%20Drive-red?style=for-the-badge&logo=google-drive)](https://drive.google.com/file/d/110J1YW0Qsv1ogMqS2wFtxd3LhgExFPJT/view)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.110+-009688?style=for-the-badge&logo=fastapi)](https://fastapi.tiangolo.com)
 [![LangGraph](https://img.shields.io/badge/Orchestrator-LangGraph%20v0.2-8b5cf6?style=for-the-badge)](https://langchain-ai.github.io/langgraph/)
 [![Throughput](https://img.shields.io/badge/Throughput-190.2%20SKUs%2Fsec-10b981?style=for-the-badge)](https://github.com)
@@ -38,6 +39,17 @@
 
 <br/>
 
+<!-- Live Prototype & Video Link Banner -->
+<div align="center">
+
+| 🌐 **Live Cloud Prototype** | 🎬 **Official Demo Video** | 📊 **Master Dataset** |
+| :---: | :---: | :---: |
+| [**pimpulseai-2998-8000.prg1.zerops.app**](https://pimpulseai-2998-8000.prg1.zerops.app/) | [**Watch on Google Drive**](https://drive.google.com/file/d/110J1YW0Qsv1ogMqS2wFtxd3LhgExFPJT/view) | [**1,000-SKU Enriched XLSX**](PIMpulse_Unilog_Enriched_1000.xlsx) |
+
+</div>
+
+<br />
+
 <!-- Animated Live Pipeline Circuit Map -->
 <p align="center">
   <img src="process_flow_circuit.svg" alt="PIMpulse AI Live Pipeline Facility Flow Map (Real-Time Circuit)" width="100%" style="max-width: 840px;" />
@@ -45,12 +57,11 @@
 
 <br />
 
-
 <div align="center">
 
 ### Jump to
 
-[The problem](#the-problem) · [The solution](#the-solution) · [See it transform a real row](#see-it-transform-a-real-row) · [Why PIMpulse](#competitive-positioning) · [Live Demo](#live-demo) · [Architecture](#system-architecture) · [Quickstart](#quickstart) · [Benchmark](#benchmark)
+[The problem](#the-problem) · [The solution](#the-solution) · [See it transform a real row](#see-it-transform-a-real-row) · [Why PIMpulse](#competitive-positioning) · [Architecture](#system-architecture) · [Quickstart](#quickstart) · [Benchmark](#benchmark)
 
 </div>
 
