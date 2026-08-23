@@ -45,12 +45,6 @@
 
 <br />
 
-<!-- Live Interactive Studio Demo GIF -->
-<p align="center">
-  <img src="docs/demo.gif" alt="PIMpulse AI Live Catalog Ingestion & Transformation Demo Studio" width="100%" style="max-width: 840px;" />
-</p>
-
-<br />
 
 <div align="center">
 
@@ -152,7 +146,7 @@ PIMpulse AI uses a **Dual-Tier Architecture** that cleanly separates high-speed 
 
 | Subsystem Layer | Core Component | Performance & Value Delivered |
 | :--- | :--- | :--- |
-| **Autonomous Agent Orchestrator** | 26-Node LangGraph State Machine | HyDE speculative expansion $\to$ Tavily RAG $\to$ Groq LPU extraction |
+| **Autonomous Agent Orchestrator** | 11-Node LangGraph State Machine | HyDE speculative expansion $\to$ Tavily RAG $\to$ Groq LPU extraction |
 | **High-Speed SIMD MDM Engine** | Rust-backed Polars Vectorizer | **190.2 SKUs/sec** (~16.4M SKUs/day) deterministic catalog normalization |
 | **Master Catalog Delivery** | Unilog CX1 252-Column Schema | POS ($\le 40$ chars) & Mobile ($60\text{--}80$ chars) 100% invariant validation |
 | **Zero-Hallucination Safety Gate** | OEM Lineage & Verbatim Verifier | **0% Hallucination** — Verbatim OEM substring proof enforcement |
@@ -207,14 +201,14 @@ PIMpulse AI uses a **Dual-Tier Architecture** that cleanly separates high-speed 
  ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
  │ 1. INGESTION & DETERMINISTIC PRE-FILTERING LAYER                                                                   │
  │  ├── Defensive Sanitizer          : Strips placeholder tokens ("N/A", "TBD", "NONE") & normalizes MPNs             │
- │  ├── Canonical Brand Resolver    : Maps 27k+ Master Brands with legal trademarks (Diablo®, 3M™, Mirka®, DEWALT®)  │
+ │  ├── Canonical Brand Resolver    : Maps Master Brands with legal trademarks (Diablo®, 3M™, Mirka®, DEWALT®)        │
  │  ├── UNSPSC Pre-Filter Gate      : Sub-millisecond regex & LOV category classification                            │
- │  └── UOM & Trade Fraction Table  : 63 exact fraction lookup tables (e.g., 50.25 in -> 50-1/4 in)                    │
+ │  └── UOM & Trade Fraction Table  : Deterministic fraction normalization rules (e.g., 50.25 in -> 50-1/4 in)       │
  └────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
                                      │
                                      ▼
  ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
- │ 2. AUTONOMOUS 26-NODE LANGGRAPH STATE MACHINE CORE                                                                 │
+ │ 2. AUTONOMOUS 11-NODE LANGGRAPH STATE MACHINE CORE                                                                 │
  │  ├── HyDE Query Expansion        : Synthesizes hypothetical OEM datasheets for dense search vectors               │
  │  ├── RRF Hybrid Retrieval        : Dense Vector + Tavily Keyword RAG fused via RRF = Σ(w_d / (60 + rank_d))       │
  │  ├── Verbatim Substring Gate     : Zero-hallucination validation against raw OEM HTML datasheet quotes            │
