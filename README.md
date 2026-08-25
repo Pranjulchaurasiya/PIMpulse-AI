@@ -177,6 +177,31 @@ PIMpulse AI uses a **Dual-Tier Architecture** that cleanly separates high-speed 
 | **Human Lineage Audit** | `unilog_evaluation_report.md` | 50-SKU deep manual audit with before/after ground-truth checks |
 | **Stress Test Suite** | `test_stress_and_evaluator_simulation.py` | 200-item hidden evaluator simulation with zero invariant breaches |
 
+```mermaid
+flowchart TD
+    Start(["🌐 Open PIMpulse Studio<br/>(localhost:8000 or Zerops Cloud)"]) --> ChooseMode{"Select Processing Mode"}
+
+    %% Single SKU Track
+    subgraph MODE1 ["🔍 Mode A: Single-SKU Real-Time Grounding"]
+        ChooseMode -->|"Single Item Audit"| A1["1. Select Preset or Enter Raw SKU<br/>(e.g. 'Milwaukee 49-94-0107' or 'PDSH4816AF')"]
+        A1 --> A2["2. Click 'Enrich SKU' (or Press Enter)"]
+        A2 --> A3["3. Watch Live Agent Telemetry Stream<br/>(HyDE ➔ Tavily Search ➔ Groq LPU ➔ Grounding Gate)"]
+        A3 --> A4["4. Inspect Table & Click Attributes<br/>(Opens Data Lineage Modal: Verbatim OEM Quote + Source URL)"]
+    end
+
+    %% Batch Processing Track
+    subgraph MODE2 ["📁 Mode B: Batch Spreadsheet Studio"]
+        ChooseMode -->|"Bulk Catalog Feed"| B1["1. Click '📁 Ingest Batch (.CSV / .XLSX)'"]
+        B1 --> B2["2. Drag & Drop Supplier Spreadsheet<br/>(e.g. Unihack__Sample_Dataset_-_Input.csv)"]
+        B2 --> B3["3. Choose Batch Size & Click 'Run Batch Processing'"]
+        B3 --> B4["4. Track Dynamic Live KPIs & Progress<br/>(100% Invariant Compliance • 190.2 SKUs/sec SIMD Rate)"]
+        B4 --> B5["5. 1-Click Export Standardized Master File<br/>(Download 252-Column .XLSX / .CSV with Cell '@' Protection)"]
+    end
+
+    A4 --> Done(["✅ Review Complete / Ready for Distribution"])
+    B5 --> Done
+```
+
 ### ⏱️ 3-Minute Evaluator Walkthrough:
 1. **Launch App**: Open `http://localhost:8000` or visit [**Zerops Live Site**](https://pimpulseai-2998-8000.prg1.zerops.app).
 2. **Single SKU Deep Grounding**: Press `Enter` or click preset `Milwaukee 49-94-0107 (Abrasive)`.
