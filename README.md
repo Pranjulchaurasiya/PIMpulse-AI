@@ -194,7 +194,7 @@ PIMpulse AI uses a **Dual-Tier Architecture** that cleanly separates high-speed 
 
 > 🎬 **System Overview & Live Architecture Video**:  
 > Watch the 3-minute video demonstration showing **PIMpulse AI** executing live single-SKU web grounding, telemetry streaming, verbatim substring lineage verification, and batch shared workbook ingestion:  
-> **[👉 Click to Watch PIMpulse AI Video Walkthrough](https://youtu.be/YOUR_DEMO_VIDEO_ID)**
+> **[👉 Click to Watch PIMpulse AI Video Walkthrough](https://drive.google.com/file/d/110J1YW0Qsv1ogMqS2wFtxd3LhgExFPJT/view)**
 
 ---
 
@@ -250,6 +250,36 @@ PIMpulse AI uses a **Dual-Tier Architecture** that cleanly separates high-speed 
 ## ⚡ Two-Tier Execution Engine
 
 ```mermaid
+flowchart TD
+    subgraph INGEST ["1. Ingestion & Pre-Filtering Layer"]
+        A["Raw Supplier Feed<br/>(CSV / XLSX / Single SKU String)"] --> B["Defensive Sanitizer & Brand Resolver<br/>(Strips 'N/A' • Maps Diablo®, 3M™, Mirka®)"]
+    end
+
+    B --> C{"Catalog Match in<br/>Deterministic Rules / Cache?"}
+
+    subgraph TIER1 ["⚡ Tier 1: High-Speed SIMD Engine (190.2 SKUs/sec)"]
+        C -- "Yes (Known Master Seed)" --> D["Polars Vectorized Normalizer<br/>(Material LOV • UNSPSC Regex Mapping)"]
+    end
+
+    subgraph TIER2 ["🤖 Tier 2: Autonomous Agentic RAG (8.4s / SKU)"]
+        C -- "No (Novel / Ungrounded SKU)" --> E["11-Node LangGraph Orchestrator"]
+        E --> F["HyDE Query Expansion & Tavily RAG<br/>(Fetches OEM Technical Datasheets)"]
+        F --> G["Groq LPU Structured Extraction"]
+        G --> H{"Verbatim Substring Gate<br/>Exact OEM Character Match?"}
+        H -- "Verified (OEM Proof)" --> I["Accept Verified Physical Specs"]
+        H -- "Unverified / Ambiguous" --> J["Graceful Fallback<br/>(0 Hallucinated Specs • 0% Penalty)"]
+    end
+
+    subgraph DELIVERY ["252-Column Unilog MDM Delivery Layer"]
+        D --> K["Length Invariant Enforcer<br/>(INVOICE_DESC &le; 40 chars • MOBILE_DESC 60-80 chars)"]
+        I --> K
+        J --> K
+        K --> L["252-Column Delivery Matrix<br/>(50 Parametric Triplets • '@' Text Cells in XLSX)"]
+        L --> M["Cryptographic Audit Ledger<br/>(SHA-256 Hash Chain per Record)"]
+    end
+```
+
+```mermaid
 journey
   title Product Data Lifecycle in PIMpulse AI
   section Ingestion
@@ -290,7 +320,7 @@ journey
 
 ### Step 1: Clone & Install
 ```bash
-git clone https://github.com/<YOUR_USERNAME>/PIMpulse-AI.git
+git clone https://github.com/Pranjulchaurasiya/PIMpulse-AI.git
 cd PIMpulse-AI
 pip install -r requirements.txt
 ```
