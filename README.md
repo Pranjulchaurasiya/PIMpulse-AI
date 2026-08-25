@@ -27,18 +27,6 @@
 
 <br/>
 
-<div align="center">
-
-![252 columns](https://img.shields.io/badge/delivery_format-252_columns-0284c7?style=flat-square&labelColor=090d16&color=38bdf8)
-![190 SKUs/sec](https://img.shields.io/badge/SIMD_throughput-190.2_SKUs%2Fsec-059669?style=flat-square&labelColor=090d16&color=10b981)
-![Zero hallucination fields](https://img.shields.io/badge/grounding_gate-zero_hallucination-7c3aed?style=flat-square&labelColor=090d16&color=a855f7)
-![Length Invariants](https://img.shields.io/badge/length_invariants-100%25_pass-d97706?style=flat-square&labelColor=090d16&color=f59e0b)
-![Evaluator Suite](https://img.shields.io/badge/evaluator_tests-13%2F13_passed-059669?style=flat-square&labelColor=090d16&color=10b981)
-
-</div>
-
-<br/>
-
 <!-- Live Prototype & Video Link Banner -->
 <div align="center">
 
@@ -151,18 +139,6 @@ PIMpulse AI uses a **Dual-Tier Architecture** that cleanly separates high-speed 
 > • **Tier 1 (190.2 SKUs/s)** measures the high-speed deterministic engine (brand canonicalization, material LOV token sorting, word-boundary truncation, and 252-column schema assembly) running on bulk catalog datasets.  
 > • **Tier 2 (8.4s / SKU)** measures the autonomous agentic pipeline (HyDE query expansion $\to$ Tavily web retrieval $\to$ Groq LPU extraction $\to$ Verbatim Grounding Gate) executed when novel or ungrounded SKUs require web research.
 
-<br />
-
-### 🧩 Subsystem Scale & System Inventory
-
-| Subsystem Layer | Core Component | Performance & Value Delivered |
-| :--- | :--- | :--- |
-| **Autonomous Agent Orchestrator** | 11-Node LangGraph State Machine | HyDE speculative expansion $\to$ Tavily RAG $\to$ Groq LPU extraction |
-| **High-Speed SIMD MDM Engine** | Rust-backed Polars Vectorizer | **190.2 SKUs/sec** (~16.4M SKUs/day) deterministic catalog normalization |
-| **Master Catalog Delivery** | Unilog CX1 252-Column Schema | POS ($\le 40$ chars) & Mobile ($60\text{--}80$ chars) 100% invariant validation |
-| **Zero-Hallucination Safety Gate** | OEM Lineage & Verbatim Verifier | **0% Hallucination** — Verbatim OEM substring proof enforcement |
-| **Cryptographic Audit Ledger** | SHA-256 Idempotency Engine | Full historical delta tracking, rollbacks, and auditor approval valves |
-
 ---
 
 <a name="live-demo"></a>
@@ -215,16 +191,11 @@ flowchart TD
 
 ---
 
-## 📹 Demo Video & Walkthrough
-
-> 🎬 **System Overview & Live Architecture Video**:  
-> Watch the 3-minute video demonstration showing **PIMpulse AI** executing live single-SKU web grounding, telemetry streaming, verbatim substring lineage verification, and batch shared workbook ingestion:  
-> **[👉 Click to Watch PIMpulse AI Video Walkthrough](https://drive.google.com/file/d/110J1YW0Qsv1ogMqS2wFtxd3LhgExFPJT/view)**
-
----
-
 <a name="system-architecture"></a>
 ## 🏗️ System Architecture
+
+<details>
+<summary><b>📐 Click to Expand Monospace Architecture Diagram</b></summary>
 
 ```text
 ========================================================================================================================
@@ -270,6 +241,8 @@ flowchart TD
  └────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ```
 
+</details>
+
 ---
 
 ## ⚡ Two-Tier Execution Engine
@@ -302,25 +275,6 @@ flowchart TD
         K --> L["252-Column Delivery Matrix<br/>(50 Parametric Triplets • '@' Text Cells in XLSX)"]
         L --> M["Cryptographic Audit Ledger<br/>(SHA-256 Hash Chain per Record)"]
     end
-```
-
-```mermaid
-journey
-  title Product Data Lifecycle in PIMpulse AI
-  section Ingestion
-    Upload Spreadsheet or String: 5: User
-    Auto-Detect Headers & Clean Placeholders: 5: PIMpulse
-  section Processing
-    Tier 1 Deterministic Normalization: 5: Polars, RapidFuzz
-    Tier 2 Agentic Web Grounding: 5: LangGraph, Tavily, Groq
-  section Validation
-    Enforce Invoice Description <= 40 Chars: 5: PIMpulse
-    Enforce Mobile Description 60-80 Chars: 5: PIMpulse
-    Zero-Hallucination Lineage Check: 5: Auditor Gate
-  section Delivery
-    Format Excel with Text '@' (No Date Bugs): 5: OpenPyXL
-    Inject Enriched_Output into Shared Workbook: 5: PIMpulse
-    1-Click Download: 5: User
 ```
 
 ### Layer Capabilities
