@@ -1,0 +1,33 @@
+# Zerops deployment configuration for PIMpulse AI
+zerops:
+  - setup: pimpulseai
+    build:
+      base: python@3.11
+      buildCommands:
+        - pip install --target=./packages -r requirements.txt
+      deployFiles:
+        - packages
+        - agents
+        - retrieval
+        - data
+        - llm
+        - rules
+        - static
+        - main.py
+        - config.py
+        - state.py
+        - cache.py
+        - graph.py
+        - PIMpulse_Unilog_Enriched_1000.xlsx
+        - PIMpulse_Unilog_Enriched_1000.csv
+        - Unihack__Expected_Output_-_Delivery_Format.csv
+        - Unihack__Sample_Dataset_-_Input.csv
+    run:
+      base: python@3.11
+      ports:
+        - port: 8000
+          httpSupport: true
+      start: python3 main.py
+      envVariables:
+        PORT: 8000
+        HOST: 0.0.0.0
