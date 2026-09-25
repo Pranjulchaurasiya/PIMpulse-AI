@@ -1,3 +1,13 @@
+---
+title: PIMpulse AI
+emoji: ⚡
+colorFrom: blue
+colorTo: cyan
+sdk: gradio
+app_file: app.py
+pinned: false
+---
+
 <a name="top"></a>
 <div align="center">
 
