@@ -49,6 +49,7 @@ class EnrichRequest(BaseModel):
     raw_input: str
     image_path: Optional[str] = None
 
+@app.head("/")
 @app.get("/", response_class=HTMLResponse)
 async def serve_ui():
     index_path = os.path.join(STATIC_DIR, "index.html")
@@ -57,6 +58,7 @@ async def serve_ui():
             return HTMLResponse(content=f.read())
     return HTMLResponse("<h1>PIMpulse AI API Running</h1>")
 
+@app.head("/api/status")
 @app.get("/api/status")
 async def get_system_status():
     has_groq = bool(settings.GROQ_API_KEY and not settings.GROQ_API_KEY.startswith("gsk_your"))
