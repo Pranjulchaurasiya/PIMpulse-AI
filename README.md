@@ -10,7 +10,8 @@
 <br/>
 
 [![UniHack 2026](https://img.shields.io/badge/UniHack-2026%20Submission-0284c7?style=for-the-badge&logo=rocket)](https://unilogcorp.com)
-[![Live Demo](https://img.shields.io/badge/Live%20Prototype-Zerops%20Cloud-38bdf8?style=for-the-badge&logo=google-cloud)](https://pimpulseai-2998-8000.prg1.zerops.app/)
+[![Live Demo (Render)](https://img.shields.io/badge/Live%20Demo-Render%20Cloud-46e3b7?style=for-the-badge&logo=render&logoColor=white)](https://pimpulse-ai.onrender.com)
+[![API Docs](https://img.shields.io/badge/Swagger%20Docs-FastAPI-009688?style=for-the-badge&logo=swagger)](https://pimpulse-ai.onrender.com/docs)
 [![Demo Video](https://img.shields.io/badge/Demo%20Video-Google%20Drive-red?style=for-the-badge&logo=google-drive)](https://drive.google.com/file/d/110J1YW0Qsv1ogMqS2wFtxd3LhgExFPJT/view)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.110+-009688?style=for-the-badge&logo=fastapi)](https://fastapi.tiangolo.com)
 [![LangGraph](https://img.shields.io/badge/Orchestrator-LangGraph%20v0.2-8b5cf6?style=for-the-badge)](https://langchain-ai.github.io/langgraph/)
@@ -30,9 +31,9 @@
 <!-- Live Prototype & Video Link Banner -->
 <div align="center">
 
-| 🌐 **Live Cloud Prototype** | 🎬 **Official Demo Video** | 📊 **Master Dataset** |
-| :---: | :---: | :---: |
-| [**pimpulseai-2998-8000.prg1.zerops.app**](https://pimpulseai-2998-8000.prg1.zerops.app/) | [**Watch on Google Drive**](https://drive.google.com/file/d/110J1YW0Qsv1ogMqS2wFtxd3LhgExFPJT/view) | [**1,000-SKU Enriched XLSX**](PIMpulse_Unilog_Enriched_1000.xlsx) |
+| 🌐 **Live Production Web App** | 📚 **API Swagger Docs** | 🎬 **Official Demo Video** | 📊 **Master Dataset** |
+| :---: | :---: | :---: | :---: |
+| [**pimpulse-ai.onrender.com**](https://pimpulse-ai.onrender.com) | [**Swagger OpenAPI Docs**](https://pimpulse-ai.onrender.com/docs) | [**Watch on Google Drive**](https://drive.google.com/file/d/110J1YW0Qsv1ogMqS2wFtxd3LhgExFPJT/view) | [**1,000-SKU Enriched XLSX**](PIMpulse_Unilog_Enriched_1000.xlsx) |
 
 </div>
 
@@ -151,8 +152,10 @@ PIMpulse AI uses a **Dual-Tier Architecture** that cleanly separates high-speed 
 
 | Surface | URL / Location | Description |
 | :--- | :--- | :--- |
-| **PIMpulse Studio UI** | `http://localhost:8000` | Real-time telemetry, lineage drawer, and shared workbook studio |
-| **Live Web App (Zerops Cloud)** | [**https://pimpulseai-2998-8000.prg1.zerops.app**](https://pimpulseai-2998-8000.prg1.zerops.app) | Live deployed production instance |
+| **Live Web App (Render)** | [**https://pimpulse-ai.onrender.com**](https://pimpulse-ai.onrender.com) | Live deployed production instance (24/7 uptime) |
+| **API Documentation (Swagger)** | [**https://pimpulse-ai.onrender.com/docs**](https://pimpulse-ai.onrender.com/docs) | Interactive OpenAPI / Swagger test console |
+| **Health & Status Check** | [**https://pimpulse-ai.onrender.com/api/status**](https://pimpulse-ai.onrender.com/api/status) | Real-time LLM provider & engine telemetry |
+| **Local Studio UI** | `http://localhost:8000` | Local developer instance |
 | **Master Delivery Excel** | `PIMpulse_Unilog_Enriched_1000.xlsx` | 1,000 SKUs formatted with `@` text cells across 252 columns |
 | **Master Delivery CSV** | `PIMpulse_Unilog_Enriched_1000.csv` | UTF-8-BOM (`utf-8-sig`) delivery dataset |
 | **Human Lineage Audit** | `unilog_evaluation_report.md` | 50-SKU deep manual audit with before/after ground-truth checks |
@@ -160,7 +163,7 @@ PIMpulse AI uses a **Dual-Tier Architecture** that cleanly separates high-speed 
 
 ```mermaid
 flowchart TD
-    Start(["🌐 Open PIMpulse Studio<br/>(localhost:8000 or Zerops Cloud)"]) --> ChooseMode{"Select Processing Mode"}
+    Start(["🌐 Open PIMpulse Studio<br/>(localhost:8000 or pimpulse-ai.onrender.com)"]) --> ChooseMode{"Select Processing Mode"}
 
     %% Single SKU Track
     subgraph MODE1 ["🔍 Mode A: Single-SKU Real-Time Grounding"]
@@ -184,7 +187,7 @@ flowchart TD
 ```
 
 ### ⏱️ 3-Minute Evaluator Walkthrough:
-1. **Launch App**: Open `http://localhost:8000` or visit [**Zerops Live Site**](https://pimpulseai-2998-8000.prg1.zerops.app).
+1. **Launch App**: Open `http://localhost:8000` or visit [**Render Live Production Site**](https://pimpulse-ai.onrender.com).
 2. **Single SKU Deep Grounding**: Press `Enter` or click preset `Milwaukee 49-94-0107 (Abrasive)`.
    * Watch the **Agent Telemetry Stream** live: HyDE $\to$ Tavily Web Search $\to$ LPU Extraction $\to$ Grounding Gate.
    * Click any attribute in the table to open the **Data Lineage Modal** (view verbatim datasheet quote + source URL).
@@ -334,6 +337,20 @@ python main.py
 ```
 Open **[http://localhost:8000](http://localhost:8000)** in your browser.
 
+### Step 4: Deploy to Render (Cloud Hosting)
+PIMpulse AI includes a turnkey [`render.yaml`](render.yaml) specification:
+
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/Pranjulchaurasiya/PIMpulse-AI)
+
+1. Connect your repository to [Render](https://render.com) as a **Web Service**.
+2. Select **Python 3** runtime, set Build Command to `pip install -r requirements.txt`, and Start Command to `uvicorn main:app --host 0.0.0.0 --port $PORT`.
+3. Configure Environment Variables:
+   - `PROVIDER`: `groq`
+   - `GROQ_API_KEY`: your Groq API key
+   - `TAVILY_API_KEY`: your Tavily search key
+   - `PYTHON_VERSION`: `3.11.9`
+4. Set up an [UptimeRobot](https://uptimerobot.com) HTTP monitor pinging `https://<your-service>.onrender.com/api/status` every 5 minutes to prevent idle sleep.
+
 ---
 
 <a name="benchmark"></a>
@@ -384,6 +401,7 @@ test_stress_and_evaluator_simulation.py ....                             [100%]
 ├── PIMpulse_Unilog_Enriched_1000.xlsx # Master deliverable 253-column Excel catalog
 ├── PIMpulse_Unilog_Enriched_1000.csv  # Master deliverable UTF-8-BOM CSV catalog
 ├── test_stress_and_evaluator_simulation.py # Evaluator stress simulation test
+├── render.yaml                       # Cloud deployment blueprint for Render
 ├── zerops.yaml                       # Cloud deployment recipe for Zerops
 ├── requirements.txt                  # Python dependencies
 └── README.md                         # Project documentation
