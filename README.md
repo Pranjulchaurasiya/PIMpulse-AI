@@ -2,7 +2,7 @@
 title: PIMpulse AI
 emoji: ⚡
 colorFrom: blue
-colorTo: cyan
+colorTo: indigo
 sdk: gradio
 app_file: app.py
 pinned: false
