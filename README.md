@@ -10,7 +10,7 @@
 <br/>
 
 [![UniHack 2026](https://img.shields.io/badge/UniHack-2026%20Submission-0284c7?style=for-the-badge&logo=rocket)](https://unilogcorp.com)
-[![Live Demo (Render)](https://img.shields.io/badge/Live%20Demo-Render%20Cloud-46e3b7?style=for-the-badge&logo=render&logoColor=white)](https://pimpulse-ai.onrender.com)
+[![Live Demo (Render)](https://img.shields.io/badge/Live%20Demo-Render%20Cloud-46e3b7?style=for-the-badge&logo=render&logoColor=white)]([https://pimpulse-ai.onrender.com](https://pimpulse-ai-lug5.onrender.com))
 [![API Docs](https://img.shields.io/badge/Swagger%20Docs-FastAPI-009688?style=for-the-badge&logo=swagger)](https://pimpulse-ai.onrender.com/docs)
 [![Demo Video](https://img.shields.io/badge/Demo%20Video-Google%20Drive-red?style=for-the-badge&logo=google-drive)](https://drive.google.com/file/d/110J1YW0Qsv1ogMqS2wFtxd3LhgExFPJT/view)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.110+-009688?style=for-the-badge&logo=fastapi)](https://fastapi.tiangolo.com)
@@ -33,7 +33,7 @@
 
 | 🌐 **Live Production Web App** | 📚 **API Swagger Docs** | 🎬 **Official Demo Video** | 📊 **Master Dataset** |
 | :---: | :---: | :---: | :---: |
-| [**pimpulse-ai.onrender.com**](https://pimpulse-ai.onrender.com) | [**Swagger OpenAPI Docs**](https://pimpulse-ai.onrender.com/docs) | [**Watch on Google Drive**](https://drive.google.com/file/d/110J1YW0Qsv1ogMqS2wFtxd3LhgExFPJT/view) | [**1,000-SKU Enriched XLSX**](PIMpulse_Unilog_Enriched_1000.xlsx) |
+| [**pimpulse-ai-lug5.onrender.com**](https://pimpulse-ai-lug5.onrender.com) | [**Swagger OpenAPI Docs**](https://pimpulse-ai.onrender.com/docs) | [**Watch on Google Drive**](https://drive.google.com/file/d/110J1YW0Qsv1ogMqS2wFtxd3LhgExFPJT/view) | [**1,000-SKU Enriched XLSX**](PIMpulse_Unilog_Enriched_1000.xlsx) |
 
 </div>
 
